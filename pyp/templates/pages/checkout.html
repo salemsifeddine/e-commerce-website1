@@ -1,0 +1,72 @@
+{% extends "pages/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="info">
+        <form method="POST">
+            {% csrf_token %}
+            {% if not user.is_authenticated %}
+            
+            
+                <div class="user-info" >
+                    <h3>Personnal Info</h3>
+                    <div>
+                        <input type="text"  placeholder="Name..">
+                    </div>
+                    <div>
+                        <input type="email"  placeholder="Email..">
+                    </div>
+                </div>
+            {% endif %}
+            
+            <div class="shopping-info">
+                <h3>Shipping Info</h3>
+                {% csrf_token %}
+                <div>
+                    <input id="address" type="text" placeholder="Address..">
+                </div>
+                <div>
+                    <input  id="city" type="text" placeholder="City..">
+                </div>
+                <div>
+                    <input  id="state" type="text" placeholder="State..">
+                </div>
+                <div>
+                    <input  id="zip" type="text" placeholder="Zip Code..">
+                </div>
+                <div>
+                    <input   type="text" placeholder="Zip Code..">
+                </div>
+            </div>
+            <div class="only-sub" >
+                <input type="submit" value="Continue" class="button ship" >
+            </div>
+        </form>
+    </div>
+    <div class="order-summary">
+        <div>
+            <a href="{% url 'cart' %}">
+                <button class="button">&#8592; Back to Cart</button>
+            </a>
+        </div>
+        <br>
+        <h3>Order Summary</h3>
+        <br>
+        <div class="row-products">
+            {% for item in items %}
+                {% if user.profile.user == item.order.customer %}
+                    <div class="items">
+                        <div ><img src="{{item.product.image.url}}" alt=""></div>
+                        <div  class="orderedname">{{item.product.name}}</div>
+                        <div class="orderedprice">{{item.product.new_price}}$</div>
+                        <div class="orderedquantity">{{item.quantity}}x</div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+           </div>
+       </div>
+    </div>
+</div>
+{% endblock content %}

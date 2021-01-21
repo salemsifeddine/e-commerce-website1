@@ -1,0 +1,36 @@
+{% extends "pages/base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="info-profile">
+            <div class="info-user">
+                <div class="user-image">
+                
+                    <a href="{{user.profile.image.url}}">
+                        <img src="{{user.profile.image.url}}" alt="{{user.username}} image">
+                    </a>
+                
+                
+                </div>
+                <div class="user-info-details">
+                   <p ><h2 style="color: #000;">{{user.username}}</h2></p>
+                    {% if user.email %}
+                        <p style="margin-top: 10px;"><h4 style="color: #000;">{{user.email}}</h4></p>
+                    {% else %}
+                    <p><h4 style="color: #000;">email@email.com</h4></p>
+                    {% endif %}  
+                </div>
+                <div class="user-regl">
+                    <div class="regl">
+                     
+                       <form method="POST" enctype="multipart/form-data">
+                           {% csrf_token %}
+                           {{form.image}}
+                           <input type="submit" class="button" value="Update">
+                       </form>
+                    </div>
+                </div>
+            </div>
+            
+    </div>
+{% endblock content %}

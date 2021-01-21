@@ -1,0 +1,70 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1">
+    <title>{% if title %}{{title}}  - {%endif%}{% if name %}{{name}}{%else%}E-commerce{%endif%} </title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" href="{% static 'images/cart2.png' %}">
+    <script type="text/javascript">
+        var user='{{request.user}}'
+
+        //csrf token 
+        function getToken(name){
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== ''){
+                var cookies = document.cookie.split(';');
+                for(var i=0; i<cookies.length; i++){
+                    var cookie = cookies[i].trim()
+                    //does this cookie begins with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')){
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getToken('csrftoken')
+    </script>   
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">E-COMMERCE</a></li>
+            <li><a href="{% url 'myproducts' %}">Store</a></li>
+            <li>
+                <form action="">
+                    <input type="text" placeholder="Search">
+                    <button >Search</button>
+                </form>
+            </li>
+            <ul>
+                <li><a href="{% url 'cart' %}"><div class="cart"> Cart <span id="cartnum" class="numcart">{% if totalitem.item %}{{totalitem.item}}{%else%}0{% endif %}</span></div></a></li>
+                
+                {% if user.is_authenticated %}
+                hello, {{user.username}}!
+                    <li class="imgli">
+                        <a href="{% url 'profil' %}">
+                            
+                                
+                                    <img src="{{user.profile.image.url}}" alt="">
+                                
+                        </a>
+                    </li>
+                    <li><a href="{% url 'logout' %}"><button class="btn">Logout</button></a></li>
+                {%else%}
+                    <li><a href="{% url 'login' %}"><button class="btn">Login</button></a></li>
+                {% endif %}
+                
+            </ul>
+        </ul>
+        
+    </nav>
+    {% block log %}
+    {% endblock log %}
+    {% block content %}
+    {% endblock content %}
+    <script src="{% static 'javascript/cart.js' %}"></script>
+</body>
+</html>

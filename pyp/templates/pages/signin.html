@@ -1,0 +1,13 @@
+{% extends 'pages/base.html' %}
+{%load static%}
+
+{% block content %}
+    <div class="page-reg">
+        <form method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value="Register" class="button">
+        </form>
+        <a href="{% url 'login' %}"Already have an account!!  LOGIN .</a>
+    </div>
+{% endblock content%}

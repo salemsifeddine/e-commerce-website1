@@ -1,0 +1,46 @@
+{% extends 'pages/base.html' %}
+{% load static %}
+{% block content %}
+<div class="product-input">
+    <h2>Add New Product</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label for="text">Product Name: </label>
+            <br>
+            {{form.name}}
+        </div>
+        <div>
+            <label for="textarea">Description: </label>
+            <br>
+            {{form.description}}
+        </div>
+        <div>
+            <label for="number">Price: </label>
+            <br>
+            {{form.new_price}}
+        </div>
+        <div>
+            <label for="number">Old Price: </label>
+            <br>
+            {{form.old_price}}
+        </div>
+        <div>
+            <label for="select">Select Catigory: </label>
+            <br>
+            {{form.catigory}}
+        </div>
+        <div>
+            <label for="select">Product Rate: </label>
+            <br>
+            {{form.rate}}
+        </div>
+        <div>
+            <label for="select">Product Image: </label>
+            <br>
+            {{form.image}}
+        </div>
+        <input class="button" type="submit" value="Add Product">
+    </form>
+</div>
+{% endblock content %}

@@ -1,0 +1,29 @@
+{% extends "pages/base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="products-user">
+        <div class="buttons buttons-detail center-button">
+            <a href="{% url 'newproduct' %}"><button >Add New Product</button></a>
+        </div>
+        {% for product in data %}
+        {% if user.profile.user == product.owner %}
+        <div class="product-user">
+            <div class="img-element">
+                    <a href="{{product.image.url}}"> <img src="{{product.image.url}}" alt="prdct"></a>
+            </div>
+            <div class="desc-element">
+                <div><h2 class="color_add">{{product.name.title}}</h2></div>
+                <div><h3><p>{{product.description}}</p></h3></div>
+                <div class="price"><h3  class="price color_add">Price:{{product.new_price}}$ <br> old price:<span style="text-decoration: line-through;" class="price color_add"> {{product.old_price}}$</span></h3></div>
+                <div><h4 class="color_add">Catigory: {{product.catigory}}</h4></div>
+                <div> <h4 class="color_add">Rate: {{product.rate}} Star(s)</h4></div>
+            </div>
+        </div>
+        {% endif %}
+        
+    {% empty %}
+        <h3>No products yet!</h3>
+    {% endfor %}
+    </div>
+{% endblock content %}

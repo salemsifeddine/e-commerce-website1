@@ -1,0 +1,28 @@
+{% extends "pages/base.html" %}
+{% load static %}
+{% block content %}
+    <div class="view-product">
+        <div class="image-parent-detail">
+            <div class="img-element img-detail">
+                {% if object.image %}
+                    <a href="{{object.image.url}}"> <img src="{{object.image.url}}" alt="prdct"></a>
+                {% endif %}
+             </div>
+             <div class="thumbnail-images">
+                 <div class="img1"> <a href="{{object.image.url}}"> <img src="{{object.image.url}}" alt="prdct"></a></div>
+                 <div class="img1"> <a href="{{object.image.url}}"> <img src="{{object.image.url}}" alt="prdct"></a></div>
+                 <div class="img1"> <a href="{{object.image.url}}"> <img src="{{object.image.url}}" alt="prdct"></a></div>
+                 <div class="img1"> <a href="{{object.image.url}}"> <img src="{{object.image.url}}" alt="prdct"></a></div>
+                 
+             </div>
+        </div>
+         <div class="desc-element desc-element-detail">
+            <div><h1 class="color_add">{{object.name.title}}</h1></div> <br>
+            <div ><h2><p class="color_add">{{object.description}}</p></h2></div><br>
+            <div class="price"><h2  class="price color_add">Price:{{object.new_price}}$ <br><br> old price:<span style="text-decoration: line-through;" class="price color_add"> {{object.old_price}}$</span></h2></div><br>
+            <div><h3 class="color_add">Catigory: {{object.catigory}}</h3></div><br>
+            <div> <h3 class="color_add">Rate: {{object.rate}} Star(s)</h3></div><br>
+            <div class="buttons buttons-detail center-button"><button>Add to Cart</button></div><br>
+         </div>
+    </div>
+{% endblock content %}

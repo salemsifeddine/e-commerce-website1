@@ -1,0 +1,21 @@
+{% extends 'pages/main.html' %}
+
+{% block content %}
+<div class="row">
+    {% for product in products %}
+    <div class="product">
+        <div class="img-element">
+           <a href="{{product.image.url}}"> <img src="{{product.image.url}}" alt="product"></a>
+        </div>
+        <div class="desc-element">
+            <h3 class="color_add">{{product.name}}</h3>
+        </div>
+        <div class="buttons">
+            <button>Add to Cart</button>
+            <a href="#" ><button class="button view">View</button></a>
+            <h4 class="price color_add">{{product.price}}$</h4>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

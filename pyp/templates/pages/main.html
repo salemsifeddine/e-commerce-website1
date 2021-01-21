@@ -1,0 +1,35 @@
+{% extends "pages/base.html" %}
+{% load static %} 
+
+
+{% block content %}
+   <div class="parent-row">
+    <div class="select-menu">
+        <ul>
+            <li>
+                <a href="{% url 'newproduct' %}"><button class="button-yellow">Add Product</button></a>
+            </li>
+            <li><h2>Catigories</h2></li>
+        </ul>
+    </div>
+    <div class="row">
+        {% for product in products %}
+        <div class="product">
+            <div class="img-element">
+               {% if product.image %}
+                    <a href="{{product.image.url}}"> <img src="{{product.image.url}}" alt="prdct"></a>
+               {% endif %}
+            </div>
+            <div class="desc-element">
+                <h4 class="color_add">{{product.name.title}}</h4>
+            </div>
+            <div class="buttons">
+                <button data-action="add" data-product='{{product.id}}' class="addToCart">Add to Cart</button>
+                <a href="{% url 'detail' product.id %}" ><button  class="button view">View</button></a>
+                <h4 class="price color_add">{{product.new_price}}$</h4>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+   </div>
+{% endblock content%}

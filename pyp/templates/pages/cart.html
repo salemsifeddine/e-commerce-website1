@@ -1,0 +1,50 @@
+{% extends "pages/base.html" %}
+{% load static %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="row-cart">
+            <a href="{% url 'home' %}"><button class="con-shopp">&#8592; Continue Shopping</button></a>
+            <table>
+                <tr>
+                    <th>
+                        <h5>Items: <strong>
+                           {{totalitem.item}}
+                        </strong></h5>
+                        
+                    </th>
+                    <th>
+                        <h5>Total: <strong>{{totalitem.price}}$</strong></h5>
+                    </th>
+                    <th>
+                        <a href="{% url 'checkout' %}"><button class="button">Checkout  &#8594;</button></a>
+                    </th>
+                </tr>
+            </table>
+        </div>
+        <br>
+        <br>
+        <div class="row-products">
+            <div class="items">
+                <div class="item"><strong>Item</strong></div>
+                <div class="price"><strong>Price</strong></div>
+                <div class="quantity"><strong>Quantity</strong></div>
+                <div class="total"><strong>Total</strong></div>
+            </div>
+       </div>
+       
+       {% for item in items %}  
+       {% if user.profile.user == item.order.customer %}
+            <div class="row-products">
+                <div class="items items-item">
+                    <div class="item image-item itm"><img src="{{item.product.image.url}}" alt=""></div>
+                    <div class="price itm">{{item.product.new_price}}$</div>
+                    <div class="quantity qnt-real itm">{{item.quantity}} <button data-action="remove" data-product='{{item.product.id}}' class="addToCart">remove</button> </div>
+                    <div class="total itm">{{item.total}}$</div>
+                </div>
+            </div>
+        {% endif %}
+       {% endfor %}
+    </div>
+{% endblock content %}
