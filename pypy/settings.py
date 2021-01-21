@@ -1,3 +1,7 @@
+import django_heroku
+import dj_database_url
+from decouple import config
+
 """
 Django settings for pypy project.
 
@@ -51,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'pypy.urls'
@@ -134,28 +139,8 @@ LOGIN_REDIRECT_URL = "home"
 
 LOGIN_URL = "login"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 LOGIN_REDIRECT_URL= "home"
 LOGIN_URL ="login"
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+dajngo_heroku.settings(locals())
