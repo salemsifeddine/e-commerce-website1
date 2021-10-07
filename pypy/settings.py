@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    'pyp.apps.PypConfig'
+    'pyp.apps.PypConfig',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -82,12 +83,26 @@ WSGI_APPLICATION = 'pypy.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+
 DATABASES = {
+
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+        'NAME': "e-commerce",
+
+        'USER': 'postgres',
+
+        'PASSWORD': '33025340Ss',
+
+        'HOST': 'localhost',
+
+        'PORT': '5432',
+
     }
 }
+
 
 
 # Password validation
@@ -143,4 +158,4 @@ LOGIN_REDIRECT_URL= "home"
 LOGIN_URL ="login"
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-dajngo_heroku.settings(locals())
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

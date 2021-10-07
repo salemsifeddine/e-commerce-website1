@@ -11,14 +11,15 @@ import math
 #    def __str__(self):
 #        return self.name
         
-class Catigory(models.Model):
-    catigory=models.CharField(max_length=200)
+class CategoryList(models.Model):
+    categoryName= models.CharField(max_length=50,blank=False)
+
     def __str__(self):
-        return self.catigory
+        return self.categoryName
 
 class Rate(models.Model):
-    rate=models.IntegerField()
-
+    rate= models.FloatField(null=True)
+    
     def __str__(self):
         return f"{self.rate}"
     
@@ -28,9 +29,10 @@ class Product(models.Model):
     description=models.TextField(max_length=150)
     old_price=models.FloatField()
     new_price= models.FloatField()
-    catigory=models.ForeignKey(Catigory, on_delete=models.CASCADE, default=1)
+    catigory=models.ForeignKey(CategoryList, on_delete=models.CASCADE, default=1)
     rate=models.ForeignKey(Rate, on_delete=models.CASCADE, default=0)
     image= models.ImageField( default="products/defaultProduct.jpg", upload_to="products")
+
     #date_added=models.DateTimeField(auto_now_add=True)
     #def save(self, *args, **kwargs):
     #    super().save(*args,**kwargs)
@@ -100,3 +102,31 @@ class Profile(models.Model):
     #    new_size = (height,width)
     #    img = img.resize(new_size, Image.ANTIALIAS)
     #    img.save(self.image.path)
+
+class Hotdeals(models.Model):
+    product=models.ForeignKey(Product, on_delete=models.CASCADE,null=False)
+    date_added=models.DateTimeField(auto_now_add=True)
+
+class SpecialDeal(models.Model):
+    product=models.ForeignKey(Product, on_delete=models.CASCADE,null=False)
+    date_added=models.DateTimeField(auto_now_add=True)
+
+class AdBanner(models.Model):
+    image=models.ImageField(blank=True,upload_to="adImagesBnner")
+    video=models.FileField(blank=True,upload_to="adVediosBanner")
+
+class Slider(models.Model):
+    image=models.ImageField(blank=True,upload_to="slideImages")
+    video=models.FileField(blank=True,upload_to="slideVideos")
+    button=models.CharField(blank=True,max_length=10)
+    urlbutton=models.TextField(blank=True)
+
+class HorAdd(models.Model):
+    image=models.ImageField(blank=True,upload_to="HorAdImages")
+    video=models.FileField(blank=True,upload_to="HorAdsHorAdImages")
+
+class NewsLetterEmails(models.Model):
+    email=models.EmailField(blank=False)
+    
+    def __str__(self):
+        return self.email

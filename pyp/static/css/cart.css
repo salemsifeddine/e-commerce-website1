@@ -1,0 +1,26 @@
+.btnsCrt{
+    
+    height:15px;
+    display:flex;
+    flex-direction: column;
+
+    padding:5px
+}
+.btnsCrt button{
+    border:none;
+    background:none;
+    outline:none
+    
+}
+.btnsCrt button:last-of-type{
+    margin-top: 2.5px;
+}
+.btnsCrt button:first-of-type{
+    margin-bottom: 2.5px;
+}
+.btnsCrt button i{
+    color:#fff
+}
+.btnsCrt button i:hover{
+    color:#000
+}

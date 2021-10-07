@@ -5,22 +5,26 @@ from django.http import HttpRequest
 from django.conf import settings 
 from django.conf.urls.static import static
 from django.contrib.auth import views as view
-
+from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     path("",views.main,name="home"),
     path("cart/", views.cart, name="cart"),
-    path("checkout", views.checkout, name="checkout"),
+    path("checkout/", views.checkout, name="checkout"),
     path("login/",view.LoginView.as_view(template_name="pages/login.html"), name="login"),
     path("signin/", views.signin, name="signin"),
     path("logout/", views.logout,name="logout"),
-    path("profil",views.profil, name="profil"),
+    path("profil/",views.profil, name="profil"),
     path(r"product/<int:pk>/",views.ProductDetailView.as_view(),name="detail"),
     path("product/new/", views.addproduct, name="newproduct"),
     path("product/myProducts/",views.myproducts, name="myproducts"),
-    path("update/", views.UpdateItem, name="update"),
+    path("update/", views.UpdateItem),
+    path("updateproducts/", views.UpdateProducts),
+    path("hotdeals/", views.HotdealsApi),
+    path("adapi/", views.adsapi),
     path("shipping/",views.ShippingApi, name="shipping"),
-    
+    # path("products/<str:category>",views.category, name="category"),
+    path("searchResult/",views.searchResult, name="searchedresult"),
     ] 
 
 if settings.DEBUG:

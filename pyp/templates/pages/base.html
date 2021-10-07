@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1">
     <title>{% if title %}{{title}}  - {%endif%}{% if name %}{{name}}{%else%}E-commerce{%endif%} </title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="icon" href="{% static 'images/cart2.png' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/loading.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css">
+    {% block css %}{% endblock css %}
+    <link rel="icon" href="{% static 'images/logoicon.gif' %}">
     <script type="text/javascript">
         var user='{{request.user}}'
 
@@ -24,26 +28,59 @@
                 }
             }
             return cookieValue;
+
         }
         var csrftoken = getToken('csrftoken')
+
+
+        //function for get coockie
+
+        // function getCookie(){
+        //     //split cookie and get all indvdual name=value in an array
+        //     var cookieArr= document.cookie.split(';')
+        //     //loop thrgh the array elements
+        //     for(var i=0; i<cookieArr.length;i++){
+        //         var cookiePair= document.cookie.split('=')
+                
+        //         if(name == cookiePair[0].trim()){
+        //             return decodeURIComponent(cookiePair[1])
+        //         }
+        //     }
+        //     //if not found
+        //     return null;
+        // }
+        // var cart = JSON.parse(getCookie('cart'))
+
+        // if(cart == undefined){
+        //     cart={}
+        //     document.cookie = 'cart=' + JSON.stringify(cart) + ';domain=;path=/'
+        // }
     </script>   
 </head>
 <body>
+   <div class="mainContainer">
     <nav>
-        <ul>
-            <li><a href="{% url 'home' %}">E-COMMERCE</a></li>
-            <li><a href="{% url 'myproducts' %}">Store</a></li>
-            <li>
-                <form action="">
-                    <input type="text" placeholder="Search">
-                    <button >Search</button>
-                </form>
-            </li>
+
+        <div class="imageLogo">
+           <a href="{% url 'home' %}"> <img  src="{% static 'images/logoEcomerce1.gif' %}" alt=""></a>
+        </div>
+
+        <div class="navContainer">
             <ul>
-                <li><a href="{% url 'cart' %}"><div class="cart"> Cart <span id="cartnum" class="numcart">{% if totalitem.item %}{{totalitem.item}}{%else%}0{% endif %}</span></div></a></li>
-                
+                <li><a href="{% url 'home' %}">Accueil</a></li>
+                <li><a href="{% url 'profil' %}">| My Account</a></li>
+                <li><a href="{% url 'cart' %}">| Cart</a></li>
+                <li><a href="{% url 'myproducts' %}">| Store</a></li>
+                <li><a href="{% url 'checkout' %}">| Checkout</a></li>
                 {% if user.is_authenticated %}
-                hello, {{user.username}}!
+                <li><a href="{% url 'logout' %}">| Logout</a></li>
+                {% else %}
+                <li><a href="{% url 'login' %}">| Login</a></li>
+                <li><a href="{% url 'signin' %}">| Sign Up</a></li>
+                {% endif %}
+
+                <!--
+                {% if user.is_authenticated %}
                     <li class="imgli">
                         <a href="{% url 'profil' %}">
                             
@@ -56,15 +93,153 @@
                 {%else%}
                     <li><a href="{% url 'login' %}"><button class="btn">Login</button></a></li>
                 {% endif %}
-                
+                -->
             </ul>
-        </ul>
+    
+            <ul>
+               
+                
+                <li>
+                    <form action="">
+                        <input type="text" name="query"vid="query" placeholder="Search">
+                        <button >Search</button>
+                    </form>
+
+                    <li>
+                        <a href="{% url 'cart' %}">
+                            <div class="cart">
+                                 <div class="cartImg">
+                                     <img   src="{% static 'images/chart2.gif' %}" alt="">
+                                 </div>
+                                 <span id="cartnum" class="numcart">
+                                    {% if totalitem.item %}
+                                        {{totalitem.item}}
+                                    {%else%}
+                                        {{totalitem.item}}
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </a>
+                    </li>
+
+                </li>
+               
+            </ul>
+        </div>
         
     </nav>
+    <div class="secondnav">
+        <div class="categnav">
+            <p><i class="fas fa-align-justify"></i>  CATEGORIES</p>
+        </div>
+        <div class="categlist">
+            <ul>
+
+                {% for ctg in category %}
+
+                    <li><a href="sioo">{{ctg}}</a></li>
+
+                {% endfor %}
+                
+                
+            </ul>
+        </div>
+    </div>
     {% block log %}
     {% endblock log %}
-    {% block content %}
-    {% endblock content %}
+
+    <div class="containerContent">
+        {% block content %}
+        {% endblock content %}
+    </div>
+</div>
+
+
+    
+    <footer>
+        <div class="firstFooter">
+        
+        </div>
+        <div class="footercontent">
+            <div class="logodescription">
+                <div class="logofooter">
+                    <img src="{% static 'images/logoEcomerce1.gif' %}" alt="">
+                </div>
+                <div class="text">
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing 
+                        elit. Iste et omnis corporis fugit explicabo? 
+                    </p>
+                </div>
+                <div class="contact">
+                    <ul>
+                        <li><a><i class="fas fa-map-marker-alt"></i> Bouira, Algeries</a></li>
+                        <li><a><i class="fas fa-phone-alt"></i> +213 0791517930</a></li>
+                        <li><a><i class="fas fa-envelope"></i> market@info.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="information">
+                <h4>
+                    Information
+                </h4>
+                <ul>
+                    <li><a href="#" >our story</a></li>
+                    <li><a href="#" >privacy and policy</a></li>
+                    <li><a href="#" >terms and conditions</a></li>
+                    <li><a href="#" >shipping and delivery</a></li>
+                    <li><a href="#" >careers</a></li>
+                    <li><a href="#" >Faqs</a></li>
+                </ul>
+            </div>
+            <div class="socialMedia">
+                <h4>Our Social</h4>
+                <ul>
+                    <li><a href="#" ><i class="fab fa-facebook"></i>facebook</a></li>
+                    <li><a href="#" ><i class="fab fa-instagram"></i>instagram</a></li>
+                    <li><a href="#" ><i class="fab fa-twitter"></i>twitter</a></li>
+                    <li><a href="#" ><i class="fab fa-whatsapp"></i>whatsapp</a></li>
+                    <li><a href="#" ><i class="fab fa-youtube"></i>youtube</a></li>
+                    
+                </ul>
+            </div>
+            <div class="opentime-payementmode">
+                <div class="paymentmode">
+                    <h4>
+                        Payement option
+                    </h4>
+                    <ul>
+                        <li><i class="fab fa-paypal"></i></li>
+                        <li><i class="fab fa-cc-visa"></i></li>
+                        <li><i class="fab fa-cc-mastercard"></i></li>
+                        <li><i class="fab fa-cc-stripe"></i></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="bottomfooter">
+            <div class="links">
+                
+                <ul>
+                    <li><a href="#" >sitemap</a></li>
+                    <li><a href="#" >store</a></li>
+                    <li><a href="#" >account</a></li>
+                    <li><a href="#" >contact us</a></li>
+                </ul>
+            </div>
+            <div class="edition">
+                &copy 2021 SalemSifEddine | All Rights Reserved
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script src="{% static 'javascript/main1.js' %}"></script>
+   
     <script src="{% static 'javascript/cart.js' %}"></script>
+    <script src="{% static 'javascript\smoothscroll.js' %}"></script>
+   
+   
+    {% block script %}{% endblock script %}
 </body>
 </html>

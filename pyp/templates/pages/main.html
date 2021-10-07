@@ -3,7 +3,1006 @@
 
 
 {% block content %}
-   <div class="parent-row">
+
+<div class="leftsidecont">
+    <div class="categorylistcontent">
+        <ul>
+            {% for ctg in category %}
+                <li> <i class="far fa-dot-circle"></i><a href="#">{{ctg}}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="hotdeals">
+
+        <div class="hotdealCont">
+
+            <div class="topHeaddeals">
+                <div class="title skeleton-text">
+                    <h4>HOT DEALS</h4>
+                </div>
+                <div class="arrows">
+                    <div class="left dealarrow"><i data-direct="left" class="fas fa-angle-left"></i></div>
+                    <div class="right dealarrow"><i  data-direct="right" class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+    
+           <div class="hotdeal">
+            <div class="productImg">
+                <img class="skeleton" src="{% static 'images/hotdeal.jpg' %}" alt="">
+            </div>
+            <div class="productDescription">
+                <div class="productName skeleton-text">
+                    <h5>lorem lorem</h5>
+                </div>
+                <div class="productPrice">
+                    <div class="through skeleton-text">
+                        <p>100,00$</p>
+                    </div>
+                    <div class="realPrice skeleton-text">
+                        <h5>90,00$</h5>
+                    </div>
+                </div>
+                <div class="rate skeleton-text"></div>
+            </div>
+          </div>
+        </div>
+
+
+          <div class="hotdealCont">
+
+            <div class="topHeaddeals">
+                <div class="title skeleton-text">
+                    <h4>special DEAL</h4>
+                </div>
+                <div class="arrows">
+                    <div class="left dealarrow"><i class="fas fa-angle-left"></i></div>
+                    <div class="right dealarrow"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+    
+            <div class="hotdeal">
+                <div class="productImg">
+                    <img class="skeleton" src="{% static 'images/luxury-woman-handbag.jpg' %}" alt="">
+                </div>
+                <div class="productDescription">
+                    <div class="productName skeleton-text">
+                        <h5>lorem lorem</h5>
+                    </div>
+                    <div class="productPrice">
+                        <div class="through skeleton-text">
+                            <p>100,00$</p>
+                        </div>
+                        <div class="realPrice skeleton-text">
+                            <h5>90,00$</h5>
+                        </div>
+                    </div>
+                    <div class="rate skeleton-text">
+    
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="hotdealCont">
+            <div class="title titleletter skeleton-text">
+                <h4>news letter</h4>
+            </div>   
+            <div class="hotdeal letter">
+                <br>
+                <span>Sign Up For our newsLetter!!</span>
+                
+                <form method="POST">
+                    {% csrf_token %} 
+                    {{form.as_p}}
+                    <button type='submit' >Subscribe</button>
+                </form>
+            </div>
+        </div>
+
+
+        <div class="hotdealContAD">
+           <div id="adImage" class="adImage">
+                <img src="{% static 'images/product.jpg' %}" alt="">
+            </div> 
+            
+        </div>
+          
+
+    </div>
+</div>
+
+
+    
+
+
+    
+
+
+
+<!--new products and hot deals-->
+<div class="rightsidecont">
+    <div class="slider ad">
+        <div id="imageslidecontainer" class="image">
+            <img class="skeleton" src="{% static 'images/ad.jpg' %}" alt="">
+        </div>
+        <div id="btnslider" class="shopNow"><a href="#"><button>SHOP NOW</button></a></div>
+    </div>
+
+    <!--new products-->
+    <div class="newproducts">
+        <div>
+
+            <div class="categoriesProducts">
+                <div class="title skeleton-text">
+                    <h4>NEW PRODUCTS</h4>
+                </div>
+
+                <div class="listcatego skeleton-text">
+                    <ul>
+                        <li data-section='0' data-category="0"  class="category selectedCategory">
+                          all
+                        </li>
+                        {% for ctg in category %}
+
+                      
+                        <li data-section='0' data-category="{{ctg.id}}" class="category">{{ctg}}</li>
+    
+                        {% endfor %}
+                        <div class="arrows">
+                            <div class="left arrowscont"><i data-section='1' data-direct="left" class="fas fa-angle-left"></i></div>
+                            <div class="right arrowscont"><i data-section='1' data-direct="right" class="fas fa-angle-right"></i></div>
+                        </div>
+                    </ul>
+                    
+                </div>
+                
+            </div>
+
+
+            <!--products-->
+            <div id="productsCont" class="products">
+
+
+                <!-- loop through products-->
+
+                <!-- loop through products-->
+                {% for product in products %}
+                    
+                        <div class="product">
+                            <a href="{% url 'detail'  product.id %}">
+                            <div class="productImg">
+                                <img class="skeleton" src="{{product.image.url}}" alt="">
+                            </div>
+                            </a>
+                            <a href="{% url 'detail'  product.id %}">
+                            <div class="productDescription">
+                                <div class="productName skeleton-text">
+                                    <h5>{{product.name|lower}}</h5>
+                                </div>
+                                <div class="productPrice">
+                                    <div class="through skeleton-text">
+                                        {% if product.old_price == 0 %}
+                                            <p>Free</p>
+                                        {% else %}
+                                            <p>{{product.old_price}}$</p>
+                                        {% endif %}
+                                    </div>
+                                    <div  class="realPrice skeleton-text">
+                                        <h5>{{product.new_price}}$</h5>
+                                    </div>
+                                </div>
+                                <div class="rate">
+
+                                    {% if product.rate.rate == 0 %}
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 0.5 %}
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 1 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 1.5 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 2 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 2.5 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 3 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 3.5 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 4 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 4.5 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 5 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 5.5 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    {% else %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                {% endif %}
+                                </div>
+                                </div>
+                            </a>
+                        </div>
+                    
+                {% endfor %}
+                
+                
+
+                
+
+                   
+
+
+                
+
+            </div>
+        </div>
+        
+        
+    </div>
+
+
+    <div class="fashionsalesContainer">
+
+        <div class="fashionSale">
+            <div class="fashionImg">
+                <img src="{% static 'images/chips.jpg' %}" alt="">
+            </div>
+            <div class="hoverdiv">
+
+            </div>
+            <div class="descriptiondiv">
+                <div class="titlesale">   
+                    <h4>Promotion 2021</h4>
+                    <p>Fashion Sale</p>
+                </div>
+                <div class="byenow">
+                    <a href="#">Bye Now</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="fashionSale">
+            <div class="fashionImg">
+                <img src="{% static 'images/basket2.jpg' %}" alt="">
+            </div>
+            <div class="hoverdiv">
+
+            </div>
+            <div class="descriptiondiv">
+                <div class="titlesale">   
+                    <h4>Promotion 2021</h4>
+                    <p>Fashion Sale</p>
+                </div>
+                <div class="byenow">
+                    <a href="#">Bye Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="newproducts">
+        <div>
+
+            <div class="categoriesProducts">
+                <div class="title skeleton-text">
+                    <h4>LATEst PRODUCTS</h4>
+                </div>
+
+                <div class="listcatego skeleton-text">
+                    <ul>
+                        <li data-section='1' data-category="0"  class="category selectedCategory">
+                          all
+                        </li>
+                        {% for ctg in category %}
+
+                      
+                        <li data-section='1' data-category="{{ctg.id}}" class="category">{{ctg}}</li>
+    
+                        {% endfor %}
+                        <div class="arrows">
+                            <div class="left arrowscont"><i data-section='2' data-direct="left" class="fas fa-angle-left"></i></div>
+                            <div class="right arrowscont"><i data-section='2' data-direct="right" class="fas fa-angle-right"></i></div>
+                        </div>
+                    </ul>
+
+                   
+                    
+                </div>
+                
+            </div>
+
+           
+
+            <div id="productsCont" class="products">
+
+                {% for product in products %}
+                    
+                        <div class="product">
+                            <a href="{% url 'detail'  product.id %}">
+                            <div class="productImg">
+                                <img class="skeleton" src="{{product.image.url}}" alt="">
+                            </div>
+                            </a>
+                            <a href="{% url 'detail'  product.id %}">
+                            <div class="productDescription">
+                                <div class="productName skeleton-text">
+                                    <h5>{{product.name|lower}}</h5>
+                                </div>
+                                <div class="productPrice">
+                                    <div class="through skeleton-text">
+                                        {% if product.old_price == 0 %}
+                                            <p>Free</p>
+                                        {% else %}
+                                            <p>{{product.old_price}}$</p>
+                                        {% endif %}
+                                    </div>
+                                    <div  class="realPrice skeleton-text">
+                                        <h5>{{product.new_price}}$</h5>
+                                    </div>
+                                </div>
+                                <div class="rate">
+
+                                    {% if product.rate.rate == 0 %}
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 0.5 %}
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 1 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 1.5 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 2 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 2.5 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 3 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 3.5 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 4 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 4.5 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 5 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 5.5 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    {% else %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                {% endif %}
+                                </div>
+                                </div>
+                            </a>
+                        </div>
+                    
+                {% endfor %}
+                
+
+            </div>
+        </div>
+        
+        
+    </div>
+
+    <div id='horAd'  class="shopnowcont">
+        <div class="shopnowImg">
+            <img src="{% static 'images/pcelectro.gif' %}" alt="">
+        </div>
+        <div class="shopnowdesc">
+            <p>beutifull laptop</p>
+            <p>retina display 18" ready!</p>
+            <a href="#">
+                <button class="redbtn">shop now</button>
+            </a>
+        </div>
+    </div>
+
+    
+    <div class="newproducts">
+        <div>
+
+            <div class="categoriesProducts">
+                <div class="title skeleton-text">
+                    <h4>featured PRODUCTS</h4>
+                </div>
+                <div style="max-width:50px; padding-top: 10px;" class="listcatego  skeleton-text">
+               
+                    <ul>
+                        <div  class="arrows">
+                            <div class="left arrowscont"><i data-direct="left"  class="fas fa-angle-left"></i></div>
+                            <div class="right arrowscont"><i data-direct="right" class="fas fa-angle-right"></i></div>
+                        </div>
+                    </ul>
+                </div>
+
+            </div>
+            <div id="productsCont" class="products">
+
+                {% for product in products %}
+                    
+                        <div class="product">
+                            <a href="{% url 'detail'  product.id %}">
+                            <div class="productImg">
+                                <img class="skeleton" src="{{product.image.url}}" alt="">
+                            </div>
+                            </a>
+                            <a href="{% url 'detail'  product.id %}">
+                            <div class="productDescription">
+                                <div class="productName skeleton-text">
+                                    <h5>{{product.name|lower}}</h5>
+                                </div>
+                                <div class="productPrice">
+                                    <div class="through skeleton-text">
+                                        {% if product.old_price == 0 %}
+                                            <p>Free</p>
+                                        {% else %}
+                                            <p>{{product.old_price}}$</p>
+                                        {% endif %}
+                                    </div>
+                                    <div  class="realPrice skeleton-text">
+                                        <h5>{{product.new_price}}$</h5>
+                                    </div>
+                                </div>
+                                <div class="rate">
+
+                                    {% if product.rate.rate == 0 %}
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 0.5 %}
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 1 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 1.5 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 2 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 2.5 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 3 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 3.5 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 4 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 4.5 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 5 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 5.5 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    {% else %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                {% endif %}
+                                </div>
+                                </div>
+                            </a>
+                        </div>
+                    
+                {% endfor %}
+                
+
+            </div>
+           
+        
+         <!-- the structure of the div of featured product like in the psd version -->
+            <!-- <div display: style=" min-height:55vh;" class="products">
+
+                <div  class=" ftrdproduct ">
+                    <div  class=" ftrdImg">
+                        <img class="skeleton" src="{% static 'images/razer.jpg' %}" alt="">
+                    </div>
+                    <div  class="productDescription ftrdproductdesc">
+                        <div class="productName skeleton-text">
+                            <h5>lorem lorem</h5>
+                        </div>
+                        <div  class="productPrice ftrdprice" >
+                            <div class="through skeleton-text" >
+                                <p>100,00$</p>
+                            </div>
+                            <div class="realPrice skeleton-text">
+                                <h5>90,00$</h5>
+                            </div>
+                        </div>
+                        <div class="rate skeleton-text">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div  class=" ftrdproduct ">
+                    <div  class=" ftrdImg">
+                        <img class="skeleton" src="{% static 'images/razer.jpg' %}" alt="">
+                    </div>
+                    <div  class="productDescription ftrdproductdesc">
+                        <div class="productName skeleton-text">
+                            <h5>lorem lorem</h5>
+                        </div>
+                        <div  class="productPrice ftrdprice" >
+                            <div class="through skeleton-text" >
+                                <p>100,00$</p>
+                            </div>
+                            <div class="realPrice skeleton-text">
+                                <h5>90,00$</h5>
+                            </div>
+                        </div>
+                        <div class="rate skeleton-text">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <div  class=" ftrdproduct ">
+                    <div  class=" ftrdImg">
+                        <img class="skeleton" src="{% static 'images/razer.jpg' %}" alt="">
+                    </div>
+                    <div  class="productDescription ftrdproductdesc">
+                        <div class="productName skeleton-text">
+                            <h5>lorem lorem</h5>
+                        </div>
+                        <div  class="productPrice ftrdprice" >
+                            <div class="through skeleton-text" >
+                                <p>100,00$</p>
+                            </div>
+                            <div class="realPrice skeleton-text">
+                                <h5>90,00$</h5>
+                            </div>
+                        </div>
+                        <div class="rate skeleton-text">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div  class=" ftrdproduct ">
+                    <div  class=" ftrdImg">
+                        <img class="skeleton" src="{% static 'images/razer.jpg' %}" alt="">
+                    </div>
+                    <div  class="productDescription ftrdproductdesc">
+                        <div class="productName skeleton-text">
+                            <h5>lorem lorem</h5>
+                        </div>
+                        <div  class="productPrice ftrdprice" >
+                            <div class="through skeleton-text" >
+                                <p>100,00$</p>
+                            </div>
+                            <div class="realPrice skeleton-text">
+                                <h5>90,00$</h5>
+                            </div>
+                        </div>
+                        <div class="rate skeleton-text">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div  class=" ftrdproduct ">
+                    <div  class=" ftrdImg">
+                        <img class="skeleton" src="{% static 'images/razer.jpg' %}" alt="">
+                    </div>
+                    <div  class="productDescription ftrdproductdesc">
+                        <div class="productName skeleton-text">
+                            <h5>lorem lorem</h5>
+                        </div>
+                        <div  class="productPrice ftrdprice" >
+                            <div class="through skeleton-text" >
+                                <p>100,00$</p>
+                            </div>
+                            <div class="realPrice skeleton-text">
+                                <h5>90,00$</h5>
+                            </div>
+                        </div>
+                        <div class="rate skeleton-text">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div  class=" ftrdproduct ">
+                    <div  class=" ftrdImg">
+                        <img class="skeleton" src="{% static 'images/razer.jpg' %}" alt="">
+                    </div>
+                    <div  class="productDescription ftrdproductdesc">
+                        <div class="productName skeleton-text">
+                            <h5>lorem lorem</h5>
+                        </div>
+                        <div  class="productPrice ftrdprice" >
+                            <div class="through skeleton-text" >
+                                <p>100,00$</p>
+                            </div>
+                            <div class="realPrice skeleton-text">
+                                <h5>90,00$</h5>
+                            </div>
+                        </div>
+                        <div class="rate skeleton-text">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div  class=" ftrdproduct ">
+                    <div  class=" ftrdImg">
+                        <img class="skeleton" src="{% static 'images/razer.jpg' %}" alt="">
+                    </div>
+                    <div  class="productDescription ftrdproductdesc">
+                        <div class="productName skeleton-text">
+                            <h5>lorem lorem</h5>
+                        </div>
+                        <div  class="productPrice ftrdprice" >
+                            <div class="through skeleton-text" >
+                                <p>100,00$</p>
+                            </div>
+                            <div class="realPrice skeleton-text">
+                                <h5>90,00$</h5>
+                            </div>
+                        </div>
+                        <div class="rate skeleton-text">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div  class=" ftrdproduct ">
+                    <div  class=" ftrdImg">
+                        <img class="skeleton" src="{% static 'images/razer.jpg' %}" alt="">
+                    </div>
+                    <div  class="productDescription ftrdproductdesc">
+                        <div class="productName skeleton-text">
+                            <h5>lorem lorem</h5>
+                        </div>
+                        <div  class="productPrice ftrdprice" >
+                            <div class="through skeleton-text" >
+                                <p>100,00$</p>
+                            </div>
+                            <div class="realPrice skeleton-text">
+                                <h5>90,00$</h5>
+                            </div>
+                        </div>
+                        <div class="rate skeleton-text">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div  class=" ftrdproduct ">
+                    <div  class=" ftrdImg">
+                        <img class="skeleton" src="{% static 'images/razer.jpg' %}" alt="">
+                    </div>
+                    <div  class="productDescription ftrdproductdesc">
+                        <div class="productName skeleton-text">
+                            <h5>lorem lorem</h5>
+                        </div>
+                        <div  class="productPrice ftrdprice" >
+                            <div class="through skeleton-text" >
+                                <p>100,00$</p>
+                            </div>
+                            <div class="realPrice skeleton-text">
+                                <h5>90,00$</h5>
+                            </div>
+                        </div>
+                        <div class="rate skeleton-text">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div  class=" ftrdproduct ">
+                    <div  class=" ftrdImg">
+                        <img class="skeleton" src="{% static 'images/razer.jpg' %}" alt="">
+                    </div>
+                    <div  class="productDescription ftrdproductdesc">
+                        <div class="productName skeleton-text">
+                            <h5>lorem lorem</h5>
+                        </div>
+                        <div  class="productPrice ftrdprice" >
+                            <div class="through skeleton-text" >
+                                <p>100,00$</p>
+                            </div>
+                            <div class="realPrice skeleton-text">
+                                <h5>90,00$</h5>
+                            </div>
+                        </div>
+                        <div class="rate skeleton-text">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+
+                
+                
+
+            </div> -->
+
+<div class="newproductsContainer ">
+
+    
+    
+
+       
+    
+
+<!-- <div class="title titleletter skeleton-text">
+                    <h4>news letter</h4>
+                </div>   
+                br
+                <span>Sign Up For our newsLetter!!</span>
+           <div class="form">
+               
+               <form action="">
+                   <input type="email" name="" id="">
+               </form>
+           </div>-->
+    
+
+            </div>
+            
+            
+        </div>
+
+
+
+
+
+    </div>
+
+    
+
+    
+</div>
+{% endblock content%}
+
+<!--
+    
+<div class="parent-row">
     <div class="select-menu">
         <ul>
             <li>
@@ -32,4 +1031,12 @@
         {% endfor %}
     </div>
    </div>
-{% endblock content%}
+-->
+
+
+{% block script %}
+
+<script src="{% static 'javascript/main.js' %}"></script>
+
+
+{% endblock script %}

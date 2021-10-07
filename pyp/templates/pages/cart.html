@@ -1,6 +1,9 @@
 {% extends "pages/base.html" %}
 {% load static %}
 
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock css %}
 
 {% block content %}
     <div class="row">
@@ -9,13 +12,13 @@
             <table>
                 <tr>
                     <th>
-                        <h5>Items: <strong>
+                        <h5>Items: 
                            {{totalitem.item}}
-                        </strong></h5>
+                        </h5>
                         
                     </th>
                     <th>
-                        <h5>Total: <strong>{{totalitem.price}}$</strong></h5>
+                        <h5>Total: {{totalitem.price}}$</h5>
                     </th>
                     <th>
                         <a href="{% url 'checkout' %}"><button class="button">Checkout  &#8594;</button></a>
@@ -27,10 +30,10 @@
         <br>
         <div class="row-products">
             <div class="items">
-                <div class="item"><strong>Item</strong></div>
-                <div class="price"><strong>Price</strong></div>
-                <div class="quantity"><strong>Quantity</strong></div>
-                <div class="total"><strong>Total</strong></div>
+                <div style='width: 80px;'  class="item"><strong>Item</strong></div>
+                <div style='width: 70px;'  class="price"><strong>Price</strong></div>
+                <div style='width: 70px;'  class="quantity"><strong>Quantity</strong></div>
+                <div style='width: 70px;'  class="total"><strong>Total</strong></div>
             </div>
        </div>
        
@@ -38,12 +41,18 @@
        {% if user.profile.user == item.order.customer %}
             <div class="row-products">
                 <div class="items items-item">
-                    <div class="item image-item itm"><img src="{{item.product.image.url}}" alt=""></div>
-                    <div class="price itm">{{item.product.new_price}}$</div>
-                    <div class="quantity qnt-real itm">{{item.quantity}} <button data-action="remove" data-product='{{item.product.id}}' class="addToCart">remove</button> </div>
+                    <div style='width: 90px;height:90px;'  class="item image-item itm"><img src="{{item.product.image.url}}" alt=""></div>
+                    <div style='width: 70px;' class="price itm">{{item.product.new_price}}$</div>
+                    <div style='width: 70px;'  class="quantity qnt-real itm">{{item.quantity}} 
+                    <div style='width: 70px;'  class="btnsCrt">
+                        <button data-action="add" data-product='{{item.product.id}}' class="addToCart"><i class="fas fa-chevron-up"></i></button> 
+                        <button data-action="remove" data-product='{{item.product.id}}' class="addToCart"><i class="fas fa-chevron-down"></i></button>
+                    </div>    
+                    </div>
                     <div class="total itm">{{item.total}}$</div>
                 </div>
             </div>
+        
         {% endif %}
        {% endfor %}
     </div>

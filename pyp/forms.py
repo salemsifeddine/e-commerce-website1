@@ -3,7 +3,7 @@ from django.contrib.auth import forms
 from django.db import models
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.forms import ModelForm
+from django.forms import ModelForm, fields
 from .models import *
 
 class CustomInfo(UserCreationForm):
@@ -29,4 +29,13 @@ class ImagePro(forms.ModelForm):
     class Meta:
         model=Product
         fields=["name","description","new_price","old_price","catigory","rate","image"]
-        
+
+class EmailField(forms.ModelForm):
+    class Meta:
+        model=NewsLetterEmails
+        fields='__all__'
+
+class Search(forms.ModelForm):
+    class Meta:
+        model=Product
+        fields=['name']

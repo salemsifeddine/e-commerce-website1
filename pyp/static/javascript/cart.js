@@ -1,4 +1,7 @@
+
+
 var buttons = document.getElementsByClassName("addToCart")
+localStorage.getItem("quantity")? localStorage.setItem("quantity",localStorage.getItem("quantity")) : localStorage.setItem("quantity",0);
 for(var i=0; i<buttons.length; i++){
     buttons[i].addEventListener("click",function(){
         
@@ -6,10 +9,13 @@ for(var i=0; i<buttons.length; i++){
         action=this.dataset.action
       
         if(user == "AnonymousUser"){
-            console.log("not logged In")
+            // getCookieItem(id,action)
+            
+            console.log("ss")
+            
         }
         else{
-            console.log("here")
+           
            //cal your api and five it the keys
            update(id,action)
         
@@ -18,6 +24,35 @@ for(var i=0; i<buttons.length; i++){
     })
 }
 
+
+//make  a function and call it when user is not logges in
+// function getCookieItem(id,action){
+//     console.log(localStorage.setItem("quantity",23))
+//     if(action == "add"){
+//         if(localStorage.getItem("quantity") == undefined){
+//             localStorage.setItem("quantity",1)
+//             // cart[id] = {"quantity":1}
+
+//         }else{
+//             // cart[id]["quantity"] += 1
+//             localStorage.setItem("quantity",localStorage.getItem('quantity') + 1 )
+//         }
+//     }
+//     if(action=='remove'){
+//         // cart[id][quantity] -=1;
+//         localStorage.setItem("quantity",localStorage.getItem('quantity') - 1 )
+//         if(localStorage.getItem('quantity') <= 0){
+//             localStorage.removeItem('quantity')
+//             // delete cart[id]
+//         }
+//     }
+
+//     //update the cookie
+
+//     // document.cookie = 'cart=' + JSON.stringify(cart) + ';domain=;path=/'
+    
+//     // console.log(cart.Object.keys())
+// }
 
 //function of making an api and use it though
 function update(id,action){
@@ -41,7 +76,9 @@ function update(id,action){
         //
         crt=document.getElementById("cartnum")
         location.reload()
+        
        
+
         //
     })
 }
@@ -109,4 +146,7 @@ for(var i=0; i<btn.length; i++){
 
 //********** */
 //change profile picture when user get uploaded his photo and before submit it
+
+
+
 

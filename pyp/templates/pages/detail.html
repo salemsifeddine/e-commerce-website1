@@ -1,7 +1,23 @@
 {% extends "pages/base.html" %}
+
 {% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/detail.css' %}">
+{% endblock css %}
+
 {% block content %}
-    <div class="view-product">
+<div class="view-product">
+
+
+
+
+
+
+
+    
+    
+    <div class="product-detail">
         <div class="image-parent-detail">
             <div class="img-element img-detail">
                 {% if object.image %}
@@ -9,20 +25,250 @@
                 {% endif %}
              </div>
              <div class="thumbnail-images">
-                 <div class="img1"> <a href="{{object.image.url}}"> <img src="{{object.image.url}}" alt="prdct"></a></div>
-                 <div class="img1"> <a href="{{object.image.url}}"> <img src="{{object.image.url}}" alt="prdct"></a></div>
-                 <div class="img1"> <a href="{{object.image.url}}"> <img src="{{object.image.url}}" alt="prdct"></a></div>
-                 <div class="img1"> <a href="{{object.image.url}}"> <img src="{{object.image.url}}" alt="prdct"></a></div>
+                <!-- max 13pic -->
+                 <div class="img selected "> <a href="{{object.image.url}}"> <img src="{{object.image.url}}" alt="prdct"></a></div>
+                 <div class="img"> <a href="{{object.image.url}}"> <img src="{{object.image.url}}" alt="prdct"></a></div>
                  
              </div>
+
+
+             <div class="detail-info">
+                <div class="product-detail-nonScroll">
+                    <span style="font-size: 3.5rem ;text-transform: capitalize;">product details</span>
+                </div>
+                <div class="product-detail-text">
+                    <p>Minimal and chic, the Slim Clutch is designed for your essentials.
+                        Made from 100% Saffiano Leather featuring silver hardware, contrast zip tape and edge detail with a chambray fabric lining.
+                        This clutch comes with a matching leather detachable wrist strap with contrast edge detail.</p>
+                </div>
+             </div>
+
+             
         </div>
          <div class="desc-element desc-element-detail">
-            <div><h1 class="color_add">{{object.name.title}}</h1></div> <br>
-            <div ><h2><p class="color_add">{{object.description}}</p></h2></div><br>
-            <div class="price"><h2  class="price color_add">Price:{{object.new_price}}$ <br><br> old price:<span style="text-decoration: line-through;" class="price color_add"> {{object.old_price}}$</span></h2></div><br>
+            <div><h1 class=" product-name color_add">{{object.name.title}}</h1></div> <br>
+            <div class="price"><span  class=" color_add">{{object.new_price}}$</span> <br> <span style="text-decoration: line-through;" class=" color_add"> {{object.old_price}}$</span></div>
+            <div class="product-variations">
+                <ul class="swatches">
+                    
+                
+                        <li class="attribute">
+                            <div class="selectColor">Select Color</div>
+                            <div class="value">
+                                <ul  class="swatches colors-product-images">
+                                    <li class="select-table selected-color "><a class="swatchanchor" href="{{object.image.url}}"><img src="{{object.image.url}}" alt=""></a> </li>
+                                    <li class="select-table "><a class="swatchanchor" href="{{object.image.url}}"><img src="{{object.image.url}}" alt=""></a> </li>
+                                    <li class="select-table "><a class="swatchanchor" href="{{object.image.url}}"><img src="{{object.image.url}}" alt=""></a> </li>
+                                    <li class="selected-value ">Merlot </li>
+                                </ul>
+                            </div>
+                        </li>
+                  
+
+                </ul>
+            </div>
+                <div class="custom-select-field">
+                    <div class="select-header">Select Size</div>
+                    <div class="container-size">
+                        <div class="select-size">
+                            <div class="content">
+                                <ul class="custom-select">
+                                    <li class="sizeDoesNotExist">S</li>
+                                    <li>M</li>
+                                    <li>L</li>
+                                    <li>XL</li>
+                                    <li>2XL</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+               
+                   <div class="add-select">
+                        <div class="quantity">
+                            <div class="inv">
+                                <label for="quantity">Qty</label>
+                                <select name="quantity" id="quantity">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="cart-btn">
+                            <div class="cartbtn">
+                                <button  data-product='{{product.id}}'  class=" addToCart disabled">Select a size</button>
+                            </div>
+                        </div>
+                   </div>
+                   <div class="product-detail-scroll scrolled">
+                       <span>product details</span>
+                   </div>
+               
+            </div>
+            
+            <!-- <div ><h2><p class="color_add">{{object.description}}</p></h2></div><br>
+            
             <div><h3 class="color_add">Catigory: {{object.catigory}}</h3></div><br>
-            <div> <h3 class="color_add">Rate: {{object.rate}} Star(s)</h3></div><br>
-            <div class="buttons buttons-detail center-button"><button>Add to Cart</button></div><br>
-         </div>
+            <div> <h3 class="color_add">Rate: {{object.rate}} Star(s)</h3></div><br> -->
+            <!-- <div class="buttons buttons-detail center-button"><button data-action="add" data-product='{{product.id}}' class="addToCart">Add to Cart</button></div><br>
+         </div> -->
+    
+    
+    
+    
+    
+    
+    
+    
+        </div>
+
+    
+
+
+
+    <div class="related-products">
+        <div class="categoriesProducts">
+            <div class="title skeleton-text">
+                <h4>related PRODUCTS</h4>
+            </div>   
+        </div>
+
+        <div class="products">
+            {% for product in products %}
+                    
+                        <div class="product">
+                            <a href="{% url 'detail'  product.id %}">
+                            <div class="productImg">
+                                <img class="skeleton" src="{{product.image.url}}" alt="">
+                            </div>
+                            </a>
+                            <a href="{% url 'detail'  product.id %}">
+                            <div class="productDescription">
+                                <div class="productName skeleton-text">
+                                    <h5>{{product.name|lower}}</h5>
+                                </div>
+                                <div class="productPrice">
+                                    <div class="through skeleton-text">
+                                        {% if product.old_price == 0 %}
+                                            <p>Free</p>
+                                        {% else %}
+                                            <p>{{product.old_price}}$</p>
+                                        {% endif %}
+                                    </div>
+                                    <div  class="realPrice skeleton-text">
+                                        <h5>{{product.new_price}}$</h5>
+                                    </div>
+                                </div>
+                                <div class="rate">
+
+                                    {% if product.rate.rate == 0 %}
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 0.5 %}
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 1 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 1.5 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 2 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 2.5 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 3 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 3.5 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 4 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 4.5 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 5 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    {% elif product.rate.rate == 5.5 %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    {% else %}
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                {% endif %}
+                                </div>
+                                </div>
+                            </a>
+                        </div>
+                    
+                {% endfor %}
+        </div>
+   
     </div>
+
+    
 {% endblock content %}
+
+{% block script %}
+
+    <script src="{% static 'javascript/detail.js' %}"></script>
+{% endblock script %}

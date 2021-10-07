@@ -1,0 +1,735 @@
+.cntnrmain{
+    width:100%;
+    display: flex;
+    justify-content: space-between;
+   
+    margin-bottom:5vh;
+}
+.containerContent{
+    width:90%;
+
+    margin: auto;
+    display: flex;
+    justify-content:space-between 
+}
+
+
+
+.leftsidecont{
+    width:25%;
+
+}
+.rightsidecont{
+    width:70%;
+    display: flex;
+    flex-direction: column
+}
+.categorylistcontent{
+    width:100%;
+    min-height: 10vh;
+    background:#fff;
+}
+
+.categorylistcontent ul li{
+    
+    list-style: none;
+    padding:10px;
+    cursor:pointer;
+    color:#000;
+    
+   
+    
+}
+.categorylistcontent ul li i{
+    color:#000;
+    font-size: 15px;
+    margin:0  10px;
+}
+ .categorylistcontent ul li .imgMarker{
+    width:20px;
+    height:20px;
+
+}
+.categorylistcontent ul li .imgMarker img{
+    width:100%;
+    height:100%;
+}
+.categorylistcontent ul li a{
+    color:#000;
+    text-decoration:none;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+
+.categorylistcontent ul li::after, .hotdeal::before{
+    content:'';
+    display:block;
+    color: #000;
+    background-color:#000;
+    width:100%;
+    height: 1px;
+}
+
+
+.ad{
+    width: 100%;
+    min-height: 50vh;
+    max-height: 73vh;
+    position: relative;
+}
+.ad .image{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+.ad .image img{
+    width:100%;
+    height:100%;
+}
+.ad .shopNow{
+    position: absolute;
+    top: 70%;
+    left: 23%;
+    
+
+}
+
+.ad .shopNow a button{
+    width:150px;
+    height:6vh;
+    text-decoration: none;
+    cursor:pointer;
+    outline:none;
+    font-size:17px;
+    font-family: sans-serif;
+    background:transparent;
+    border:3px solid #000000;
+    color:rgb(0, 0, 0);
+    border-radius:1px;
+    font-weight:550;
+    transition:.4s ease-in-out;
+    text-transform: uppercase;
+}
+.ad .shopNow a button:hover{
+    border: none;
+    background-color: #ec5f5c;
+    color:#fff;
+    
+}
+
+.newproducts{
+    width: 100%;
+    min-height: 60vh;
+    background-color: #fff;
+    padding:5px;
+    margin-top:20px;
+    overflow: hidden;
+}
+/* 
+.newproductsContainer .newproducts div {
+    
+    width:100%;
+    height:100%;
+} */
+
+ .newproducts div .categoriesProducts{
+    width:100%;
+    height:10vh;
+    display: flex;
+    justify-content:space-between;
+    
+    line-height:10vh;
+    padding: 5px;
+    border-bottom: 1px solid #000;
+}
+
+
+ .newproducts div .categoriesProducts .title{
+    width:250px;
+    height: 100%;
+    
+}
+ .newproducts div .categoriesProducts .title h4{
+    color: #000;
+    text-transform: uppercase;
+}
+
+ .newproducts div .categoriesProducts .listcatego{
+    
+    width: 100%;
+    height: 100%;
+    align-self: center;
+}
+
+ .newproducts div .categoriesProducts .listcatego ul{
+    list-style: none;
+    width: 100%;
+    display: flex;
+    justify-content:space-between;
+    
+
+}
+.category {
+    text-decoration: none;
+    color: #000;
+    text-transform: capitalize;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+ .newproducts div .products{
+    
+    width:100%;
+    height: 55vh;
+    padding: 20px 15px 0px 15px;
+    display:flex;
+    overflow:hidden;
+    cursor:grab;
+    user-select: none;
+    
+}
+.grabbing{
+    cursor:grabbing
+}
+ .newproducts div .products .product{
+    min-width: 177px;
+    max-width: 177.001px;
+    height:100%;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius:2px;
+   
+
+
+}
+
+
+ .newproducts div .products .product .productImg{
+    width:100%;
+    height:65%;
+    padding:10px;
+    overflow:hidden;
+    transition: transform .5s ease-out;
+}
+
+.hotdeals{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    margin-top:20px;
+}
+
+.hotdealCont{
+    width:100%;
+    background-color: #fff;
+    padding:20px;
+    margin-bottom: 20px;
+    
+}
+
+.hotdealContAD{
+    width:100%;
+    min-height:60vh;
+    max-height: 80vh;
+    background-color: #fff;
+}
+.hotdealContAD .adImage,.hotdealContAD .AdVideo{
+    width:100%;
+    height: 100%;
+    overflow:hidden;
+}
+.AdVideo video{
+    width:100%;
+    height: 100%;
+}
+.hotdealContAD .adImage img{
+    width:100%;
+    height: 100%;
+}
+.hotdeal{
+    
+    height: 51vh;
+    padding: 5px;
+}
+.topHeaddeals{
+    display: flex;
+    justify-content: space-between;
+
+}
+.hotdeals .title{
+    padding: 10px;
+    text-transform: uppercase;
+}
+
+.hotdeal .productImg{
+    width:100%;
+    height:75%;
+    padding:5px;
+    transition: transform .5s ease-out;
+}
+.hotdeal .productImg:hover{
+    transform:scale(1.05)
+}
+.hotdeal .productImg img{
+    width:100%;
+    height:100%
+}
+.arrows{
+    width: 55px;
+    height: 25px;
+    display: flex;
+    justify-content: space-between;
+
+    align-self: center;
+}
+.arrows .left,  .arrows .right{
+   padding:6px
+  
+}
+ .arrows .left i ,  .arrows .right i{
+    font-size: 20px;
+    cursor: pointer;
+    line-height: 15px;
+    color:#fff;
+    cursor: pointer;
+    text-align: center
+}
+.left,.right{
+    width: 25px;
+    height:100%;
+    border-radius: 50%;
+    background-color:red;
+
+}
+
+.hotdeals .title h4{
+    color: black;
+    cursor: pointer;
+   
+}
+
+ .newproducts div .products .product .productImg img,.hotdeal .productImg img{
+    width:100%;
+    height:100%;
+}
+
+ .productDescription {
+    padding: 10px;
+    height: 30%;
+    text-align: center;
+}
+ .productDescription{
+    height: 25%;
+}
+.productDescription .productName,.hotdeal .productDescription .productName{
+    
+    
+    min-height: 25px;
+    max-height: 45px;
+}
+
+
+.productDescription .productName h5{
+    color: #000;
+    font-size:13px;
+    text-transform: capitalize;
+}
+
+.productDescription  .productPrice{
+    display:flex;
+    color: #000;
+    justify-content:space-between;
+    min-height: 25px;
+    max-height: 30px;
+    width:90%;
+    margin:auto;
+
+}
+ .productDescription  .productPrice .realPrice h5,  .productDescription  .productPrice .through p{
+    font-size:16px;
+    color:#000
+}
+
+.through{
+    text-decoration: line-through;
+    color:#000
+}
+
+.letter{
+    height: 28vh;
+    
+}
+.letter span{
+    color: #3E2C41;
+    text-transform: capitalize;
+    font-size:14px
+    
+}
+
+.letter form{
+    width:100%;
+    
+
+}
+.letter form input{
+    width:100%;
+    height:30px;
+    color: #000;
+    padding:5px;
+    border-radius: 5px;
+    background-color: #3e2c411c;
+    margin-bottom: 15px;
+    border: none;
+}
+
+.letter form button, .redbtn{
+    width:110px;
+    height:30px;
+    background-color:#ec5f5c;
+    outline: none;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+}
+
+.cntntmain{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.fashionsalesContainer{
+    width:100%;
+    height:35vh;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+   
+}
+
+.fashionsalesContainer .fashionSale{
+   
+  width: 49%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  
+}
+
+.fashionImg,.fashionImg img{
+    width:100%;
+    height: 100%;
+}
+.hoverdiv{
+    content: "";
+    position: absolute;
+    width:60%;
+    height:100%;
+    background-color:rgb(255, 255, 255);
+    border-left: 200px solid rgb(255, 255, 255);
+    border-bottom: 380px solid transparent;
+    top: -50px;
+    right: -20px;
+    transform: rotate(25deg);
+    display: none;
+    transition: all  5s ease-in;
+}
+
+.fashionsalesContainer .fashionSale:hover .hoverdiv,.fashionsalesContainer .fashionSale:hover .descriptiondiv{
+    display: block;
+}
+
+.descriptiondiv{
+    position:absolute;
+    width:45%;
+    height:90%;
+    bottom:0;
+    right:0;
+
+    padding:15px;
+    display:none;
+    transition: all 5s ease-in
+}
+.descriptiondiv .titlesale p,.titlesale h4,.byenow a{
+    color: rgba(0, 0, 0, 0.767);
+    text-transform: uppercase;
+    font-family: sans-serif;
+}
+.descriptiondiv .titlesale{
+    margin-bottom:20px
+}
+.descriptiondiv .titlesale h4{
+    font-size:26px;
+    text-align:center;
+    font-weight: bolder;
+    color: #79B4B7;
+}
+.descriptiondiv .titlesale p{
+    font-size:16px;
+    font-weight: bold;
+    text-align:center;
+}
+
+.byenow{
+    text-align: right;
+}
+.byenow a{
+    font-size:22px;
+    font-weight: bold;
+    color: #5C7AEA;
+    
+}
+
+.shopnowcont{
+    position: relative;
+    width: 100%;
+    min-height: 35vh;
+    height: 30vh;
+    display: flex;
+    background-color:#fff;
+    margin-top:20px
+}
+.shopnowImg{
+    width: 50%;
+    height: 100%;
+    position: relative;
+}
+
+.shopnowImg img{
+    width: 100%;
+    height:100%;
+    object-fit: cover;
+}
+
+.shopnowdesc{
+    padding: 10px;
+    
+    align-self: center;
+    width:50%;
+}
+.shopnowdesc p{
+    font-family: sans-serif;
+    text-transform: uppercase;
+    padding: 2px;
+    letter-spacing: 1.2;
+    font-size: larger;
+    font-weight: 600;
+
+}
+.shopnowdesc button{
+    margin-top: 15px;
+}
+.shopnowdesc p:first-of-type{
+    color:#000;
+
+}
+.shopnowdesc p:last-of-type{
+    color: #5C7AEA;
+}
+
+
+.firstFooter{
+    height: 20vh;
+    width: 100%;
+    background-color: #ec5f5c;
+    display: flex;
+    flex-direction: column;
+}
+footer{
+    min-height: 90vh;
+    background-color:#3a0712 ;
+    margin-top:20vh
+}
+
+.footercontent {
+    height: 65vh;
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content:space-between
+}
+.information{
+    display: flex;
+    flex-direction: column;
+   
+}
+.bottomfooter{
+    height: 15vh;
+    width: 100%;
+    background-color:#000 ;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    
+}
+
+.bottomfooter .links{
+    width: 40%;
+    margin: auto;
+    
+
+}
+
+.bottomfooter .links ul{
+    display: flex;
+    justify-content: space-around;
+}
+.bottomfooter .links ul li a{
+    text-decoration: underline;
+    text-transform: capitalize;
+    color: #79B4B7;
+
+}
+.bottomfooter .links ul li{
+    list-style: none;
+}
+.bottomfooter .edition{
+    padding: 20px;
+    color: #79B4B7;
+}
+
+
+.logodescription, .information, .socialMedia,.opentime-payementmode{
+    width:24%;
+    padding: 20px;
+    
+}
+.logodescription h4, .information h4, .socialMedia h4,.opentime-payementmode h4{
+    color:#fff;
+    font-family: sans-serif;
+    font-size:22px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+.information, .socialMedia,.opentime-payementmode{
+    margin-top:60px
+}
+.logofooter{
+    width: 70%;
+    height: 40%;
+    overflow: hidden;
+}
+.logofooter img{
+    width: 100%;
+    height: 100%;
+}
+
+.text p, .contact ul li,.contact ul li a, .information ul li a,.information ul li,
+.socialMedia ul li,.socialMedia ul li a,.paymentmode ul li{
+    color: #79B4B7;
+    margin-bottom: 5px;
+    text-decoration: none;
+    list-style: none;
+    text-transform: capitalize;
+}
+
+.text p{
+    margin-bottom: 20px;
+}
+
+ul li i{
+    color: #ec5f5c;
+    font-size:20px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+
+.paymentmode{
+    display:inline
+}
+.paymentmode ul li{
+    float: left
+}
+.paymentmode ul li i{
+    font-size:50px;
+    padding: 15px;
+    cursor: pointer;
+}
+.rate{
+    margin-top: 20px;
+    width: 100%;
+    min-height: 20px;
+    max-height: 25px;
+    margin:auto;
+
+    padding: 5px;
+}
+
+.rate i{
+    color: gold;
+    font-size:14px
+}
+.rate p{
+    color: black;
+}
+
+.selectedCategory{
+    color:#ec5f5c;
+    font-size:16px
+}
+
+.active{
+    color: red;
+}
+
+.newproductsftrd{
+    padding:5px
+}
+
+.ftrdproduct{
+    display: flex;
+    justify-content: space-between;
+    max-height: 45%;
+    min-width: 257px;
+    
+    padding: 5px
+}
+.ftrdproductdesc{
+    min-width: 59.99%;
+    max-width: 60%;
+    height: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+
+}
+.ftrdproductdesc .productName{
+    width: 100%;
+    height: 10px;
+    
+
+}
+.ftrdproductdesc .rate{
+    min-width: 100%;
+    min-height: 28px;
+    max-height: 30px;
+   
+}
+
+.ftrdprice{
+    width: 100%; 
+    display: inline-block
+}
+
+.ftrdImg{
+     min-width: 35%;
+     max-width: 35.001%;
+     height: 70%; 
+     padding: 2px;
+     align-self: center;
+}
+.ftrdImg img{
+    width:100%;
+    height:100%
+}
+
+i{
+    transition:color .2s ease-in
+}
+li i:hover{
+    color: white;
+}
+.productImg:hover{
+    transform: scale(1.05);
+}

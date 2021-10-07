@@ -1,6 +1,9 @@
 {% extends "pages/base.html" %}
 {% load static %}
 
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+{% endblock css %}
 {% block content %}
 <div class="container">
     <div class="info">
@@ -57,7 +60,7 @@
             {% for item in items %}
                 {% if user.profile.user == item.order.customer %}
                     <div class="items">
-                        <div ><img src="{{item.product.image.url}}" alt=""></div>
+                        <div class="img"><img src="{{item.product.image.url}}" alt=""></div>
                         <div  class="orderedname">{{item.product.name}}</div>
                         <div class="orderedprice">{{item.product.new_price}}$</div>
                         <div class="orderedquantity">{{item.quantity}}x</div>

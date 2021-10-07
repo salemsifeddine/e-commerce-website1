@@ -7,33 +7,61 @@
 }
 
 body{
-    background: rgb(191, 191, 226);
+    background: #F0F0F0;
+    display:flex;
+    flex-direction: column;
+    font-weight:lighter;
+  
 }
 
 nav{
     width:100%;
-    height:10vh;
-    background: #f6d55c; 
+    min-height:10vh;
+    background: #000000; 
     position: relative;
     font-size:18px;
     font-family: sans-serif;
     color:white;
     overflow:hidden;
+    display:flex;
+    justify-content:space-between;
+    
 }
 
+nav .imageLogo{
+    width: 180px;
+    height: 20vh;
+}
+nav .imageLogo img{
+    width:100%;
+    height: 100%;
+}
+
+nav .navContainer{
+   width:70%;
+}
+nav .navContainer ul:first-of-type{
+    height: 30px;
+}
 nav ul {
     width:100%;
     display: flex;
-    justify-content: space-between;
-    line-height: 8vh;
+    justify-content: right ;
+    text-align:end;
    
+}
+nav ul li{
+    margin-left: 7px;
+    padding:10px;
+    line-height: 15px;
+    color:#000;
 }
 nav ul ul {
     display: flex;
     justify-content: space-around;
     list-style: none;
     width:30%;
-  
+    
 }
 nav ul ul li button{
     width:70px;
@@ -41,8 +69,8 @@ nav ul ul li button{
     text-align: center;
     outline:none;
     border:none;
-    background:rgb(245, 245, 16);
-   border-radius: 7px;
+    background:#ec5f5c;
+    border-radius:0 2px 2px 0;
     font-size:16px;
 }
 nav ul ul li button a { 
@@ -53,9 +81,13 @@ nav ul li {
    text-decoration: none;
    overflow:hidden;
    list-style: none;
+   
 }
+
+
 nav ul li a{
     text-decoration: none;
+    font-size: 14px;
     color:#fff;
 }
 nav ul ul .imgli{
@@ -72,48 +104,78 @@ nav ul ul .imgli{
 }
 .cart{
     position:relative;
-    height:8vh;
-    width:65px;
-    overflow: hidden;
+    height:95%;
+    width:50px;
+    
 
 }
+.cart .cartImg,.cart .cartImg img{
+    width:100%;
+    height:100%;
+}
+
 
 .cart .numcart{
-    width:30px;
-    height: 20px;
-    background: red;
+    width:25px;
+    height: 25px;
+    background: rgb(216, 51, 51);
     color:#fff;
     position:absolute;
     z-index: 99;
-    top:4px;
-    right:-1px;
+    top:-10px;
+    right:-7px;
     color: rgb(190, 184, 184);
-    line-height: 20px;
+    line-height: 25px;
     text-align: center;
-    border-radius:15px;
+    border-radius:50%;
+}
+nav .navContainer ul:nth-of-type(2) li:first-of-type{
+    min-height: 3vh;
+    
+    width: 80%;
+    position: relative;
+    overflow: hidden;
+
+}
+nav .navContainer ul:nth-of-type(2) li:first-of-type form{
+    display:flex
+}
+nav .navContainer ul:nth-of-type(2) li:first-of-type form{
+    width:100%;
+    height:100%;
+  
 }
 
+nav .navContainer ul:nth-of-type(2) li:first-of-type form button{
+    
+    width:100px;
+    height:100%;
+
+}
+nav .navContainer ul:nth-of-type(2) li:nth-of-type(2){
+    width:20%;
+}
 nav ul li form input{
     outline:none;
     border:none;
-    border-radius:10px;
-    width:350px;
-    height:4vh;
+    border-radius:4px 0 0 4px;
+    width:100%;
+    height:100%;
     padding:5px;
     font-size:16px;
     font-family: sans-serif;
     background-color: rgb(240, 231, 231);
-    color:grey;
+    color:#ec5f5c;
 }
 
 nav ul li form button, .button-yellow{
     outline:none;
     border:none;
-    border-radius:7px;
+   
     width:90px;
     height:4vh;
-    background:rgb(245, 245, 16);
-    color:rgba(22, 21, 21, 0.842);
+    background:#ec5f5c;
+    color:rgba(255, 255, 255, 0.842);
     font-size: 16px;
     font-family: sans-serif;
     cursor: pointer;
@@ -123,23 +185,48 @@ nav ul li button , .button-yellow{
     color:#000;
 }
 nav ul li button:hover, .button-yellow:hover{
-    color:yellow;
+    color:#ec5f5c;
     background-color: transparent;
-    border:2px solid yellow;
+    border:3px solid #ec5f5c;
     transition:.4s ease-in-out;
 }
 nav ul ul li a img{
     width:100%;
     height:100%;
 }
+
+.secondnav{
+    width:100%;
+    height:7vh;
+    background:#ec5f5c;
+    line-height: 7vh;
+    display:flex;
+    justify-content:space-around;
+}
+
+
+.secondnav .categlist{
+    text-transform: uppercase;
+    min-width:60%;
+
+}
+.secondnav .categlist ul{
+    display: flex;
+    list-style:none;
+    justify-content:space-between;
+
+}
+.secondnav .categlist ul li a{
+    text-decoration: none;
+}
 .parent-row{
     display:flex
 }
 .row{
-    width: 80%;
+    width: 100%;
     min-height: 100vh;
     display: inline;
-    background: rgba(72, 148, 82, 0.315);
+    background-color: #fff;
     padding-top:5px;
     padding-bottom:40px;
     
@@ -153,7 +240,7 @@ nav ul ul li a img{
     float:left;
     border-radius: 10px;
     overflow:hidden;
-    margin-left: 1.5%;
+    
     background:#fff;
 }
 .row .product .img-element{
@@ -194,9 +281,9 @@ nav ul ul li a img{
     font-size:15.5px;
     font-family: sans-serif;
     background:transparent;
-    border:1.9px solid rgba(62, 134, 90, 0.986);
-    color:rgb(65, 92, 65);
-    border-radius:2px;
+    border:1.9px solid rgba(0, 0, 0, 0.986);
+    color:rgb(0, 0, 0);
+ 
     font-weight:500;
 }
 .button{
@@ -207,33 +294,37 @@ nav ul ul li a img{
     outline:none;
     font-size:15.5px;
     font-family: sans-serif;
-    background:transparent;
-    border:1.8px solid rgba(62, 134, 90, 0.986);
-    color:rgb(65, 92, 65);
-    border-radius:4px;
+    
+    color:rgb(0, 0, 0);
+   
     font-weight:500;
     text-align:center;
-    
+    border-radius: 3px;
+    transition: .3s ease-in;
+    border:2px solid rgba(0, 0, 0, 0.986);
 }
 .button:hover{
     color:#fff;
-    transition: .3s ease-in;
-    background:rgba(62, 134, 90, 0.986);
+    background:rgba(0, 0, 0, 0.986);
+   
 }
 .buttons .button, .button{
     width:115px;
 }
 .buttons button:hover, .buttons .button:hover{
-    color:#fff;
+    color:#000;
     transition: .3s ease-in;
-    background:rgba(62, 134, 90, 0.986);
+    border:2px solid rgba(0, 0, 0, 0.986);
+    background:transparent;
 }
 
-.buttons .price{
-    float:right;
-    padding-right: 5px;
-    color:#000;
-    line-height: 4vh;
+.price{
+   
+   text-transform: capitalize;
+    color: #fff
+}
+.price span{
+    margin-bottom: 10px;
 }
 .buttons .view{
     width:50px
@@ -243,8 +334,8 @@ nav ul ul li a img{
     padding:10px;
     height: 23vh;
     margin: 10px auto;
-    border-radius: 5px;
-    box-shadow:2px 2px  4px grey;
+   
+    border-bottom:1px solid #000;
 }
 .row .row-cart .con-shopp{
     width:200px;
@@ -255,8 +346,8 @@ nav ul ul li a img{
     font-size:15.5px;
     font-family: sans-serif;
     background:transparent;
-    border:1.8px solid rgba(62, 134, 90, 0.986);
-    color:rgb(65, 92, 65);
+    border:1.8px solid rgba(0, 0, 0, 0.986);
+    color:rgb(0, 0, 0);
     border-radius:4px;
     font-weight:500;
     
@@ -265,15 +356,18 @@ nav ul ul li a img{
 .row .row-cart .con-shopp:hover{
     color:#fff;
     transition: .3s ease-in;
-    background:rgba(62, 134, 90, 0.986);
+    background:rgba(0, 0, 0, 0.986);
 }
 .row .row-cart table{
     width:100%;
     min-height: 10vh;
-    border:1.2px solid rgb(100, 133, 92);
+    
     margin:20px 0;
-    color:#fff;
+    
 }
+
+.row .row-cart table tbody tr th h5{color:#000;}
+
 button, .button{
     cursor:pointer;
 
@@ -291,28 +385,32 @@ button, .button{
     width:100%;
     height:8vh;
     border-radius: 9px;
-    box-shadow:2px 2px  4px grey;
+    box-shadow:2px 2px  4px #ec5f5c;
     line-height: 8vh;
     
     display: inline-flex;
     justify-content: space-around;
-    background-color: rgba(62, 134, 90, 0.685);
+    background-color: #ec5f5c;
 }
 .row .row-products .items-item{
     width:100%;
     min-height:90px;
-    box-shadow:2px 2px  4px grey;
+    box-shadow:2px 2px  4px #ec5f5c;
     display: inline-flex;
     justify-content: space-around;
 }
-.row .row-products .items div{
+/* .row .row-products .items div{
  
     width:80px;
     text-align:center
-}
+} */
 .row .row-products .items .itm{
-    line-height: 90px;
+    align-self: center;
    
+}
+.qnt-real {
+    display: flex;
+    justify-content: space-around
 }
 
 .row .row-products .items .image-item{
@@ -320,7 +418,7 @@ button, .button{
     height: 90px;
     overflow: hidden;
     width:90px;
-    background: rgba(132, 156, 79, 0.644);
+    background: rgba(0, 0, 0, 0.644);
     border-radius: 50%;
     border:2px solid rgba(73, 124, 50, 0.356);
 }
@@ -330,140 +428,6 @@ button, .button{
     height:100%;
 }
 
-.info{
-    width: 49%;
-    height:50vh;
-    box-shadow:2px 2px  4px grey;
-    border-radius: 10px;
-    padding:7px;
-    position:relative;
-    background:#fff;
-}
-.info .user-info  {
-    width:100%;
-    border-bottom: 1px solid #544;
-    margin-bottom:10px;
-    height: 12.5vh;
-}
-.info .shopping-info{
-    width:100%;
-    border-bottom: 1px solid #544;
-    margin-bottom:10px;
-    height: 25vh;
-}
-
-.info .user-info h3, .info .shopping-info h3{
-    color:#000;
-    padding-left:10px
-}
-.info .user-info div:not(.only-sub), .info .shopping-info div{
-    width:45%;
-    float: left;
-    margin: 3px 2.5%;
-    
-}
-.only-sub{
-    height:10%;
-    width:100%;
-    text-align:center;
-}
-.only-sub input{
-    width:100%;
-    border:1px solid yellow;
-    color:#fff;
-    background: green;
-    height:5vh
-}
-.only-sub input:hover{
-    background: yellow;
-    transition: .3s ease-in-out;
-    color:#000
-}
-.info .user-info div input, .info .shopping-info div input{
-    padding: 5px;
-    width:100%;
-    height:5vh;
-    outline:none;
-    border: none;
-    font-size:16px;
-    border-radius:5px;
-    border:.5px solid #815858bd;
-    color:#000;
-
-}
-
-.info .shopping-info div{
-    margin: 5px 2.5%;
-}
-.info .user-info .form input,.info .shopping-info .form input {
-    color:#000;
-}
-.info .shopping-info .form input[type="submit"]{
-    background:green;
-    color:#fff;
-    position:absolute;
-    width:95%;
-    left:0;
-    bottom: 10px;
-    margin-left:2.5%;
-    cursor:pointer;
-}
-.shopping-info h3{
-    color:rgb(85, 85, 85);
-}
-
-.order-summary{
-    width:49%;
-    min-height:40vh;
-    padding: 10px;
-    box-shadow:2px 2px  4px grey;
-    border-radius: 10px;
-    background:#fff;
-   
-}
-
-.order-summary h3{
-    color:rgb(85, 85, 85);
-    
-}
-.container{
-    display:flex;
-    justify-content: space-between;
-    margin: 15px auto;
-    width:80%;
-    min-height:40vh;
-    padding: 7px;
-    background:rgba(250, 240, 240, 0.795);
-    border-radius:4px;
-}
-.order-summary .row-products{
-    margin-top:10px;
-}
-.order-summary .row-products .items{
-    display:flex;
-    justify-content: space-around;
-
-    
-    border-top: 1.5px solid rgba(85, 85, 85, 0.205);
-}
-
-.order-summary .row-products .items div:first-of-type{
-    
-    width:80px;
-    border-radius: 7px;
-    overflow:hidden;
-    padding:4px;
-}
-.order-summary .row-products .items div:first-of-type img{
-    width:100%;
-    height:100%;
-}
-.order-summary .row-products .items div{
-    line-height:90px;
-    height: 80px;
-    color:#000;
-
-}
 
 .color_add{
     color:#000;
@@ -473,7 +437,7 @@ button, .button{
     width:30%;
     height:50vh;
     border-radius:25px;
-    background: gray;
+    background: #ec5f5c;
     margin:10vh auto;
     padding-top:25px;
     text-align: center;
@@ -488,8 +452,9 @@ button, .button{
 
 .page-login form input{
     width:90%;
-    height:4.4vh;
-    border-radius: 8px;
+    height:5vh;
+    font-size: 14px;
+    border-radius: 3px;
     border:none;
     outline:none;
     margin-bottom: 20px;
@@ -503,8 +468,11 @@ button, .button{
     letter-spacing: 1.4px;
     margin: 0 auto ;
     margin-bottom:20px;
-    border:2px solid rgba(62, 134, 90, 0.986);
-    color:#fff
+    border-radius: 0px;
+
+    border:2px solid #000;
+    background:transparent;
+    color:#000
 }
 
 .page-reg{
@@ -742,59 +710,7 @@ button, .button{
 
     padding:14px;
 }
-.view-product{
-    width:95%;
-    height:75vh;
 
-    display:flex;
-    margin:5vh auto;
-
-    border-radius:5px;
-}
-.view-product .image-parent-detail{
-    width:38%;
- 
-    height:100%;
-}
-.view-product .image-parent-detail .img-detail{
-    width:100%;
-    overflow:hidden;
-    height:80%;
-}
-.view-product .image-parent-detail .thumbnail-images{
-    width:100%;
-    height:20%;
-    display:flex;
-    overflow:hidden;
-    padding-top:3px
-}
-.view-product .image-parent-detail .thumbnail-images div{
-    border:1px solid #555
-}
-.view-product .image-parent-detail .thumbnail-images div img{
-    width:100%;
-    height:100%;
-}
-
-
-.view-product .image-parent-detail .img-detail img{
-    width:100%;
-    height:100%;
-}
-.view-product .desc-element-detail{
-    width:55%;
-    height:100%;
-    padding:50px;
-    
-}
-
- .buttons-detail button{
-    width:55%;
-    height:35px;
-    letter-spacing: 1.5px;
-    font-weight: 500;
-    
-}
 
 .center-button{
     margin: 5px auto;
