@@ -2,6 +2,26 @@
 {% load static %} 
 
 
+{% block secondNav %}
+    <div class="secondnav">
+        <div class="categnav">
+            <p><i class="fas fa-align-justify"></i>  CATEGORIES</p>
+        </div>
+        <div class="categlist">
+            <ul>
+
+                {% for ctg in category %}
+
+                    <li><a href="sioo">{{ctg}}</a></li>
+
+                {% endfor %}
+                
+                
+            </ul>
+        </div>
+    </div>
+    {% endblock secondNav%}
+
 {% block content %}
 
 <div class="leftsidecont">
@@ -92,10 +112,11 @@
             <div class="hotdeal letter">
                 <br>
                 <span>Sign Up For our newsLetter!!</span>
-                
-                <form method="POST">
-                    {% csrf_token %} 
-                    {{form.as_p}}
+                <br><br>
+                <form method="POST" >
+                    {% csrf_token %}
+                    {{form.email}}
+                    
                     <button type='submit' >Subscribe</button>
                 </form>
             </div>
@@ -168,10 +189,26 @@
                 <!-- loop through products-->
 
                 <!-- loop through products-->
-                {% for product in products %}
+                {% for product in products.products %}
                     
                         <div class="product">
+                            
                             <a href="{% url 'detail'  product.id %}">
+                                {% if product.is_promotion %}
+                               <div id="promo{{product.id}}" class="promotion">
+                                   <script>
+                                       var val=0
+                                       var newpricepromo= "{{product.new_price}}"
+                                       var oldpricepromo= "{{product.old_price}}"
+                                       var promotion=(parseInt(newpricepromo) / parseInt(oldpricepromo))*100
+                                       if(promotion.toString().split('').length >= 2){
+                                          val= promotion.toString().split('').slice(0,2).join('')
+                                       }
+
+                                       document.getElementById("promo{{product.id}}").textContent =val + "%"
+                                   </script>
+                               </div>
+                               {% endif %}
                             <div class="productImg">
                                 <img class="skeleton" src="{{product.image.url}}" alt="">
                             </div>
@@ -289,6 +326,7 @@
                                 {% endif %}
                                 </div>
                                 </div>
+                               
                             </a>
                         </div>
                     
@@ -356,7 +394,7 @@
 
             <div class="categoriesProducts">
                 <div class="title skeleton-text">
-                    <h4>LATEst PRODUCTS</h4>
+                    <h4>bestseller</h4>
                 </div>
 
                 <div class="listcatego skeleton-text">
@@ -386,14 +424,30 @@
 
             <div id="productsCont" class="products">
 
-                {% for product in products %}
+                {% for product in products.bestseller %}
                     
                         <div class="product">
                             <a href="{% url 'detail'  product.id %}">
+                                {% if product.is_promotion %}
+                               <div id="promo{{product.id}}-0" class="promotion">
+                                   <script>
+                                       var val=0
+                                       var newpricepromo= "{{product.new_price}}"
+                                       var oldpricepromo= "{{product.old_price}}"
+                                       var promotion=(parseInt(newpricepromo) / parseInt(oldpricepromo))*100
+                                       if(promotion.toString().split('').length >= 2){
+                                          val= promotion.toString().split('').slice(0,2).join('')
+                                       }
+
+                                       document.getElementById("promo{{product.id}}-0").textContent =val + "%"
+                                   </script>
+                               </div>
+                               {% endif %}
                             <div class="productImg">
                                 <img class="skeleton" src="{{product.image.url}}" alt="">
                             </div>
                             </a>
+                            
                             <a href="{% url 'detail'  product.id %}">
                             <div class="productDescription">
                                 <div class="productName skeleton-text">
@@ -553,10 +607,25 @@
             </div>
             <div id="productsCont" class="products">
 
-                {% for product in products %}
+                {% for product in products.featured %}
                     
                         <div class="product">
                             <a href="{% url 'detail'  product.id %}">
+                                {% if product.is_promotion %}
+                               <div id="promo{{product.id}}-1" class="promotion">
+                                   <script>
+                                       var val=0
+                                       var newpricepromo= "{{product.new_price}}"
+                                       var oldpricepromo= "{{product.old_price}}"
+                                       var promotion=(parseInt(newpricepromo) / parseInt(oldpricepromo))*100
+                                       if(promotion.toString().split('').length >= 2){
+                                          val= promotion.toString().split('').slice(0,2).join('')
+                                       }
+
+                                       document.getElementById("promo{{product.id}}-1").textContent =val + "%"
+                                   </script>
+                               </div>
+                               {% endif %}
                             <div class="productImg">
                                 <img class="skeleton" src="{{product.image.url}}" alt="">
                             </div>

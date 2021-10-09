@@ -1,7 +1,6 @@
 
 
 var buttons = document.getElementsByClassName("addToCart")
-localStorage.getItem("quantity")? localStorage.setItem("quantity",localStorage.getItem("quantity")) : localStorage.setItem("quantity",0);
 for(var i=0; i<buttons.length; i++){
     buttons[i].addEventListener("click",function(){
         
@@ -15,9 +14,16 @@ for(var i=0; i<buttons.length; i++){
             
         }
         else{
-           
+            var selectQnt=''
+            if(document.getElementById("quantity")){
+                 selectQnt= document.getElementById("quantity")
+                 quantity= selectQnt.value
+            }else{
+                quantity=1
+            }
+            
            //cal your api and five it the keys
-           update(id,action)
+           update(id,action,parseInt(quantity))
         
             
         }
@@ -55,8 +61,9 @@ for(var i=0; i<buttons.length; i++){
 // }
 
 //function of making an api and use it though
-function update(id,action){
+function update(id,action,qnt){
     url="/update/"
+    
     fetch(url,{
         method:"POST",
         headers:{
@@ -65,8 +72,8 @@ function update(id,action){
         },
         body: JSON.stringify({
             "productId":id,
-            "action":action
-            
+            "action":action,
+            "quantity":qnt
         })
     })
     .then((response)=>{
@@ -74,6 +81,8 @@ function update(id,action){
     })
     .then((data)=>{
         //
+        
+
         crt=document.getElementById("cartnum")
         location.reload()
         

@@ -9,6 +9,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     path("",views.main,name="home"),
+    path("search/", views.search, name="search"),
     path("cart/", views.cart, name="cart"),
     path("checkout/", views.checkout, name="checkout"),
     path("login/",view.LoginView.as_view(template_name="pages/login.html"), name="login"),
@@ -23,8 +24,8 @@ urlpatterns = [
     path("hotdeals/", views.HotdealsApi),
     path("adapi/", views.adsapi),
     path("shipping/",views.ShippingApi, name="shipping"),
-    # path("products/<str:category>",views.category, name="category"),
-    path("searchResult/",views.searchResult, name="searchedresult"),
+    path("products/<str:category>",views.category, name="category"),
+    path("apilistSearch/", views.listSearch),
     ] 
 
 if settings.DEBUG:

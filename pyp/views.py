@@ -16,6 +16,8 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework import status
+from .search import *
+
 # Create your views here.
 
 
@@ -38,6 +40,12 @@ class Apiclass(APIView):
 
 
 def base(response):
+    # form=SearchForm()
+
+    # if response.method == 'POST':
+    #     form=SearchForm(data=response.POST)
+    #     if form.is_valid():
+            
     
     products=Product.objects.all()
 
@@ -57,7 +65,7 @@ def base(response):
         total={"price":0, "item":0}
     
    
-    context={"name":"E-COMMERCE","totalitem":total}
+    context={"name":"E-COMMERCE","totalitem":total,"form":"form"}
     return render(response,"pages/base.html",context)
 
 def adsapi(request):
@@ -94,9 +102,13 @@ def adsapi(request):
 
 
 def main(request):
-    category=CategoryList.objects.all()
-    products=Product.objects.all()
     
+    category=CategoryList.objects.all()
+    allproducts=Product.objects.all()
+    
+    products={"featured":allproducts.filter(is_featured=True),
+                "bestseller":allproducts.filter(is_bestseller=True),
+                "products":allproducts.order_by("-date_added")}
     form=''
    
         
@@ -341,13 +353,17 @@ def UpdateItem(request):
     data= json.loads(request.body.decode('utf-8'))
     idproduct=data['productId']
     action=data["action"]
+    if data["quantity"]:
+        quantity=data["quantity"]
+    else:
+        quantity=1
     product= Product.objects.get(id=idproduct)
     order, created= Order.objects.get_or_create(customer=request.user, complete=False)
     orderItem, created= OrderItem.objects.get_or_create(order=order, product=product)
     
 
-    if action == "add":
-       orderItem.quantity = (orderItem.quantity + 1)
+    if action == "add" and quantity:
+       orderItem.quantity = (orderItem.quantity + quantity)
     elif action == "remove":
         orderItem.quantity = (orderItem.quantity - 1)
 
@@ -532,13 +548,44 @@ def category(request,category):
 
     return render(request, "pages/category.html",context={})
 
+def search(request):
+    searchData=SearchItem.objects.all() 
+    try:
+        q=request.GET.get("q")
+    except:
+        q=None
+    
+    if q:
+        pagename="pages/search.html"
+        query=q
+    else:
+        pagename="pages/search.html"
+
+    ip=get_client_ip(request)
+    result= getprodFiltered(q)
+    if request.user.is_authenticated:
+        
+        searchData, created = searchData.get_or_create(query=q, ip_addres=ip, user=request.user)
+        searchData.save()
+    else:
+        searchData, created = searchData.get_or_create(query=q, ip_addres=ip, user=None)
+        searchData.save()
+         
+    return render(request,"pages/search.html",context={"query":query,"products":result["products"]})
 
 
-def searchResult(request):
-    serched_text=request.GET.get('query','')
-    print(serched_text)
-    Searchs= Product.objects.get(name=serched_text)
-    print(Searchs)
 
-    context={}
-    return render(request, "pages/resultSearch.html",context)
+def listSearch(request):
+        
+    allproducts=Product.objects.all()
+    productNames=[]
+        
+    for product in allproducts:
+        productNames.append(product.name)
+        
+    data_json ={
+        "list" :productNames
+    }
+
+    return JsonResponse(data_json,safe=False)
+

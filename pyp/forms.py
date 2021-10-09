@@ -33,9 +33,9 @@ class ImagePro(forms.ModelForm):
 class EmailField(forms.ModelForm):
     class Meta:
         model=NewsLetterEmails
-        fields='__all__'
+        fields="__all__"
 
-class Search(forms.ModelForm):
+class SearchForm(forms.ModelForm):
     class Meta:
-        model=Product
-        fields=['name']
+        model=SearchItem
+        fields=("query",)

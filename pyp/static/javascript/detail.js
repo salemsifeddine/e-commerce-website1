@@ -1,6 +1,16 @@
- let secondnav =$(".secondnav")
-//  smooth scroll on reload 
+ let viewproduct =$(".view-product")
 
+
+
+//  smooth scroll on reload 
+window.onload = function () {
+    
+    
+    $("body").animate({'scrollTop':viewproduct.offset().top + 1},500)
+   
+    
+
+ }
 
 
 
@@ -51,9 +61,9 @@ let afterpseudo=document.querySelector(".scrolled")
 prodctDetScroll.addEventListener('click',function(){
     afterpseudo.classList.toggle("scrolled")
     if(!afterpseudo.classList.contains("scrolled")){
-        $("body").animate({'scrollTop':productDetCont.offsetTop*1.255},800)
+        $("body").animate({'scrollTop':productDetCont.offsetTop*1.178},800)
     }else{
-        $("body").animate({'scrollTop':secondnav.offset().top + 1},800)
+        $("body").animate({'scrollTop':viewproduct.offset().top + 1},800)
     }
    
     

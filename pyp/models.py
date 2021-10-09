@@ -25,15 +25,23 @@ class Rate(models.Model):
     
 class Product(models.Model):
     owner=models.ForeignKey(User,on_delete=models.CASCADE)
+    
     name=models.CharField(max_length=100)
-    description=models.TextField(max_length=150)
+    description=models.TextField(max_length=250)
     old_price=models.FloatField()
     new_price= models.FloatField()
     catigory=models.ForeignKey(CategoryList, on_delete=models.CASCADE, default=1)
     rate=models.ForeignKey(Rate, on_delete=models.CASCADE, default=0)
     image= models.ImageField( default="products/defaultProduct.jpg", upload_to="products")
-
-    #date_added=models.DateTimeField(auto_now_add=True)
+    brand_name=models.CharField(max_length=100)
+    sku = models.CharField(max_length=50) 
+    meta_keywords = models.CharField(max_length=255, help_text='comma-delimited set of SEO keywords for meta tag')
+    meta_description = models.CharField(max_length=255, help_text='content for description meta tag')
+    is_active = models.BooleanField(default=True)
+    is_bestseller = models.BooleanField(default=False)
+    is_featured = models.BooleanField(default=False)
+    is_promotion=models.BooleanField(default=False)
+    date_added=models.DateTimeField(auto_now_add=True)
     #def save(self, *args, **kwargs):
     #    super().save(*args,**kwargs)
     #    img = Image.open(self.image.path)
@@ -130,3 +138,13 @@ class NewsLetterEmails(models.Model):
     
     def __str__(self):
         return self.email
+
+
+class SearchItem(models.Model):
+    query=models.CharField(max_length=50)
+    search_date= models.DateTimeField(auto_now_add=True)
+    ip_addres=models.GenericIPAddressField()
+    user= models.ForeignKey(User,null=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.query

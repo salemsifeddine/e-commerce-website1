@@ -17,3 +17,5 @@ admin.site.register(AdBanner)
 admin.site.register(Slider)
 admin.site.register(HorAdd)
 admin.site.register(NewsLetterEmails)
+
+admin.site.register(SearchItem)

@@ -1,0 +1,93 @@
+{% extend "pages/base.html" %}
+{% block nav %}
+
+<nav>
+
+    <div class="imageLogo">
+       <a href="{% url 'home' %}"> <img  src="{% static 'images/logoEcomerce1.gif' %}" alt=""></a>
+    </div>
+
+    <div class="navContainer">
+        <ul>
+            <li><a href="{% url 'home' %}">Accueil</a></li>
+            <li><a href="{% url 'profil' %}">| My Account</a></li>
+            <li><a href="{% url 'cart' %}">| Cart</a></li>
+            <li><a href="{% url 'myproducts' %}">| Store</a></li>
+            <li><a href="{% url 'checkout' %}">| Checkout</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'logout' %}">| Logout</a></li>
+            {% else %}
+            <li><a href="{% url 'login' %}">| Login</a></li>
+            <li><a href="{% url 'signin' %}">| Sign Up</a></li>
+            {% endif %}
+
+            <!--
+            {% if user.is_authenticated %}
+                <li class="imgli">
+                    <a href="{% url 'profil' %}">
+                        
+                            
+                                <img src="{{user.profile.image.url}}" alt="">
+                            
+                    </a>
+                </li>
+                <li><a href="{% url 'logout' %}"><button class="btn">Logout</button></a></li>
+            {%else%}
+                <li><a href="{% url 'login' %}"><button class="btn">Login</button></a></li>
+            {% endif %}
+            -->
+        </ul>
+
+        <ul>
+           
+             
+            <li>
+                <form method="POST" action="{% url 'nav' %}">
+                    <!-- <input type="text" name="query"vid="query" placeholder="Search"> -->
+                   {% csrf_token %}
+                    <!-- <input type="text" name=="query"> -->
+                    {{form.query}}
+                    <button >Search</button>
+                </form>
+                <li>
+                    <a href="{% url 'cart' %}">
+                        <div class="cart">
+                             <div class="cartImg">
+                                 <img   src="{% static 'images/chart2.gif' %}" alt="">
+                             </div>
+                             <span id="cartnum" class="numcart">
+                                {% if totalitem.item %}
+                                    {{totalitem.item}}
+                                {%else%}
+                                    {{totalitem.item}}
+                                {% endif %}
+                            </span>
+                        </div>
+                    </a>
+                </li>
+
+            </li>
+           
+        </ul>
+    </div>
+    
+</nav>
+<div class="secondnav">
+    <div class="categnav">
+        <p><i class="fas fa-align-justify"></i>  CATEGORIES</p>
+    </div>
+    <div class="categlist">
+        <ul>
+
+            {% for ctg in category %}
+
+                <li><a href="sioo">{{ctg}}</a></li>
+
+            {% endfor %}
+            
+            
+        </ul>
+    </div>
+</div>
+
+{% endblock nav %}

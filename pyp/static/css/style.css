@@ -22,7 +22,7 @@ nav{
     font-size:18px;
     font-family: sans-serif;
     color:white;
-    overflow:hidden;
+    z-index: 9999999;
     display:flex;
     justify-content:space-between;
     
@@ -39,7 +39,9 @@ nav .imageLogo img{
 
 nav .navContainer{
    width:70%;
+   position:relative
 }
+
 nav .navContainer ul:first-of-type{
     height: 30px;
 }
@@ -129,7 +131,13 @@ nav ul ul .imgli{
     text-align: center;
     border-radius:50%;
 }
-nav .navContainer ul:nth-of-type(2) li:first-of-type{
+nav .navContainer ul:nth-of-type(2)  .cart-search{
+    width: 100%;
+    min-height: 5vh;
+
+    display: flex;
+}
+nav .navContainer ul:nth-of-type(2) .cart-search  li:first-of-type{
     min-height: 3vh;
     
     width: 80%;
@@ -137,22 +145,25 @@ nav .navContainer ul:nth-of-type(2) li:first-of-type{
     overflow: hidden;
 
 }
-nav .navContainer ul:nth-of-type(2) li:first-of-type form{
+nav .navContainer  ul:nth-of-type(2) .cart-search  li:first-of-type form{
     display:flex
 }
-nav .navContainer ul:nth-of-type(2) li:first-of-type form{
+nav .navContainer  ul:nth-of-type(2) .cart-search  li:first-of-type form{
     width:100%;
     height:100%;
   
 }
+nav .navContainer ul:nth-of-type(2){
+    display:inline-block;
+}
 
-nav .navContainer ul:nth-of-type(2) li:first-of-type form button{
+nav .navContainer ul:nth-of-type(2) .cart-search  li:first-of-type form button{
     
     width:100px;
     height:100%;
 
 }
-nav .navContainer ul:nth-of-type(2) li:nth-of-type(2){
+nav .navContainer  ul:nth-of-type(2) .cart-search  li:nth-of-type(2){
     width:20%;
 }
 nav ul li form input{
@@ -165,7 +176,7 @@ nav ul li form input{
     font-size:16px;
     font-family: sans-serif;
     background-color: rgb(240, 231, 231);
-    color:#ec5f5c;
+    color:#000;
 }
 
 nav ul li form button, .button-yellow{
@@ -184,7 +195,7 @@ nav ul li form button, .button-yellow{
 nav ul li button , .button-yellow{
     color:#000;
 }
-nav ul li button:hover, .button-yellow:hover{
+ .button-yellow:hover{
     color:#ec5f5c;
     background-color: transparent;
     border:3px solid #ec5f5c;
@@ -719,4 +730,57 @@ button, .button{
 
 .hiden{
     display: none;
+}
+nav .navContainer ul:last-of-type {
+    position: relative;
+}
+nav .navContainer ul:last-of-type .dropdown{
+    width: 66.5%;
+    height:auto;
+    max-height: 37.5vh;
+    line-height: 30px;
+    /* display: flex;
+    flex-direction: column; */
+    display: none;
+    border-radius: 3px  ;
+    background: #F0F0F0;
+    position: absolute;
+    left: 17px;
+    top: 8.8vh;
+    overflow: hidden;
+}
+nav .navContainer ul:last-of-type .dropdown li{
+   
+    margin:0;
+    width: 100%;
+    height:5vh;
+    color: #000;;  
+    background-color:#fff;
+    text-align:start;
+    padding-left: 15px;
+    cursor: pointer;
+}
+
+nav .navContainer ul:last-of-type .dropdown li:not(:last-of-type){
+    
+    margin-bottom: 2px;
+}
+
+nav .navContainer ul:last-of-type .dropdown li:hover{
+    background:rgba(165, 156, 156, 0.644)
+}
+
+.promotion{
+    z-index:999;
+    background-color:#ec5f5c;
+    color: #fff;
+    text-align: center;
+    width:45px;
+    height:45px;
+    position: absolute;
+    top:0px;
+    right:0px;
+    border-radius: 50%;
+    line-height:45px;
+    
 }
