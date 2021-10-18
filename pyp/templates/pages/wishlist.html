@@ -1,0 +1,79 @@
+{% extends 'pages/base.html' %}
+{% load static %}
+
+{% block css %}
+
+    <link rel="stylesheet" href="{% static 'css/wishlist.css' %}">
+
+{% endblock css %}
+
+
+{% block content %}
+    <div class="row-wish">
+        <div class="top-row-wish">
+            <div class="heart-wish-logo">
+                <i class="far fa-heart"></i>
+            </div>
+            <div class="wishlist-title">
+                <h1>my wishlist</h1>
+            </div>
+            
+        </div>
+
+        <div class="wishlists-parent">
+           {% if wishlists %}
+           <a href="{% url 'home' %}"><button class="con-shopp">&#8592; Continue Shopping</button></a>
+            <div class="wishlist-header">
+                <ul>
+                    <li>Product Name</li>
+                    <li>Unit Price</li>
+                    <li>stock status</li>
+                    <li></li>
+                </ul>
+            </div>
+           {% endif %}
+            <div class="wishlist-products">
+                {% for wish in wishlists %}
+                <div class="product-wish">
+                    <ul>
+                        <li>
+                            <i id="removewish" data-id="{{wish.product.id}}" class="fas fa-trash-alt"></i>
+                            <div class="img"><img src="{{wish.product.image.url}}" alt="whish image"></div>
+                            {{wish.product.name}}
+                        </li>
+                        <li>{{wish.product.new_price}}0 $</li>
+                        {% if wish.product.is_active %}
+                            <li>in stock</li>
+                        {% else %}
+                            <li>not in stock</li>
+                        {% endif %}
+                        <li>
+                            
+                            <div class="detailbtn">
+                               <a href="{% url 'detail' wish.product.id %}"> <button >See Details</button></a>
+                            </div>
+                           
+                        </li>
+                        
+                    </ul>
+                </div>
+                {% empty %}
+                    <h2>No Wishes Yet!!</h2>
+                    <a href="{% url 'home' %}"><button class="con-shopp">&#8592; Continue Shopping</button></a>
+                {% endfor %}
+            </div>
+        </div>
+        <!-- {% for product in products %}
+
+        <div class="product">
+            <span>{{product.name}}</span>
+        </div>
+
+        {% endfor %} -->
+    </div>
+{% endblock content %}
+
+
+{% block script %}
+    <script src="{% static 'javascript/wishlist.js' %}"></script>
+{% endblock script %}

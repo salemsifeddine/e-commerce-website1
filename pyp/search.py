@@ -49,3 +49,29 @@ def get_client_ip(request):
     else:
         ip = request.META.get('REMOTE_ADDR')
     return ip
+
+
+def suggestedProduct(request):
+    sugestedforUser=SearchItem.objects.all().filter(user=request.user)
+    products=Product.objects.all()
+    searchUser=[]
+    result={}
+    result["suggested"]=[]
+    productsfiltered=[]
+
+    for sgstd in sugestedforUser:
+        searchUser.append(sgstd)
+    
+   
+    
+
+    for word in searchUser:
+        productsfiltered += products.filter(Q(name__icontains =word) | Q(description__icontains=word) | Q(sku__iexact=word) | Q(description__icontains=word) | Q(brand_name__icontains=word) | Q(meta_description__icontains=word) | Q(meta_keywords__icontains=word) )
+    
+    seted=set(productsfiltered)
+
+  
+    result['suggested']=seted
+
+    
+    return result

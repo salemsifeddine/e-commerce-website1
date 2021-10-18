@@ -1,0 +1,32 @@
+{% load static %}
+    {% block css %}
+    <link rel="stylesheet" href="{% static 'css/payementPDF.css' %}">
+    <title>Payement Proof</title>
+    {% endblock css %}
+
+
+    <span>Please Keep this email with you until your products reach you!</span>
+    <h1>THANK YOU - {{name}} !! </h1>
+    
+        <h3>Shipping is confirmed on : {{time.date}}  </h3>
+        <p>
+            our shipping will take about 2 days maximum and reach you to the
+            <br>
+            address :  <h3>{{data.address}}, {{data.city}}, {{data.state}}</h3>
+            
+            zip code 1: <h3>{{data.zip_code1}}</h3>
+            
+            zip code 2: <h3>{{data.zip_code2}}</h3>
+            
+            phone number : <h3>+2137777777</h3>
+            
+            E-mail : <h3>{{email}}</h3>
+        </p>
+
+        <span>
+            Please make sure you stay contacted if any call has reach and you didn't responde to it will 
+            consider as an rejected order
+        </span>
+
+
+

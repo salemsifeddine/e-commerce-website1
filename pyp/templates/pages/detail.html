@@ -1,6 +1,7 @@
 {% extends "pages/base.html" %}
-
+{% load social_share %}
 {% load static %}
+{% load qr_code %}
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/detail.css' %}">
@@ -9,45 +10,136 @@
 {% block content %}
 <div class="view-product">
 
-
-
-
-
-
-
-    
-    
+  
     <div class="product-detail">
         <div class="image-parent-detail">
-            <div class="img-element img-detail">
+            <div id="imgcontpro" class="img-element img-detail">
                 {% if object.image %}
-                    <a href="{{object.image.url}}"> <img src="{{object.image.url}}" alt="prdct"></a>
+                <div id="lens"></div>
+                    <a href="{{object.image.url}}"> <img id="imgprod" src="{{object.image.url}}" alt="prdct"></a>
                 {% endif %}
              </div>
              <div class="thumbnail-images">
                 <!-- max 13pic -->
-                 <div class="img selected "> <a href="{{object.image.url}}"> <img src="{{object.image.url}}" alt="prdct"></a></div>
-                 <div class="img"> <a href="{{object.image.url}}"> <img src="{{object.image.url}}" alt="prdct"></a></div>
+                {% for thumb in object.thumbnail.all %}
+
+                 <div data-color="{{thumb.color}}" class="img"><img src="{{thumb.image.url}}" alt="{{thumb.alt}}"></div>
+                
                  
+                {% endfor %}
              </div>
 
 
              <div class="detail-info">
                 <div class="product-detail-nonScroll">
-                    <span style="font-size: 3.5rem ;text-transform: capitalize;">product details</span>
+                    <span  style="font-size: 3.5rem ;text-transform: capitalize;">product details</span>
                 </div>
-                <div class="product-detail-text">
-                    <p>Minimal and chic, the Slim Clutch is designed for your essentials.
-                        Made from 100% Saffiano Leather featuring silver hardware, contrast zip tape and edge detail with a chambray fabric lining.
-                        This clutch comes with a matching leather detachable wrist strap with contrast edge detail.</p>
+                <div  class="product-detail-text">
+                    <p>{{object.description}}</p>
                 </div>
              </div>
 
              
         </div>
          <div class="desc-element desc-element-detail">
-            <div><h1 class=" product-name color_add">{{object.name.title}}</h1></div> <br>
-            <div class="price"><span  class=" color_add">{{object.new_price}}$</span> <br> <span style="text-decoration: line-through;" class=" color_add"> {{object.old_price}}$</span></div>
+            <div ><h1 class=" product-name color_add">{{object.name.title}}</h1></div>
+            <div class="ratedet">
+
+                {% if product.rate.rate == 0 %}
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                {% elif product.rate.rate == 0.5 %}
+                <i class="fas fa-star-half-alt"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                {% elif product.rate.rate == 1 %}
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                {% elif product.rate.rate == 1.5 %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                {% elif product.rate.rate == 2 %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                {% elif product.rate.rate == 2.5 %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                {% elif product.rate.rate == 3 %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                {% elif product.rate.rate == 3.5 %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                {% elif product.rate.rate == 4 %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                {% elif product.rate.rate == 4.5 %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <i class="far fa-star"></i>
+                {% elif product.rate.rate == 5 %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                {% elif product.rate.rate == 5.5 %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                {% else %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            {% endif %}
+            </div>
+            <br>
+            <div  class="price"><span   class=" color_add">$ {{object.new_price}}0</span> <br>  <span style="text-decoration: line-through;" class=" color_add">$ {{object.old_price}}0</span></div>
             <div class="product-variations">
                 <ul class="swatches">
                     
@@ -56,10 +148,24 @@
                             <div class="selectColor">Select Color</div>
                             <div class="value">
                                 <ul  class="swatches colors-product-images">
-                                    <li class="select-table selected-color "><a class="swatchanchor" href="{{object.image.url}}"><img src="{{object.image.url}}" alt=""></a> </li>
+
+                                    <!-- <li class="select-table selected-color "><a class="swatchanchor" href="{{object.image.url}}"><img src="{{object.image.url}}" alt=""></a> </li>
                                     <li class="select-table "><a class="swatchanchor" href="{{object.image.url}}"><img src="{{object.image.url}}" alt=""></a> </li>
                                     <li class="select-table "><a class="swatchanchor" href="{{object.image.url}}"><img src="{{object.image.url}}" alt=""></a> </li>
-                                    <li class="selected-value ">Merlot </li>
+                                     -->
+
+                                     {% for color in object.colors.all %}
+
+                                     <li data-color="{{color}}"  class="select-table"></li>
+                                     
+                                        {% endfor %}
+                                    <ul class="colorsvalues" >
+                                        {% for color in object.colors.all %}
+
+                                        <li class="selected-value "> {{color}} / </li>
+    
+                                        {% endfor %}
+                                    </ul>
                                 </ul>
                             </div>
                         </li>
@@ -73,11 +179,21 @@
                         <div class="select-size">
                             <div class="content">
                                 <ul class="custom-select">
-                                    <li class="sizeDoesNotExist">S</li>
+                                    {% for size in sizes %}
+
+                                        {% if size in object.sizes.all %}
+
+                                            <li>{{size}}</li>
+                                        {% else %}
+                                            <li class="sizeDoesNotExist">{{size}}</li> 
+                                        {% endif %}
+    
+                                    {% endfor %}
+                                    <!-- <li class="sizeDoesNotExist">S</li>
                                     <li>M</li>
                                     <li>L</li>
                                     <li>XL</li>
-                                    <li>2XL</li>
+                                    <li>2XL</li> -->
                                 </ul>
                             </div>
                         </div>
@@ -92,6 +208,14 @@
                                 <select name="quantity" id="quantity">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
                                 </select>
                             </div>
                         </div>
@@ -104,6 +228,52 @@
                    </div>
                    <div class="product-detail-scroll scrolled">
                        <span>product details</span>
+                   </div>
+                   <div class="wishlist-btn">
+                    <div class="wishlist">
+                        
+                    
+                        {% if object  == wishedproduct  %}
+                       
+                            <button id="wishbtn"  data-product='{{object.id}}'  class="addToWish added">
+                                <i class="fa fa-heart"></i> Remove From WishList
+                            </button>
+
+                        {% else %}
+                            <button id="wishbtn"  data-product='{{object.id}}'  class="addToWish">
+                                <i class="far fa-heart"></i> Add To WishList
+                            </button>
+                        
+                        {% endif %}
+                    
+                        
+
+                      
+                        <!-- <button id="wishbtn"  data-product='{{product.id}}'  class="addToWish">
+                            <i class="far fa-heart"></i> Add To WishList
+                        </button> -->
+                      
+                    </div>
+                   </div>
+
+                   <div class="share-on qrcode-scan">
+                       <p>Share This On:</p>
+                       
+                       <div class="social-share">
+                           <ul>
+                            <li>
+                                {% post_to_facebook object_or_url "<i style='color:#4267B2; font-size: 35px;' class='fab fa-facebook-square'></i>" %}   
+                            </li>
+                            
+                                
+                            
+                            
+                           </ul>
+                       </div>
+
+                       <div class="qr-code">
+                        {% qr_from_text  'product/object.id'  size=8 border=5 %}
+                       </div>
                    </div>
                
             </div>

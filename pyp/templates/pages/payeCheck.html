@@ -1,0 +1,100 @@
+{% extends "pages/base.html" %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+{% endblock css %}
+{% block content %}
+<div class="container">
+    <div class="leftsided">
+        
+        <div class="payment-mode">
+            <div  id="paypal-button-container">
+                <div style="margin-bottom: 10px; font-size:13px; color:#333; text-align:center">Payement Mode</div>
+            </div>
+            <script src="https://www.paypal.com/sdk/js?client-id=Aerl86gR9ccT60uD4LtWI7K14r-VgRmvpFWL2ukUZLB3pSNyha66ttAD5KBX3cLSoqFO1tmzvtQtCVgW&currency=USD"></script>
+
+            <script>
+                
+                
+                // Render the PayPal button into #paypal-button-container
+                paypal.Buttons({
+        
+                    style: {
+                        color:  'blue',
+                        shape:  'pill',
+                        label:  'pay',
+                        height: 40
+                    },
+
+                    // Set up the transaction
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: "0.01"
+                            }
+                        }]
+                    });
+                    },
+
+                    // Finalize the transaction
+                    onApprove: function(data, actions) {
+                        location.pathname = "checkout/payement"
+
+                        
+                        return actions.order.capture().then(function(orderData) {
+                            location.pathname = "home"
+                           
+                          
+                            
+                            // Replace the above to show a success message within this page, e.g.
+                            // const element = document.getElementById('paypal-button-container');
+                            // element.innerHTML = '';
+                            // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                            // Or go to another URL:  actions.redirect('thank_you.html');
+                            
+                        });
+                    }
+        
+                }).render('#paypal-button-container');
+
+                
+            </script>
+
+            
+           
+        </div>
+    </div>
+
+    <div class="order-summary">
+        <div>
+            <a href="{% url 'cart' %}">
+                <button class="button">&#8592; Back to Cart</button>
+            </a>
+        </div>
+        <br>
+        <h3>Order Summary</h3>
+        <br>
+        <div class="row-products">
+            {% for item in items %}
+                {% if user.profile.user == item.order.customer %}
+                    <div class="items">
+                        <div class="img"><img src="{{item.product.image.url}}" alt=""></div>
+                        <div  class="orderedname">{{item.product.name}}</div>
+                        <div class="orderedprice">{{item.product.new_price}}$</div>
+                        <div class="orderedquantity">{{item.quantity}}x</div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+                    
+           </div>
+                    <p>
+                    items:{{totalitem.item}}
+                    <br>
+                    total:{{totalitem.totalPrice}}$
+                    </p>
+       </div>
+    </div>
+</div>
+{% endblock content %}

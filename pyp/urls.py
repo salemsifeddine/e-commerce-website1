@@ -12,6 +12,7 @@ urlpatterns = [
     path("search/", views.search, name="search"),
     path("cart/", views.cart, name="cart"),
     path("checkout/", views.checkout, name="checkout"),
+
     path("login/",view.LoginView.as_view(template_name="pages/login.html"), name="login"),
     path("signin/", views.signin, name="signin"),
     path("logout/", views.logout,name="logout"),
@@ -23,9 +24,14 @@ urlpatterns = [
     path("updateproducts/", views.UpdateProducts),
     path("hotdeals/", views.HotdealsApi),
     path("adapi/", views.adsapi),
-    path("shipping/",views.ShippingApi, name="shipping"),
+    # path("shipping/",views.ShippingApi, name="shipping"),
+    path("shipping/",views.data_fetch, name="shipping"),
     path("products/<str:category>",views.category, name="category"),
     path("apilistSearch/", views.listSearch),
+    path("checkout/payement/", views.ViewPdf.as_view(), name="payement-pdf"),
+    path("wishlistApi/", views.wishlistApi, name="wishlistApi"),
+    path("wishlist/", views.wishlist, name="wishlist"),
+    
     ] 
 
 if settings.DEBUG:

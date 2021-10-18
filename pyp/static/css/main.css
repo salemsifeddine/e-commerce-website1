@@ -7,7 +7,7 @@
 }
 .containerContent{
     width:90%;
-
+    
     margin: auto;
     display: flex;
     justify-content:space-between 
@@ -534,6 +534,28 @@
     background-color: #ec5f5c;
     display: flex;
     flex-direction: column;
+    
+}
+.firstFooter ul{
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    display:flex;
+    justify-content:space-around;
+}
+.firstFooter ul li{
+    min-width: 250px;
+   
+    display: flex;
+  }
+.firstFooter ul li p{
+    margin: 0 0 0 2rem;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.076;
+}
+.firstFooter ul li p, .firstFooter ul li svg{
+    color:#393939;
 }
 footer{
     min-height: 90vh;
@@ -655,12 +677,21 @@ ul li i{
 
     padding: 5px;
 }
+.ratedet{
+    margin-top: 20px;
+    width: 100%;
+    min-height: 20px;
+    max-height: 25px;
+    margin:auto;
 
-.rate i{
+    
+}
+
+.rate i, .ratedet i{
     color: gold;
     font-size:14px
 }
-.rate p{
+.rate p, .ratedet p{
     color: black;
 }
 

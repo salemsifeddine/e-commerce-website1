@@ -41,7 +41,7 @@
        {% if user.profile.user == item.order.customer %}
             <div class="row-products">
                 <div class="items items-item">
-                    <div style='width: 90px;height:90px;'  class="item image-item itm"><img src="{{item.product.image.url}}" alt=""></div>
+                    <div style='width: 90px;height:90px;'  class="item image-item itm"><a href="{% url 'detail' item.product.id %}"><img src="{{item.product.image.url}}" alt=""></a></div>
                     <div style='width: 70px;' class="price itm">{{item.product.new_price}}$</div>
                     <div style='width: 70px;'  class="quantity qnt-real itm">{{item.quantity}} 
                     <div style='width: 70px;'  class="btnsCrt">
@@ -49,7 +49,7 @@
                         <button data-action="remove" data-product='{{item.product.id}}' class="addToCart"><i class="fas fa-chevron-down"></i></button>
                     </div>    
                     </div>
-                    <div class="total itm">{{item.total}}$</div>
+                    <div class="total itm">{{item.total|first}} $</div>
                 </div>
             </div>
         

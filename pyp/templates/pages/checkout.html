@@ -5,48 +5,68 @@
 <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
 {% endblock css %}
 {% block content %}
+<div id="messageform" class="messageform" >
+    <p></p>
+</div>
 <div class="container">
-    <div class="info">
-        <form method="POST">
-            {% csrf_token %}
-            {% if not user.is_authenticated %}
+    
+    <div class="leftsided">
+        <div class="info">
+            <a href="{% url 'payement-pdf' %}">sss</a>
             
-            
-                <div class="user-info" >
-                    <h3>Personnal Info</h3>
-                    <div>
-                        <input type="text"  placeholder="Name..">
-                    </div>
-                    <div>
-                        <input type="email"  placeholder="Email..">
-                    </div>
-                </div>
-            {% endif %}
-            
-            <div class="shopping-info">
-                <h3>Shipping Info</h3>
+            <form method="POST" action="{% url 'checkout' %}">
                 {% csrf_token %}
-                <div>
-                    <input id="address" type="text" placeholder="Address..">
+                {% if  user.is_authenticated %}
+                
+                
+                    <div class="user-info" >
+                        <h3>Personnal Info</h3>
+                       
+                           
+                                <input type="text"  placeholder="Name..">
+                        
+                               {{form.email}}
+                         
+                     
+                    </div>
+                {% endif %}
+                
+                <div class="shopping-info">
+                    <h3>Shipping Info</h3>
+                    
+                    <div>
+                        {{form.address}}
+                    </div>
+                    <div>
+                        {{form.city}}
+                    </div>
+                    <div>
+                        {{form.state}}
+                    </div>
+                    <div>
+                        {{form.zip_code1}}
+                    </div>
+                    <div>
+                        {{form.zip_code2}}
+                    </div>
                 </div>
-                <div>
-                    <input  id="city" type="text" placeholder="City..">
+                <div class="only-sub" >
+                    <input type="submit" id="submitbtn" value="Continue" class="button ship" >
                 </div>
-                <div>
-                    <input  id="state" type="text" placeholder="State..">
-                </div>
-                <div>
-                    <input  id="zip" type="text" placeholder="Zip Code..">
-                </div>
-                <div>
-                    <input   type="text" placeholder="Zip Code..">
-                </div>
+            </form>
+    
+    
+           
+        </div>
+        <div class="payment-mode">
+            <div  id="paypal-button-container">
+                <div style="margin-bottom: 10px; font-size:13px; color:#333; text-align:center">Payement Mode</div>
             </div>
-            <div class="only-sub" >
-                <input type="submit" value="Continue" class="button ship" >
-            </div>
-        </form>
+
+           
+        </div>
     </div>
+
     <div class="order-summary">
         <div>
             <a href="{% url 'cart' %}">
@@ -67,9 +87,175 @@
                     </div>
                 {% endif %}
             {% endfor %}
-
+                    
            </div>
+                    <p>
+                    items:{{totalitem.item}}
+                    <br>
+                    total:{{totalitem.totalPrice}}$
+                    </p>
        </div>
     </div>
 </div>
+<script src="https://www.paypal.com/sdk/js?client-id=Aerl86gR9ccT60uD4LtWI7K14r-VgRmvpFWL2ukUZLB3pSNyha66ttAD5KBX3cLSoqFO1tmzvtQtCVgW&currency=USD"></script>
+
+<script>
+    
+    var prooved=''
+    var totalvalueprice=parseInt('{{totalitem.totalPrice}}').toFixed(2)
+    // Render the PayPal button into #paypal-button-container
+    paypal.Buttons({
+
+        style: {
+            color:  'blue',
+            shape:  'pill',
+            label:  'pay',
+            height: 40
+        },
+
+        // Set up the transaction
+    createOrder: function(data, actions) {
+        return actions.order.create({
+            purchase_units: [{
+                amount: {
+                    value: totalvalueprice
+                }
+            }]
+        });
+        },
+
+        // Finalize the transaction
+        onApprove: function(data, actions) {
+            
+            prooved=true
+            // shipping()
+            document.getElementById("submitbtn").click();
+            
+            window.open("payement") 
+           
+           
+            
+            
+            return actions.order.capture().then(function(orderData) {
+                setTimeout(() => {
+                location.pathname = "home"
+            }, 2500);
+               
+              
+                
+                // Replace the above to show a success message within this page, e.g.
+                // const element = document.getElementById('paypal-button-container');
+                // element.innerHTML = '';
+                // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                // Or go to another URL:  actions.redirect('thank_you.html');
+                
+            });
+        }
+
+    }).render('#paypal-button-container');
+
+    
+</script>
+<script >
+    var pricPayement= "{{totalitem.totalPrice}}"
+
+
+    var buttonSubmitShip= document.querySelector('.only-sub input')
+    var inputs = document.querySelectorAll(".shopping-info div input , .user-info  input ")
+    // buttonSubmitShip.addEventListener('click',function(e){
+       
+    //     if(! inputs[0].disabled){
+
+    //     e.preventDefault()
+    //     $(this).hide()   
+        
+
+    //     for(var inp=0; inp <= inputs.length - 1; inp++){
+           
+    //             inputs[inp].style.background = 'rgba(199, 199, 252, 0.54)';
+    //             inputs[inp].style.borderRadius = '2px';
+    //             inputs[inp].style.border = '1px solid rgba(51, 51, 51, 0.2)';
+    //             inputs[inp].disabled = true
+            
+    //     }
+
+    // }else{
+    //     $(this).show()   
+    //     for(var inp=0; inp <= inputs.length - 1; inp++){
+               
+    //                 inputs[inp].disabled = false
+                
+    //         }
+       
+    //     this.submit()
+    // }
+       
+        
+
+    
+
+     
+   
+    // })
+
+    
+//function when clicking on Continue btn shipping form
+var btn=document.getElementsByClassName('ship')
+
+function shipping(){
+//get inputs
+address= document.getElementById("address").value
+city= document.getElementById("city").value
+state= document.getElementById("state").value
+zip= document.getElementById("zip").valuestr
+email= document.getElementById("id_email").value
+//console.log(address, city, state, zip)
+
+//get ordered products and parse them
+orderedName=document.getElementsByClassName("orderedname")
+orderedPrice=document.getElementsByClassName("orderedprice")
+orderedQuantity=document.getElementsByClassName("orderedquantity")
+
+
+//ORDERPRO=[]
+//for(var i=0; i< orderedName.length; i++){
+//    orderuser ={
+//        "name":orderedName[i].textContent,
+//        "price":orderedPrice[i].textContent,
+//        "quantity":orderedQuantity[i].textContent
+//    }
+//    ORDERPRO.push(orderuser)
+//}
+
+
+url = "/shipping/"
+fetch(url,{
+    method:"POST",
+    headers:{
+        "content-type":"application/json",
+        "X-CSRFToken":csrftoken
+    },
+    body:JSON.stringify({
+        "address":address,
+        "state":state,
+        "city":city,
+        "zip":zip,
+        "email":email
+    })
+    })
+    .then((response)=>{
+        return response.json()
+    })
+    .then((data)=>{
+        console.log(data)
+        
+
+            })
+    }
+
+</script>
 {% endblock content %}
+
+{% block script %}
+    <script src="{% static 'javascript/checkout.js' %}"></script>
+{% endblock script %}

@@ -17,7 +17,14 @@ from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework import status
 from .search import *
-
+from django.db.models import Q
+from xhtml2pdf import pisa
+from django.template.loader import get_template
+from io import BytesIO
+from django.views import  View
+from django.core.mail import send_mail, EmailMessage
+import pdfkit
+import datetime
 # Create your views here.
 
 
@@ -39,7 +46,7 @@ class Apiclass(APIView):
         pass
 
 
-def base(response):
+def base(request):
     # form=SearchForm()
 
     # if response.method == 'POST':
@@ -49,24 +56,12 @@ def base(response):
     
     products=Product.objects.all()
 
-    if response.user.is_authenticated:
-        items= OrderItem.objects.all()
-        totalItem=0
-        totalarray=[]
-        for item in items:
-            if response.user == item.order.customer:
-                quantm= item.quantity
-                totalarray.append(quantm)
-                totalItem = sum(totalarray)
-                
-        totalPrice=sum([item.product.new_price * item.quantity for item in items])
-        total={"price":totalPrice, "item":totalItem}
-    else:
-        total={"price":0, "item":0}
     
-   
-    context={"name":"E-COMMERCE","totalitem":total,"form":"form"}
-    return render(response,"pages/base.html",context)
+    
+    total=callcartnumber(request)['total']
+    wishlist=callwishnumber(request)
+    context={"name":"E-COMMERCE","totalitem":total,"form":"form","wishlist":wishlist}
+    return render(request,"pages/base.html",context)
 
 def adsapi(request):
 
@@ -100,15 +95,30 @@ def adsapi(request):
     
     return JsonResponse(object_json,safe=False)
 
+from .cartandwish import *
 
 def main(request):
+    totalwish=callwishnumber(request)
+    
     
     category=CategoryList.objects.all()
     allproducts=Product.objects.all()
+    suggestedProducts=''
+    if request.user.is_authenticated:
+        
+        suggestedProducts=suggestedProduct(request)
+        suggestedProducts=suggestedProducts["suggested"]
+        
+    else:
+        suggestedProducts= allproducts.filter(is_featured=True)
+ 
+    
     
     products={"featured":allproducts.filter(is_featured=True),
                 "bestseller":allproducts.filter(is_bestseller=True),
-                "products":allproducts.order_by("-date_added")}
+                "products":allproducts.order_by("-date_added"),
+                "suggested":suggestedProducts
+               }
     form=''
    
         
@@ -124,7 +134,7 @@ def main(request):
 
         for email in NewsLetterEmails.objects.all():
             if enteredEmail == email.email:
-                print(email.email)
+               
                 exist=True
             
         if form.is_valid() and  not exist:
@@ -133,77 +143,70 @@ def main(request):
        
 
 
-    if request.user.is_authenticated:
-        items= OrderItem.objects.all()
-        totalItem=0
-        totalarray=[]
-        for item in items:
-            if item.order.customer:
-                 if request.user == item.order.customer:
-                    quantm= item.quantity
-                    totalarray.append(quantm)
-                    totalItem = sum(totalarray)
-                
-        totalPrice=sum([item.product.new_price * item.quantity for item in items])
-        total={"price":totalPrice, "item":totalItem}
-    else:
-        total={"price":0, "item":0}
-    context={"name":"E-COMMERCE","title":"acceil","products":products,"options":options,"totalitem":total,
+    total=callcartnumber(request)['total']
+    wishlist=callwishnumber(request)
+    context={"name":"E-COMMERCE","title":"acceil","products":products,"options":options
+    , "wishlist":wishlist,"totalitem":total,
     "category":category,"form":form}
     return render(request,"pages/main.html", context)
 
 
 def cart(response):
     #order= Order.objects.all()
-    items= OrderItem.objects.all()
-    category=CategoryList.objects.all()
-    if response.user.is_authenticated:
-        
-        totalItem=0
-        totalarray=[]
-        for item in items:
-            if item.order.customer:
-                if response.user == item.order.customer:
-                    quantm= item.quantity
-                    totalarray.append(quantm)
-                    totalItem = sum(totalarray)
-
-        totalPrice=sum([item.product.new_price * item.quantity for item in items])
-        total={"price":totalPrice, "item":totalItem}
-    else:
-        total={"price":0, "item":0}
-
-    context={"name":"E-COMMERCE", "title":"cart", "items":items,"totalitem":total}
+   
+    total=callcartnumber(response)['total']
+    wishlist=callwishnumber(response)
+    itemsordered= callcartnumber(response)['products']
+    context={"name":"E-COMMERCE", "title":"cart", "items":itemsordered,"totalitem":total,"wishlist":wishlist}
     return render(response, "pages/cart.html", context)
 
 
-
+shipDATA={}
 def checkout(response):
     category=CategoryList.objects.all()
+    itemsordered=[]
     items=OrderItem.objects.all()
+   
     totalItem=0
     totalarray=[]
-    if response.method != 'POST':
-        form=CustomInfo()
+    totalPrice=[]
+    if response.method != "POST":
+        form = ShippingForm()
+     
     else:
-        form = CustomInfo(data= response.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('home')
-    if response.user.is_authenticated:
-        for item in items:
-            if item.order.customer:
-                if response.user == item.order.customer:
-                    quantm= item.quantity
-                    totalarray.append(quantm)
-                    totalItem = sum(totalarray)
-                    
-        #totalPrice=sum([item.product.new_price * item.quantity for item in ttl])
-        total={"item":totalItem}
-    else:
-        total={"item":0}
+        # order, created= Order.objects.get_or_create(customer=customer, complete=False)
 
-    context={"name":"E-commerce", "title":"checkout", "items":items,'form':form,"totalitem":total}
+
+        form= ShippingForm(response.POST)
+        if form.is_valid():
+            order= Order.objects.filter(customer=response.user,complete=False ).first()
+            # order.complete= True
+            order.complete = True 
+            order.save()
+            # trans=Order.objects.get(customer=response.user, complete=False).first().complete = True
+            # trans.save()
+
+            post=form.save(commit=False)
+            post.customer=response.user
+            post.order=Order.objects.all().filter(customer=response.user, complete=False).first()
+            
+            shipDATA["name"]= post.customer
+            shipDATA["address"]= post.address
+            shipDATA["zip_code1"]= post.zip_code1
+            shipDATA["zip_code2"]= post.zip_code2
+
+            
+            
+
+            post.save()
+            return redirect("home")
+            
+    
+        
+    total=callcartnumber(response)['total']
+    wishlist=callwishnumber(response)
+    itemsordered= callcartnumber(response)['products']
+    context={"name":"E-commerce", "title":"checkout","form":form,"wishlist":wishlist ,"items":itemsordered,"totalitem":total}
     return render(response, "pages/checkout.html", context)
 
 
@@ -243,22 +246,9 @@ def profil(request):
     else:
         form = Photoprofile(instance=request.user.profile)
 
-    if request.user.is_authenticated:
-        items= OrderItem.objects.all()
-        totalItem=0
-        totalarray=[]
-        for item in items:
-            if item.order.customer:
-                if request.user == item.order.customer:
-                    quantm= item.quantity
-                    totalarray.append(quantm)
-                    totalItem = sum(totalarray)
-                
-        totalPrice=sum([item.product.new_price * item.quantity for item in items])
-        total={"price":totalPrice, "item":totalItem}
-    else:
-        total={"price":0, "item":0}
-    context={"name":"Profile",'title':"E-COMMERCE","form":form,"totalitem":total}
+    total=callcartnumber(request)['total']
+    wishlist=callwishnumber(request)
+    context={"name":"Profile",'title':"E-COMMERCE","form":form,"wishlist":wishlist,"totalitem":total}
     return render(request, "pages/profile.html",context)
 
 
@@ -269,25 +259,26 @@ class ProductDetailView(generic.DetailView):
     model=Product
     template_name="pages/detail.html"
     def get_context_data(self,**kwargs):
+
+      
         total = super().get_context_data(**kwargs)
         products = super().get_context_data(**kwargs)
-        if self.request.user.is_authenticated:
-            items= OrderItem.objects.all()
-            totalItem=0
-            totalarray=[]
-            for item in items:
-                if  self.request.user == item.order.customer:
-                    quantm= item.quantity
-                    totalarray.append(quantm)
-                    totalItem = sum(totalarray)
-                    
-            totalPrice=sum([item.product.new_price * item.quantity for item in items])
-            total["totalitem"]={"price":totalPrice, "item":totalItem}
-        else:
-            total["totalitem"]={"price":0, "item":0}
+        
+        
 
         total["products"]=Product.objects.all()
-        
+        total["colors"]=Color.objects.all()
+        total["sizes"]=Size.objects.all()
+        total["wishlists"]=Wishlist.objects.all().filter(customer=self.request.user)
+        total["totalitem"]=callcartnumber(self.request)['total']
+        total["wishlist"]=callwishnumber(self.request)
+        total['wishedproduct']=Wishlist.objects.all().filter(customer=self.request.user, product=self.object.pk)
+        if total['wishedproduct'].first():
+            total['wishedproduct']=total['wishedproduct'].first().product
+        else:
+            total['wishedproduct']=''
+
+       
         return total
 
 
@@ -305,21 +296,9 @@ def addproduct(response):
     else:
         form = ImagePro()
 
-    if response.user.is_authenticated:
-        items= OrderItem.objects.all()
-        totalItem=0
-        totalarray=[]
-        for item in items:
-            if response.user == item.order.customer:
-                quantm= item.quantity
-                totalarray.append(quantm)
-                totalItem = sum(totalarray)
-                
-        totalPrice=sum([item.product.new_price * item.quantity for item in items])
-        total={"price":totalPrice, "item":totalItem}
-    else:
-        total={"price":0, "item":0}
-    context={"name":"E-commerce", "title":"New Product","form":form,"totalitem":total}
+    total=callcartnumber(response)['total']
+    wishlist=callwishnumber(response)
+    context={"name":"E-commerce", "title":"New Product","form":form,"totalitem":total,"wishlist":wishlist}
     return render(response, "pages/AddProduct.html",context)
 
 ##my products 
@@ -327,22 +306,10 @@ def addproduct(response):
 def myproducts(request):
     category=CategoryList.objects.all()
     data=Product.objects.all()
-    if request.user.is_authenticated:
-        items= OrderItem.objects.all()
-        totalItem=0
-        totalarray=[]
-        for item in items:
-            if item.order.customer:
-                if request.user == item.order.customer:
-                    quantm= item.quantity
-                    totalarray.append(quantm)
-                    totalItem = sum(totalarray)
-                
-        totalPrice=sum([item.product.new_price * item.quantity for item in items])
-        total={"price":totalPrice, "item":totalItem}
-    else:
-        total={"price":0, "item":0}
-    context={"name":"E-commerce", "title":"My Products","data":data,"totalprice":total,"totalitem":total}
+    total=callcartnumber(request)['total']
+    wishlist=callwishnumber(request)
+
+    context={"name":"E-commerce", "title":"My Products","data":data,"totalprice":total,"wishlist":wishlist,"totalitem":total}
     
     return render(request, "pages/myproducts.html", context)
 
@@ -477,70 +444,59 @@ def HotdealsApi(request):
     return JsonResponse(object_data1, safe=False)
 
 
-@csrf_exempt
-def ShippingApi(request):
-    category=CategoryList.objects.all()
-    data= json.loads(request.body)
 
-    items=OrderItem.objects.all()
-    ship=ShippingAddress.objects.all()
+# def ShippingApi(request):
+#     category=CategoryList.objects.all()
+#     data= json.loads(request.body)
+
+  
+#     items=OrderItem.objects.all()
+#     ship=ShippingAddress.objects.all()
     
-    producthasbeenordered=[]
+#     producthasbeenordered=[]
     
-    for item in items:
-        if request.user.is_authenticated:
-            if item.order.customer == request.user:
-                itemname=item.product.name
-                itemprice=item.product.new_price
-                itemquantity=item.quantity
-                proditem = {
-                    "product":itemname,
-                    "price":itemprice,
-                    "quantity":itemquantity
-                }
-                producthasbeenordered.append(proditem)
+#     for item in items:
+#         if request.user.is_authenticated:
+#             if item.order.customer == request.user:
+#                 itemname=item.product.name
+#                 itemprice=item.product.new_price
+#                 itemquantity=item.quantity
+#                 proditem = {
+#                     "product":itemname,
+#                     "price":itemprice,
+#                     "quantity":itemquantity
+#                 }
+#                 producthasbeenordered.append(proditem)
+
+    
 
 
+#     address=data["address"],
+#     state=data["state"],
+#     city=data["city"],
+#     zipcode=data["zip"],
+#     customer=request.user
+#     #ordered=data["ordered"]
 
-    address=data["address"],
-    state=data["state"],
-    city=data["city"],
-    zipcode=data["zip"],
-    customer=request.user
-    #ordered=data["ordered"]
+#     datapassed={
+#         "address":data["address"],
+#         "state":data["state"],
+#         "city":data["city"],
+#         "zip":data["zip"],
+#         'email':data["email"],
+#         "customer":request.user.username,
+#         "customer email":request.user.email,
+#         "ordered":producthasbeenordered
+#     }
 
-    datapassed={
-        "address":data["address"],
-        "state":data["state"],
-        "city":data["city"],
-        "zip":data["zip"],
-        "customer":request.user.username,
-        "customer email":request.user.email,
-        "ordered":producthasbeenordered
-    }
+#     ##start our work excel
 
-    ##start our work excel
+    
 
-    work = xlsxwriter.Workbook("data1.xlsx")
-    sheet=work.add_worksheet()
+#     #end excel work
 
-    for idk, shi in enumerate(ship):
-    #    print(shi.state[0], idk)
-        sheet.write(f"A{idk}",shi.customer.username)
-        sheet.write(f"B{idk}",str(shi.order))
-        sheet.write(f"C{idk}",shi.address)
-        sheet.write(f"D{idk}",shi.city)
-        sheet.write(f"E{idk}",shi.state)
-        sheet.write(f"F{idk}",str(shi.zip_code))
-
-    work.close()
-
-    #end excel work
-
-    order, created= Order.objects.get_or_create(customer=customer, complete=False)
-    ship, created = ShippingAddress.objects.get_or_create(customer=customer,order=order,address=address,city=city,state=state,zip_code=zipcode)
-    ship.save()
-    return JsonResponse(datapassed, safe=False)
+    
+#     return JsonResponse(datapassed, safe=False)
 
 
 def category(request,category):
@@ -549,6 +505,9 @@ def category(request,category):
     return render(request, "pages/category.html",context={})
 
 def search(request):
+    total=callcartnumber(request)['total']
+    wishlist=callwishnumber(request)
+
     searchData=SearchItem.objects.all() 
     try:
         q=request.GET.get("q")
@@ -570,8 +529,9 @@ def search(request):
     else:
         searchData, created = searchData.get_or_create(query=q, ip_addres=ip, user=None)
         searchData.save()
-         
-    return render(request,"pages/search.html",context={"query":query,"products":result["products"]})
+    context={"query":query,"products":result["products"],
+    "totalitem":total,"wishlist":wishlist}
+    return render(request,"pages/search.html",context)
 
 
 
@@ -582,6 +542,8 @@ def listSearch(request):
         
     for product in allproducts:
         productNames.append(product.name)
+        # for clr in product.colors.all():
+        #     print(clr)
         
     data_json ={
         "list" :productNames
@@ -589,3 +551,146 @@ def listSearch(request):
 
     return JsonResponse(data_json,safe=False)
 
+
+def render_to_pdf(template_src, context_dic={}):
+    template=get_template(template_src)
+    html= template.render(context_dic)
+    result=BytesIO()
+    pdf= pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type='application/pdf')
+    else:
+        return None
+
+
+
+class ViewPdf(View):
+    def get(self,request, *args , **kwargs):
+        
+        context_data={
+            "name":request.user,
+            "address":"mesdour",
+            "email":request.user.email,
+            "time":{
+                "date":datetime.date.today(),
+                
+            },
+            "data":shipDATA
+        }
+        template=get_template("pages/payement.html").render(context_data)
+        pdf = render_to_pdf("pages/payement.html",context_data)
+        # send_mail(
+
+        #         "the subject",
+        #         template,
+        #         "moncefovi@yahoo.com",
+        #         ["salemsifeddine1@gmail.com"],
+        #         fail_silently=False
+        # )
+        msg=EmailMessage(
+            "EZORA MARKET E-commerce Site",
+            template,
+            "moncefovi@yahoo.com",
+            ["salemsifeddine1@gmail.com"],
+            reply_to=["moncefovi@yahoo.com"]
+         )
+        
+        msg.content_subtype= 'html'
+        
+        msg.send(fail_silently=False)
+
+       
+        return HttpResponse(pdf,content_type="application/pdf")
+
+
+
+
+def data_fetch(request):
+    ship=ShippingAddress.objects.all()
+    ordered=OrderItem.objects.all()
+    work = xlsxwriter.Workbook("data1.xlsx")
+    work1 = xlsxwriter.Workbook("ordered.xlsx")
+    sheet=work.add_worksheet()
+    sheet1=work1.add_worksheet()
+
+    sheet.write(f"A1","customer")
+    sheet.write(f"B1","order")
+    sheet.write(f"C1","email")
+    sheet.write(f"D1","address")
+    sheet.write(f"E1","city")
+    sheet.write(f"F1","state")
+    sheet.write(f"G1","zip1")
+    sheet.write(f"H1","zip2")
+    sheet.write(f"I1","date added")
+
+    sheet1.write(f"A1","customer")
+    sheet1.write(f"B1","order")
+    sheet1.write(f"C1","product name")
+    sheet1.write(f"D1","product price")
+    sheet1.write(f"E1","quantity")
+    sheet1.write(f"F1","total")
+    sheet1.write(f"G1","ORDER")
+
+    for ordrdn, ordrd in enumerate(ordered):
+        # date_added
+        sheet1.write(f"A{ordrdn + 2}",str(ordrd.order.customer.username))
+        if ordrd.order.complete:
+            sheet1.write(f"B{ordrdn + 2}","complete")
+        else:
+            sheet1.write(f"B{ordrdn + 2}","uncomplete")
+        sheet1.write(f"C{ordrdn + 2}",str(ordrd.product.name))
+        sheet1.write(f"D{ordrdn + 2}",str(ordrd.product.new_price))
+        sheet1.write(f"E{ordrdn + 2}",str(ordrd.quantity))
+        sheet1.write(f"F{ordrdn + 2}",str(ordrd.quantity * ordrd.product.new_price))
+        sheet1.write(f"G{ordrdn + 2}",str(ordrd.order))
+
+    for idk, shi in enumerate(ship):
+        # date_added
+       
+        sheet.write(f"A{idk + 2}",str(shi.customer))
+        sheet.write(f"B{idk + 2}",str(shi.order))
+        sheet.write(f"C{idk + 2}",str(shi.email))
+        sheet.write(f"D{idk + 2}",shi.address)
+        sheet.write(f"E{idk + 2}",shi.city)
+        sheet.write(f"F{idk + 2}",shi.state)
+        sheet.write(f"G{idk + 2}",str(shi.zip_code1))
+        sheet.write(f"H{idk + 2}",str(shi.zip_code2))
+        sheet.write(f"I{idk + 2}",str(shi.date_added))
+
+    work.close()
+    work1.close()
+
+    return render(request, "pages/profile.html",{})
+
+
+def wishlistApi(request):
+    data= json.loads(request.body.decode('utf-8'))
+    idproduct= data["productId"]
+    action= data["action"]
+
+    product_wished= Product.objects.all().filter(id=idproduct)
+   
+        
+   
+    if action == "add":
+        wish , created = Wishlist.objects.get_or_create(customer=request.user, product=product_wished.first())
+        wish.save()
+    elif action == "remove":
+        wish= Wishlist.objects.get(customer=request.user, product=product_wished.first()).delete() 
+        
+    
+    data_json={}
+    return JsonResponse( data_json, safe=False)
+
+
+def wishlist(request):
+    total=callcartnumber(request)['total']
+    wishlist=callwishnumber(request)
+    wishlists=Wishlist.objects.all().filter(customer=request.user)
+   
+    
+    
+    
+    context={"wishlists":wishlists,"wishlist":wishlist,"totalitem":total}
+
+    return render(request, "pages/wishlist.html", context)

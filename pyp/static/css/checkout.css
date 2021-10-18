@@ -5,29 +5,39 @@
     text-overflow: ellipsis;
 }
 
-
-.info{
+.leftsided{
     width: 49%;
-    height:50vh;
-    box-shadow:2px 2px  4px #ec5f5c;
-    border-radius: 10px;
+    min-height:50vh;
+    
+    
     padding:7px;
     position:relative;
+}
+.info{
+    width: 100%;
+    box-shadow:2px 2px  4px #ec5f5c;
+    min-height:52vh;
     background:#fff;
+    border-radius: 5px;
 }
 
-.info .user-info div input, .info .shopping-info div input{
+.info .user-info  input, .info .shopping-info div input{
     padding: 5px;
     width:100%;
     height:5vh;
     outline:none;
     border: none;
     font-size:15px;
-  
+    
     border-bottom:.5px solid #815858bd;
     color:#333;
 
 }
+.info .user-info  input{
+    width:49%;
+}
+
+
 
 .info .shopping-info div{
     margin: 5px 2.5%;
@@ -49,13 +59,15 @@
     color:rgb(85, 85, 85);
 }
 .info .user-info  {
-    width:100%;
+    width:98%;
+    margin: auto;
     border-bottom: 1px solid #544;
     margin-bottom:10px;
     height: 12.5vh;
 }
 .info .shopping-info{
-    width:100%;
+    width:98%;
+    margin: auto;
     border-bottom: 1px solid #544;
     margin-bottom:10px;
     height: 25vh;
@@ -74,7 +86,7 @@
 
 .order-summary{
     width:49%;
-    min-height:40vh;
+    min-height:30vh;
     padding: 10px;
     box-shadow:2px 2px  4px #ec5f5c;
     border-radius: 10px;
@@ -82,9 +94,17 @@
    
 }
 
+.order-summary p{ 
+   color:#333;
+   padding: 10px;
+   font-size: 1.1rem;
+}
+
+
 .order-summary h3{
     color:#333;
-    
+    padding-bottom: 10px;
+    border-bottom: 1.5px solid rgba(85, 85, 85, 0.205);
 }
 .container{
     display:flex;
@@ -95,6 +115,7 @@
     padding: 7px;
     background:rgba(250, 240, 240, 0.795);
     border-radius:4px;
+   
 }
 .order-summary .row-products{
     margin-top:10px;
@@ -105,7 +126,7 @@
     justify-content: space-around;
     width:100%;
     
-    border-top: 1.5px solid rgba(85, 85, 85, 0.205);
+    border-bottom: 1.5px solid rgba(85, 85, 85, 0.205);
 }
 .order-summary .row-products .items div{
     line-height: 90px;
@@ -137,13 +158,15 @@
  
 }
 .only-sub input{
-    width:100%;
+    width:80%;
     border: none;
     color:#fff;
     background: #000;
     height:6vh;
     transition: .3s ease-in-out;
-    border-radius: 0;
+    border-radius: 2px;
+    letter-spacing: 1.3px;
+    margin-bottom: 20px;
    
 }
 .only-sub input:hover{
@@ -151,4 +174,36 @@
     background: transparent;
    
     color:#000
+}
+
+.payment-mode{
+    
+    margin-top: 20px;
+    padding:10px;
+    
+}
+#paypal-button-container{
+    background:#fff;
+    display:none;
+    padding:10px;
+    border-radius: 5px;
+}
+
+
+.messageform{
+    position: absolute;
+    width: 190px;
+    height: 90px;
+    border-radius: 0 2px 2px 0;
+    background-color: #FF7777;
+    z-index: 99999999999999999999;
+    top: 25vh;
+    left: -190px;
+    padding:10px
+}
+.messageform p{
+    color: #fff;
+    text-align: center;
+    text-transform:capitalize;
+    letter-spacing: 1.2px;
 }

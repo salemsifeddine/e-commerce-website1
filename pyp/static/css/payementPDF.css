@@ -1,0 +1,11 @@
+span{
+    color:rgba(172, 138, 52, 0.795);
+
+}
+p{
+    text-transform: capitalize;
+}
+
+h3{
+    text-transform: uppercase;
+}

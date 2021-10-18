@@ -43,9 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
     'pyp.apps.PypConfig',
-    'rest_framework'
+    'rest_framework',
+    "django_social_share",
+    "qr_code",
 ]
 
 MIDDLEWARE = [
@@ -57,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+  
 ]
 
 ROOT_URLCONF = 'pypy.urls'
@@ -164,3 +166,17 @@ LOGIN_URL ="login"
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+
+#email sending data
+EMAIL_BACKEND= "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_POST= 587
+
+EMAIL_HOST_USER= "saiftony5@gmail.com"
+DEFAULT_FROM_EMAIL="saiftony5@gmail.com"
+SERVER_EMAIL="saiftony5@gmail.com"
+EMAIL_HOST_PASSWORD="napxwgtymkevsswt"
+# for  security
+EMAIL_USE_TLS=True
+EMAIL_USE_SSL= False
