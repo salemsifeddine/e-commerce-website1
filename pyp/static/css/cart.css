@@ -19,8 +19,63 @@
     margin-bottom: 2.5px;
 }
 .btnsCrt button i{
-    color:#fff
+    color:#333
 }
 .btnsCrt button i:hover{
-    color:#000
+    color:#333
+}
+
+.top-row-cart{
+    width: 100%;
+    height: 30vh;
+   
+    margin-top: 20px;
+}
+
+.cart-cart-logo{
+    width: 100%;
+    height:15vh;
+ 
+    text-align: center
+}
+.cart-cart-logo i{
+    font-size: 70px;
+    color:#333;
+    
+}
+
+.cart-title{
+    width:100%;
+    height:15vh;
+
+    align-items: center;
+    
+}
+.cart-title h1{
+    color:#333;
+    text-align: center;
+    text-transform: capitalize;
+    line-height: 15vh;
+    font-size: 55px;
+    letter-spacing: 2px;
+}
+
+.row-cart h2{
+    margin:auto;
+    width:250px;
+    text-align:center;
+    text-transform: capitalize;
+    color:#ec5f5c;
+    border-bottom: 1px solid #ec5f5c;
+    margin-bottom:20px;
+}
+.row-cart .noproductsyet{
+    width:200px;
+    height: 200px;
+    margin: auto;
+
+}
+.row-cart .noproductsyet svg{
+    width:100%;
+    height:100%;
 }

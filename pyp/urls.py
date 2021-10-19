@@ -26,11 +26,13 @@ urlpatterns = [
     path("adapi/", views.adsapi),
     # path("shipping/",views.ShippingApi, name="shipping"),
     path("shipping/",views.data_fetch, name="shipping"),
-    path("products/<str:category>",views.category, name="category"),
+    path("category/<str:category>",views.category, name="category"),
+    path("brand/<str:brand>",views.brand, name="brand"),
     path("apilistSearch/", views.listSearch),
     path("checkout/payement/", views.ViewPdf.as_view(), name="payement-pdf"),
     path("wishlistApi/", views.wishlistApi, name="wishlistApi"),
     path("wishlist/", views.wishlist, name="wishlist"),
+    
     
     ] 
 

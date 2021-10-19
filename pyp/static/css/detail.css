@@ -8,22 +8,22 @@
 }
 
 .product-detail{
-    min-height:80vh;
+    min-height:250vh;
     width:100%;
     display:flex;
     position: relative;
     
 }
 .image-parent-detail{
-    min-width:50%;
-    max-width:75%;
+    max-width:50%;
+   
    
    
 }
 .view-product .image-parent-detail .img-detail{
     width:100%;
     overflow:hidden;
-    height:80vh;
+    height:90vh;
     position: relative;
     cursor: none;
     
@@ -42,7 +42,7 @@
     min-width:58px;
     margin:auto;
   
-    height:13.5vh;
+    height:10vh;
     display:flex;
     overflow:hidden;
    
@@ -63,7 +63,7 @@
     content: '';
     width: 50px;
     height:4px;
-    background-color:#000;
+    background-color:#333;
     display: block;
     position: absolute;
     bottom: 5px
@@ -80,7 +80,7 @@
 }
 .desc-element-detail{
     max-width:50%;
-    min-width:25%;
+
     height:50%;
     padding:30px 50px 30px 50px;
 
@@ -88,6 +88,10 @@
     -webkit-positipn:sticky;
     top:0
     
+}
+.desc-element-detail div h2{
+    color: rgba(255, 217, 0, 0.803);
+    cursor: pointer;
 }
 
 
@@ -137,7 +141,7 @@
     content: '';
     width: 100%;
     height:4px;
-    background-color:#000;
+    background-color:#333;
     display: block;
     position: absolute;
     bottom: 0
@@ -152,7 +156,7 @@
 
 .selected-value{
     border: 0;
-    color: #000;
+    color: #333;
     font-weight: 700;
     font-size: .875rem;
     letter-spacing: -.018em;
@@ -266,8 +270,8 @@ ul li{
 }
 
 .cartbtn .addToCart{
-    background: #000;
-    border: 2px solid #000;
+    background: #333;
+    border: 2px solid #333;
     color: #fff;
     float: left;
     font-family: neuzeit-grotesk,sans-serif;
@@ -291,7 +295,7 @@ ul li{
 }
 .cartbtn .addToCart:hover{
     background:transparent;
-    color:#000;
+    color:#333;
     border: 2px solid black
 }
 .inv label{
@@ -311,7 +315,7 @@ ul li{
     border-radius: 0;
     float: left;
     clear: left;
-    color: #000;
+    color: #333;
     background-color: #fff;
     font-size: .875rem;
     font-weight: 700;
@@ -321,11 +325,20 @@ ul li{
 .custom-select .sizeDoesNotExist{
     background-color:#f0f0f0;
 }
-
+.dett::after{
+    content: "";
+    width: 95%;
+    margin: auto;
+    height:1px;
+    color:#333;
+    background-color: #333;
+    display: block;
+}
 
 .product-detail-scroll,.product-detail-nonScroll{
     width: 100%;
-    border-bottom: 1px solid #000;
+    margin: auto;
+    
     padding-bottom: 6px;
     padding-top: 27px;
     cursor: pointer;
@@ -336,18 +349,21 @@ ul li{
     font-size: 15px;
     font-weight: 500;
     line-height: 1.6666666667;
-    letter-spacing: .2em;
-    color: #000;
+    letter-spacing: .15em;
+    color: #333;
     padding-left: 10px;
+    text-align: center
 }
-
+.product-detail-scroll{
+    border-bottom: 1px solid #333;
+}
 .product-detail-scroll::before{
     position: absolute;
     display: block;
     content: '';
     width: 11px;
     height: 1px;
-    background-color: #000;
+    background-color: #333;
     right: 7px;
     bottom: 18px;
 }
@@ -358,7 +374,7 @@ ul li{
     content: '';
     width: 1px;
     height: 11px;
-    background-color: #000;
+    background-color: #333;
     right: 12px;
     bottom: 13px;
 }
@@ -373,6 +389,8 @@ ul li{
 
 .product-detail-text{
     padding-top:10px;
+    
+    
 
 }
 .product-detail-text p{
@@ -380,7 +398,7 @@ ul li{
     color: #333;
     line-height: 1.8666666667;
     letter-spacing: .12em;
-    padding: 5px;
+    padding: 25px;
 }
 
 
@@ -392,14 +410,34 @@ ul li{
 }
 
 .related-products{
-    width:90%;
+    min-height: 60vh;
+    width:100%;
+    position:relative;
     margin: auto;
-    height: 60vh;
+    /* min-height: 70vh;
+    max-height: 120vh; */
     margin-top:25px;
+    display:inline-block;
   
-    display:flex;
-    flex-direction:column;
     background: #fff;
+}
+.related-products .loadmore{
+    width:100px;
+    height: 5vh;
+    color:#333;
+    background: none;
+    border: none;
+    outline:none;
+    border:1px solid #333;
+    position:absolute;
+    bottom: -40px;
+    left:calc(50% - 50px);
+    transition: all .3s ease-in;
+    border-radius: 2px;
+}
+.related-products button:hover{
+    color:#fff;
+    background: #333;
 }
 .categoriesProducts{
     width:100%;
@@ -414,50 +452,50 @@ ul li{
     justify-content: space-between;
 }
 .title h4{
-    color: #000;
+    color: #333;
     text-transform: uppercase;
     padding: 15px;
 }
 .related-products .products{
     width:100%;
-    height: 52vh;
    
-    display: inline-block;
 }
 .related-products .products .product{
     min-width: 177px;
     max-width: 177.001px;
-    height:100%;
+    height:310px;
     margin-left: 3px;
     margin-right: 3px;
-    float: left
+    float: left;
+    margin-bottom: 10px;
+    overflow: hidden;
 }
 .product a{
     text-decoration:none
 }
 .productImg{
     width:100%;
-    height:65%;
-    padding:10px;
+    height:60%;
+   
     overflow:hidden;
-    transition: transform .5s ease-out;
+    transition: transform .3s ease-out;
 }
 .productImg img{
     width:100%;
     height:100%;
 }
 .productImg:hover{
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
 .productDescription {
     padding: 10px;
-    height: 30%;
+    height: auto;
     text-align: center;
 }
 
 
 .productDescription .productName h5{
-    color: #000;
+    color: #333;
     font-size:13px;
     text-transform: capitalize;
 }
@@ -465,7 +503,7 @@ ul li{
 
 .productDescription  .productPrice{
     display:flex;
-    color: #000;
+    color: #333;
     justify-content:space-between;
     min-height: 25px;
     max-height: 30px;
@@ -475,12 +513,12 @@ ul li{
 }
  .productDescription  .productPrice .realPrice h5,  .productDescription  .productPrice .through p{
     font-size:16px;
-    color:#000
+    color:#333
 }
 
 .through{
     text-decoration: line-through;
-    color:#000
+    color:#333
 }
 
 .product-name{
@@ -489,9 +527,9 @@ ul li{
     font-weight: 700;
     line-height: 1.1em;
     letter-spacing: -.005em;
-    color: #000;
-    min-height: 120px;
-    max-height:220px;
+    color: #333;
+    min-height: 70px;
+    max-height: 120px;
     white-space: normal;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -504,7 +542,7 @@ ul li{
 
 .wishlist-btn{
     min-width: 150px;
-    height: 5vh;
+    height: 8vh;
     margin-top:10px;
 }
 .wishlist{
@@ -514,25 +552,25 @@ ul li{
 }
 
 .addToWish{
-height: 100%;
-width: 100%;
-color: #333;
-background: none;
-border: none;
-outline: none;
-border: 1px solid #333;
-border-radius: 2px;
-letter-spacing: 1.1;
-transition: all .3s ease-out;
+    height: 100%;
+    width: 100%;
+    color: #333;
+    background: none;
+    border: none;
+    outline: none;
+    border: 1px solid #333;
+    border-radius: 2px;
+    letter-spacing: 1.1;
+    transition: all .3s ease-out;
 }
 .addToWish i{
-    color:#000;
+    color:#333;
     font-size:16px;
     transition: all .3s ease-out;
 }
 
 .addToWish:hover, .addToWish:hover i{
-    background: #000;
+    background: #333;
     color:#fff;
 
 }

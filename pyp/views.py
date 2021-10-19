@@ -273,6 +273,7 @@ class ProductDetailView(generic.DetailView):
         total["totalitem"]=callcartnumber(self.request)['total']
         total["wishlist"]=callwishnumber(self.request)
         total['wishedproduct']=Wishlist.objects.all().filter(customer=self.request.user, product=self.object.pk)
+        total['related']=Product.objects.all().filter(catigory=self.object.pk)
         if total['wishedproduct'].first():
             total['wishedproduct']=total['wishedproduct'].first().product
         else:
@@ -333,12 +334,13 @@ def UpdateItem(request):
        orderItem.quantity = (orderItem.quantity + quantity)
     elif action == "remove":
         orderItem.quantity = (orderItem.quantity - 1)
+    
 
     totalItem=sum([item.quantity for item in OrderItem.objects.all()])
     
     orderItem.save()
     
-    if orderItem.quantity <= 0:
+    if orderItem.quantity <= 0 or action == "removecartproduct":
         orderItem.delete()
         #order.delete()
    
@@ -382,6 +384,7 @@ def UpdateProducts(request):
             'new_price':product.new_price,
             'owner':product.owner.username,
             'rate':product.rate.rate,
+            'is_promotion':product.is_promotion
         }
         AllProductsArray.append(data_json)
 
@@ -436,6 +439,7 @@ def HotdealsApi(request):
             'new_price':hotdeal.product.new_price,
             'owner':hotdeal.product.owner.username,
             'rate':hotdeal.product.rate.rate,
+            'is_promotion':hotdeal.product.is_promotion,
         }
         hotdealsarray.append(hotdealsobj)
         object_data1={
@@ -499,10 +503,7 @@ def HotdealsApi(request):
 #     return JsonResponse(datapassed, safe=False)
 
 
-def category(request,category):
-    category=CategoryList.objects.all()
 
-    return render(request, "pages/category.html",context={})
 
 def search(request):
     total=callcartnumber(request)['total']
@@ -518,6 +519,7 @@ def search(request):
         pagename="pages/search.html"
         query=q
     else:
+        query=''
         pagename="pages/search.html"
 
     ip=get_client_ip(request)
@@ -532,6 +534,32 @@ def search(request):
     context={"query":query,"products":result["products"],
     "totalitem":total,"wishlist":wishlist}
     return render(request,"pages/search.html",context)
+
+
+def category(request, category):
+    total=callcartnumber(request)['total']
+    wishlist=callwishnumber(request)
+
+    id_category_selected=CategoryList.objects.get(categoryName=category)
+    result=Product.objects.all().filter(catigory=id_category_selected.id)
+    
+   
+    context={"query":category,"products":result,
+    "totalitem":total,"wishlist":wishlist}
+    return render(request,"pages/category.html",context)
+
+
+def brand(request, brand):
+    total=callcartnumber(request)['total']
+    wishlist=callwishnumber(request)
+
+    
+    result=Product.objects.all().filter(brand_name=brand)
+    
+   
+    context={"query":brand,"products":result,
+    "totalitem":total,"wishlist":wishlist}
+    return render(request,"pages/brand.html",context)
 
 
 
@@ -675,7 +703,7 @@ def wishlistApi(request):
     if action == "add":
         wish , created = Wishlist.objects.get_or_create(customer=request.user, product=product_wished.first())
         wish.save()
-    elif action == "remove":
+    elif action == "removewish":
         wish= Wishlist.objects.get(customer=request.user, product=product_wished.first()).delete() 
         
     

@@ -7,8 +7,19 @@
 
 {% block content %}
     <div class="row">
+
+        <div class="top-row-cart">
+            <div class="cart-cart-logo">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+            <div class="cart-title">
+                <h1>my Cart</h1>
+            </div>
+            
+        </div>
         <div class="row-cart">
-            <a href="{% url 'home' %}"><button class="con-shopp">&#8592; Continue Shopping</button></a>
+           
+            {% if items %}
             <table>
                 <tr>
                     <th>
@@ -25,25 +36,42 @@
                     </th>
                 </tr>
             </table>
+            
+            {% else %}
+
+            <h2>No Products yet !!</h2>
+            
+            {% endif %}
+            <a href="{% url 'home' %}"><button class="con-shopp">&#8592; Continue Shopping</button></a>
         </div>
         <br>
         <br>
-        <div class="row-products">
-            <div class="items">
-                <div style='width: 80px;'  class="item"><strong>Item</strong></div>
-                <div style='width: 70px;'  class="price"><strong>Price</strong></div>
-                <div style='width: 70px;'  class="quantity"><strong>Quantity</strong></div>
-                <div style='width: 70px;'  class="total"><strong>Total</strong></div>
-            </div>
-       </div>
+        {%  if items %}
+            <div class="row-products">
+                <div class="items">
+                    <div style='width: 80px;'  class="item"><strong>Item</strong></div>
+                    <div style='width: 70px;'  class="price"><strong>Price</strong></div>
+                    <div style='width: 70px;'  class="quantity"><strong>Quantity</strong></div>
+                    <div style='width: 70px;'  class="total"><strong>Total</strong></div>
+                </div>
+        </div>
+        {% endif %}
+        
        
        {% for item in items %}  
        {% if user.profile.user == item.order.customer %}
-            <div class="row-products">
+            <div class="row-products productcart">
                 <div class="items items-item">
-                    <div style='width: 90px;height:90px;'  class="item image-item itm"><a href="{% url 'detail' item.product.id %}"><img src="{{item.product.image.url}}" alt=""></a></div>
-                    <div style='width: 70px;' class="price itm">{{item.product.new_price}}$</div>
-                    <div style='width: 70px;'  class="quantity qnt-real itm">{{item.quantity}} 
+                    <div style='width: 120px;height:90px;'  class="item image-item itm">
+                        
+                        <i data-action="removecartproduct"  data-product="{{item.product.id}}" class="fas fa-trash-alt addToCart"></i>
+                        <div class="img">
+                            <a href="{% url 'detail' item.product.id %}"><img class="skeleton" src="{{item.product.image.url}}" alt=""></a>
+                        </div>
+                        </div>
+                        
+                        <div style='width: 70px; text-align: end;' class="price itm">{{item.product.new_price}}$</div>
+                    <div style='width: 70px;'  class="quantity qnt-real itm"><span>{{item.quantity}} </span>
                     <div style='width: 70px;'  class="btnsCrt">
                         <button data-action="add" data-product='{{item.product.id}}' class="addToCart"><i class="fas fa-chevron-up"></i></button> 
                         <button data-action="remove" data-product='{{item.product.id}}' class="addToCart"><i class="fas fa-chevron-down"></i></button>

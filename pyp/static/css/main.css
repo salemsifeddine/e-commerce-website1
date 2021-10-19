@@ -7,20 +7,26 @@
 }
 .containerContent{
     width:90%;
+    height:auto;
+    margin:0 5% 0 5%;
+    display:inline-block;
     
-    margin: auto;
-    display: flex;
-    justify-content:space-between 
 }
 
-
+.flex{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    
+}
 
 .leftsidecont{
     width:25%;
-
+    float: left
 }
 .rightsidecont{
     width:70%;
+    float: left;
     display: flex;
     flex-direction: column
 }
@@ -35,13 +41,13 @@
     list-style: none;
     padding:10px;
     cursor:pointer;
-    color:#000;
+    color:#333;
     
    
     
 }
 .categorylistcontent ul li i{
-    color:#000;
+    color:#333;
     font-size: 15px;
     margin:0  10px;
 }
@@ -55,7 +61,7 @@
     height:100%;
 }
 .categorylistcontent ul li a{
-    color:#000;
+    color:#333;
     text-decoration:none;
     text-transform: capitalize;
     cursor: pointer;
@@ -64,8 +70,8 @@
 .categorylistcontent ul li::after, .hotdeal::before{
     content:'';
     display:block;
-    color: #000;
-    background-color:#000;
+    color: #333;
+    background-color:#333;
     width:100%;
     height: 1px;
 }
@@ -74,7 +80,7 @@
 .ad{
     width: 100%;
     min-height: 50vh;
-    max-height: 73vh;
+    max-height: 80vh;
     position: relative;
 }
 .ad .image{
@@ -101,9 +107,9 @@
     cursor:pointer;
     outline:none;
     font-size:17px;
-    font-family: sans-serif;
+    font-family: sans-serif, tahoma;;
     background:transparent;
-    border:3px solid #000000;
+    border:3px solid #333000;
     color:rgb(0, 0, 0);
     border-radius:1px;
     font-weight:500;
@@ -140,7 +146,7 @@
     
     line-height:10vh;
     padding: 5px;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #333;
 }
 
 
@@ -150,7 +156,7 @@
     
 }
  .newproducts div .categoriesProducts .title h4{
-    color: #000;
+    color: #333;
     text-transform: uppercase;
 }
 
@@ -171,7 +177,7 @@
 }
 .category {
     text-decoration: none;
-    color: #000;
+    color: #333;
     text-transform: capitalize;
     font-size: 13px;
     cursor: pointer;
@@ -199,17 +205,20 @@
     margin-right: 5px;
     border-radius:2px;
     position: relative;
-
+    background: #f0f0f0;
+    padding:0;
+    overflow:hidden;
 
 }
 
 
  .newproducts div .products .product .productImg{
     width:100%;
-    height:65%;
-    padding:10px;
+    height:60%;
+ 
     overflow:hidden;
-    transition: transform .5s ease-out;
+    transition:  transform .3s ease-out;
+
 }
 
 .hotdeals{
@@ -268,7 +277,7 @@
     transition: transform .5s ease-out;
 }
 .hotdeal .productImg:hover{
-    transform:scale(1.05)
+    transform:scale(1.02)
 }
 .hotdeal .productImg img{
     width:100%;
@@ -315,29 +324,66 @@
 
  .productDescription {
     padding: 10px;
-    height: 30%;
+    height: 40%;
+    cursor:default;
     text-align: center;
 }
- .productDescription{
-    height: 25%;
+.productDescription .btns{
+    width: 100%;
+    min-height: 30px;
+    display: flex;
+    justify-content:space-between;
+
+    align-items: center;
+}
+.productDescription .btns  button{
+    min-width: 80px;
+    height:25px;
+    padding: 3px;
+    text-decoration: none;
+    border: none;
+
+    cursor: pointer;
+    outline: none;
+    font-size: 12px;
+    font-family: sans-serif, tahoma;;
+    margin: auto;
+    
+    border-radius: 2px;
+    background: #ec5e5cc4;
+
+    transition:all .3s ease-in;
+    color: #fff;
+}
+.productDescription .btns  button:hover{
+    background: transparent;
+    border: 2px solid #ec5e5cc4;
+    color: rgb(0, 0, 0);
+    
 }
 .productDescription .productName,.hotdeal .productDescription .productName{
-    
-    
-    min-height: 25px;
+
+    width:100%;
+    display: -webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 30px;
     max-height: 45px;
+  
 }
 
 
 .productDescription .productName h5{
-    color: #000;
+    width:100%;
+    color: #333;
     font-size:13px;
     text-transform: capitalize;
 }
 
 .productDescription  .productPrice{
     display:flex;
-    color: #000;
+    color: #333;
     justify-content:space-between;
     min-height: 25px;
     max-height: 30px;
@@ -345,14 +391,18 @@
     margin:auto;
 
 }
+.productDescription  .productPrice .realPrice{
+    background-color: rgba(255, 217, 0, 0.403);
+    height: 18px;
+}
  .productDescription  .productPrice .realPrice h5,  .productDescription  .productPrice .through p{
     font-size:16px;
-    color:#000
+    color:#333
 }
 
 .through{
     text-decoration: line-through;
-    color:#000
+    color:#333
 }
 
 .letter{
@@ -374,7 +424,7 @@
 .letter form input{
     width:100%;
     height:30px;
-    color: #000;
+    color: #333;
     padding:5px;
     border-radius: 5px;
     background-color: #3e2c411c;
@@ -420,63 +470,53 @@
     width:100%;
     height: 100%;
 }
-.hoverdiv{
-    content: "";
-    position: absolute;
-    width:60%;
-    height:100%;
-    background-color:rgb(255, 255, 255);
-    border-left: 200px solid rgb(255, 255, 255);
-    border-bottom: 380px solid transparent;
-    top: -50px;
-    right: -20px;
-    transform: rotate(25deg);
-    display: none;
-    transition: all  5s ease-in;
-}
-
-.fashionsalesContainer .fashionSale:hover .hoverdiv,.fashionsalesContainer .fashionSale:hover .descriptiondiv{
-    display: block;
+.fashionSale:hover > .descriptiondiv{
+    opacity:1;
 }
 
 .descriptiondiv{
+    width:100%;
+    height: 100%;
+    background:#ec5e5cc0;
     position:absolute;
-    width:45%;
-    height:90%;
-    bottom:0;
-    right:0;
-
-    padding:15px;
-    display:none;
-    transition: all 5s ease-in
+    top:0;
+    left:0;
+    transition: opacity .3s ease-in;
+    opacity:0;
+    
 }
 .descriptiondiv .titlesale p,.titlesale h4,.byenow a{
-    color: rgba(0, 0, 0, 0.767);
+    color: #f0f0f0;
     text-transform: uppercase;
-    font-family: sans-serif;
+    font-family: sans-serif, tahoma;;
+  
 }
+
 .descriptiondiv .titlesale{
-    margin-bottom:20px
+    margin-bottom:20px;
+    margin-top: 40px;
 }
 .descriptiondiv .titlesale h4{
     font-size:26px;
     text-align:center;
-    font-weight: bolder;
-    color: #79B4B7;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1.5px;
 }
 .descriptiondiv .titlesale p{
     font-size:16px;
     font-weight: bold;
     text-align:center;
+    letter-spacing: 1.2px;
 }
 
 .byenow{
-    text-align: right;
+    text-align: center;
 }
 .byenow a{
     font-size:22px;
     font-weight: bold;
-    color: #5C7AEA;
+    color: #333;
     
 }
 
@@ -508,7 +548,7 @@
     width:50%;
 }
 .shopnowdesc p{
-    font-family: sans-serif;
+    font-family: sans-serif, tahoma;;
     text-transform: uppercase;
     padding: 2px;
     letter-spacing: 1.2;
@@ -520,7 +560,7 @@
     margin-top: 15px;
 }
 .shopnowdesc p:first-of-type{
-    color:#000;
+    color:#333;
 
 }
 .shopnowdesc p:last-of-type{
@@ -578,7 +618,7 @@ footer{
 .bottomfooter{
     height: 15vh;
     width: 100%;
-    background-color:#000 ;
+    background-color:#333 ;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -618,7 +658,7 @@ footer{
 }
 .logodescription h4, .information h4, .socialMedia h4,.opentime-payementmode h4{
     color:#fff;
-    font-family: sans-serif;
+    font-family: sans-serif, tahoma;;
     font-size:22px;
     margin-bottom: 20px;
     text-transform: uppercase;
@@ -669,16 +709,14 @@ ul li i{
     cursor: pointer;
 }
 .rate{
-    margin-top: 20px;
+   
     width: 100%;
-    min-height: 20px;
+    min-height: 18px;
     max-height: 25px;
-    margin:auto;
-
-    padding: 5px;
+    padding: 2px;
+    
 }
 .ratedet{
-    margin-top: 20px;
     width: 100%;
     min-height: 20px;
     max-height: 25px;
@@ -689,7 +727,8 @@ ul li i{
 
 .rate i, .ratedet i{
     color: gold;
-    font-size:14px
+    font-size:14px;
+    align-items: center;
 }
 .rate p, .ratedet p{
     color: black;
@@ -762,5 +801,5 @@ li i:hover{
     color: white;
 }
 .productImg:hover{
-    transform: scale(1.05);
+    transform: scale(1.02);
 }

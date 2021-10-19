@@ -1,26 +1,30 @@
+
 *{
+    /*font face */
+    
     margin:0;
     padding:0;
     box-sizing: border-box;
-    font-family: sans-serif;
+    
+    font-family: sans-serif, tahoma;
     color:#fff;
-}
+} 
 
 body{
     background: #F0F0F0;
     display:flex;
     flex-direction: column;
     font-weight:lighter;
-   
+    
 }
 
 nav{
     width:100%;
-    min-height:10vh;
-    background: #000000; 
+    max-height:15vh;
+    background: #333; 
     position: relative;
     font-size:18px;
-    font-family: sans-serif;
+    font-family: sans-serif, tahoma;;
     color:white;
     z-index: 9999999;
     display:flex;
@@ -56,7 +60,7 @@ nav ul li{
     margin-left: 7px;
     padding:10px;
     line-height: 15px;
-    color:#000;
+    color:#333;
 }
 nav ul ul {
     display: flex;
@@ -187,9 +191,9 @@ nav ul li form input{
     height:100%;
     padding:5px;
     font-size:16px;
-    font-family: sans-serif;
+    font-family: sans-serif, tahoma;;
     background-color: rgb(240, 231, 231);
-    color:#000;
+    color:#333;
 }
 
 nav ul li form button, .button-yellow{
@@ -201,12 +205,12 @@ nav ul li form button, .button-yellow{
     background:#ec5f5c;
     color:rgba(255, 255, 255, 0.842);
     font-size: 16px;
-    font-family: sans-serif;
+    font-family: sans-serif, tahoma;;
     cursor: pointer;
     font-weight:500;
 }
 nav ul li button , .button-yellow{
-    color:#000;
+    color:#333;
 }
  .button-yellow:hover{
     color:#ec5f5c;
@@ -224,8 +228,13 @@ nav ul ul li a img{
     height:7vh;
     background:#ec5f5c;
     line-height: 7vh;
-    display:flex;
-    justify-content:space-around;
+    
+}
+.secondnav .categnav{
+    text-align: start;
+    padding-left:100px;
+    letter-spacing:1.5px;
+    font-weight: 500;
 }
 
 
@@ -248,7 +257,7 @@ nav ul ul li a img{
 }
 .row{
     width: 100%;
-    min-height: 100vh;
+    height: 100%;
     display: inline;
     background-color: #fff;
     padding-top:5px;
@@ -256,7 +265,7 @@ nav ul ul li a img{
     
 }
 .row .product{
-    color:#000;
+    color:#333;
     box-shadow: 6px 5px 6px 2px rgba(69, 78, 73, 0.986);
     width:23%;
     height:290px;
@@ -264,7 +273,7 @@ nav ul ul li a img{
     float:left;
     border-radius: 10px;
     overflow:hidden;
-    
+    border: 1px solid black;
     background:#fff;
 }
 .row .product .img-element{
@@ -280,15 +289,15 @@ nav ul ul li a img{
 }
 .desc-element{
     width:100%;
-    color:#000;
+    color:#333;
     height:10%;
 }
 .desc-element h4 {
     padding-left: 8px;
     color:#fff;
-    font-family: sans-serif;
+    font-family: sans-serif, tahoma;;
     padding-top:5px;
-    color:#000;
+    color:#333;
 }
 
 .buttons{
@@ -303,7 +312,7 @@ nav ul ul li a img{
     cursor:pointer;
     outline:none;
     font-size:15.5px;
-    font-family: sans-serif;
+    font-family: sans-serif, tahoma;;
     background:transparent;
     border:1.9px solid rgba(0, 0, 0, 0.986);
     color:rgb(0, 0, 0);
@@ -317,7 +326,7 @@ nav ul ul li a img{
     cursor:pointer;
     outline:none;
     font-size:15.5px;
-    font-family: sans-serif;
+    font-family: sans-serif, tahoma;;
     
     color:rgb(0, 0, 0);
    
@@ -336,7 +345,7 @@ nav ul ul li a img{
     width:115px;
 }
 .buttons button:hover, .buttons .button:hover{
-    color:#000;
+    color:#333;
     transition: .3s ease-in;
     border:2px solid rgba(0, 0, 0, 0.986);
     background:transparent;
@@ -358,8 +367,8 @@ nav ul ul li a img{
     padding:10px;
     height: 23vh;
     margin: 10px auto;
-   
-    border-bottom:1px solid #000;
+/*    
+    border-bottom:1px solid #333; */
 }
 .row .row-cart .con-shopp{
     width:200px;
@@ -368,7 +377,7 @@ nav ul ul li a img{
     cursor:pointer;
     outline:none;
     font-size:15.5px;
-    font-family: sans-serif;
+    font-family: sans-serif, tahoma;;
     background:transparent;
     border:1.8px solid rgba(0, 0, 0, 0.986);
     color:rgb(0, 0, 0);
@@ -390,7 +399,7 @@ nav ul ul li a img{
     
 }
 
-.row .row-cart table tbody tr th h5{color:#000;}
+.row .row-cart table tbody tr th h5{color:#333;}
 
 button, .button{
     cursor:pointer;
@@ -398,30 +407,45 @@ button, .button{
 }
 
 .row .row-products{
-    width:80%;
+    width:90%;
     margin:0 auto;
     min-height:10vh;
     margin-bottom: 10px;
     
 }
-
+.productcart{
+    border-top: 1px solid #333;
+}
 .row .row-products .items{
     width:100%;
     height:8vh;
-    border-radius: 9px;
-    box-shadow:2px 2px  4px #ec5f5c;
+    /* border-radius: 9px;
+    box-shadow:2px 2px  4px #ec5f5c; */
     line-height: 8vh;
     
     display: inline-flex;
     justify-content: space-around;
-    background-color: #ec5f5c;
+    /* background-color: #ec5f5c; */
+    
 }
 .row .row-products .items-item{
     width:100%;
-    min-height:90px;
-    box-shadow:2px 2px  4px #ec5f5c;
+    height: 20vh;
+    /* box-shadow:2px 2px  4px #ec5f5c; */
     display: inline-flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    
+}
+
+.price, .quantity span , .total{
+    color:#333
+}
+
+.item strong,.price strong, .quantity strong, .total strong{
+    color: #333;
+    list-style: none;
+    text-transform: capitalize;
+    font-weight: 600
 }
 /* .row .row-products .items div{
  
@@ -430,31 +454,41 @@ button, .button{
 } */
 .row .row-products .items .itm{
     align-self: center;
-   
+    margin-right:80px;
+    
 }
 .qnt-real {
     display: flex;
     justify-content: space-around
 }
 
-.row .row-products .items .image-item{
+.row .row-products .items .item{
+    display: flex;
+}
+.row .row-products .items .item i{
+    font-size: 30px;
+    color: #ec5f5c;
+    padding: 10px;
+    align-self: center;
+    cursor: pointer
+}
+.row .row-products .items .item .img{
    
-    height: 90px;
+    min-height: 82px;
     overflow: hidden;
-    width:90px;
+    min-width:92px;
     background: rgba(0, 0, 0, 0.644);
-    border-radius: 50%;
-    border:2px solid rgba(73, 124, 50, 0.356);
+    border-radius: 3px;
 }
 
-.row .row-products .items .item img{
+.row .row-products .items .item .img img {
     width:100%;
     height:100%;
 }
 
 
 .color_add{
-    color:#000;
+    color:#333;
 }
 
 .page-login{
@@ -482,7 +516,7 @@ button, .button{
     border:none;
     outline:none;
     margin-bottom: 20px;
-    color:#000;
+    color:#333;
     padding:5px;
     font-size:16px
 }
@@ -494,9 +528,9 @@ button, .button{
     margin-bottom:20px;
     border-radius: 0px;
 
-    border:2px solid #000;
+    border:2px solid #333;
     background:transparent;
-    color:#000
+    color:#333
 }
 
 .page-reg{
@@ -524,7 +558,7 @@ button, .button{
     border:none;
     outline:none;
     margin-bottom: 10px;
-    color:#000;
+    color:#333;
     padding:5px;
     font-size:16px
 }
@@ -578,7 +612,7 @@ button, .button{
     width:calc(100% - 250px - 210px);
     height:100%;
 
-    color:#000;
+    color:#333;
     padding-top:60px;
     padding-left:20px;
     
@@ -634,7 +668,7 @@ button, .button{
     border-radius:4px;
     overflow:hidden;
     padding:5px;
-    color:#000;
+    color:#333;
     font-size:15px;
     font-family:sans-serif;
     margin-top: 2px;
@@ -647,17 +681,17 @@ button, .button{
     border-radius:4px;
     overflow:hidden;
     padding:5px;
-    color:#000;
+    color:#333;
     cursor:pointer;
     margin-top: 2px;
 }
 
 .product-input form div label{
     
-    color:#000
+    color:#333
 }
 .product-input form div textarea{
-    color:#000;
+    color:#333;
     min-width:300px;
     max-width:301px;
     height:45px;
@@ -748,18 +782,18 @@ nav .navContainer ul:last-of-type {
     position: relative;
 }
 nav .navContainer ul:last-of-type .dropdown{
-    width: 66.5%;
+    width: 66.65%;
     height:auto;
     max-height: 37.5vh;
     line-height: 30px;
     /* display: flex;
     flex-direction: column; */
     display: none;
-    border-radius: 3px  ;
+    border-radius: 2px  ;
     background: #F0F0F0;
     position: absolute;
     left: 17px;
-    top: 8.8vh;
+    top: 7.6vh;
     overflow: hidden;
 }
 nav .navContainer ul:last-of-type .dropdown li{
@@ -767,11 +801,12 @@ nav .navContainer ul:last-of-type .dropdown li{
     margin:0;
     width: 100%;
     height:5vh;
-    color: #000;;  
+    color: #333;;  
     background-color:#fff;
     text-align:start;
     padding-left: 15px;
     cursor: pointer;
+    font-size: 15px;
 }
 
 nav .navContainer ul:last-of-type .dropdown li:not(:last-of-type){
@@ -780,7 +815,7 @@ nav .navContainer ul:last-of-type .dropdown li:not(:last-of-type){
 }
 
 nav .navContainer ul:last-of-type .dropdown li:hover{
-    background:rgba(165, 156, 156, 0.644)
+    background:#ec5e5c9c
 }
 
 .promotion{

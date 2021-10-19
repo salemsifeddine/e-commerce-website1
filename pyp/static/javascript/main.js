@@ -8,10 +8,9 @@ var hotdealKey =0;
 
 
 
-
-for(var i; i<catigoryelement.length;i++){
+for(var i=0; i<catigoryelement.length;i++){
     catigoryelement[i].addEventListener('click',function(e){
-        e.preventDefault();
+       
         
        
         $(this).siblings('li').removeClass("selectedCategory")
@@ -235,15 +234,34 @@ function updateproducts(category,categoryId,section){
             var ctgProducts = data["categorizedProducts"][categoryId - 1][category]
 
             for(var i=0;i<ctgProducts.length;i++){
+                var val=0
+                var newpricepromo= ctgProducts[i].new_price
+                var oldpricepromo= ctgProducts[i].old_price
+                var promotion=(parseInt(newpricepromo) / parseInt(oldpricepromo))*100
+                if(promotion.toString().split('').length >= 2){
+                    val= promotion.toString().split('').slice(0,2).join('')
+                               }
+
+                
+                           
                 productsCont[section].innerHTML +=`
                
                 <div class="product">
                 <a href='product/${ctgProducts[i].id}'>
+                ${
+                    ctgProducts[i].is_promotion?
+                       `<div id="promo${ctgProducts[i].id}sp" class="promotion">`
+                           +  val +'%' +
+                       `</div>`
+                    
+                :
+                ''
+            }
                     <div class="productImg">
                         <img class="skeleton" src=" ${ctgProducts[i].image}" alt="">
                     </div>
                 </a>
-                    <a href='product/${ctgProducts[i].id}'>
+                    
                     <div class="productDescription">
                         <div class="productName skeleton-text">
                             <h5>${ ctgProducts[i].name }</h5>
@@ -374,25 +392,48 @@ function updateproducts(category,categoryId,section){
                         <i class="fas fa-star"></i>`
                         }
                         </div>
+                        <div class="btns">
+                            <button data-product='${ctgProducts[i].id}' data-action='add'  class="addToCart">Add to cart</button>
+                            
                         </div>
-                        </a>
+                        </div>
+                        
                 </div>
             `
 
             }
         }else{
+            
             var allProducts = data["allProducts"];
 
             for(var i=0;i<allProducts.length;i++){
+                var val=0
+                var newpricepromo= allProducts[i].new_price
+                var oldpricepromo= allProducts[i].old_price
+                var promotion=(parseInt(newpricepromo) / parseInt(oldpricepromo))*100
+                if(promotion.toString().split('').length >= 2){
+                    val= promotion.toString().split('').slice(0,2).join('')
+                               }
+
+
                 productsCont[section].innerHTML +=`
-                
+               
                 <div class="product">
                 <a href='product/${allProducts[i].id}'>
+                ${
+                    allProducts[i].is_promotion?
+                       `<div id="promo${allProducts[i].id}sp" class="promotion">`
+                           +  val +'%' +
+                       `</div>`
+                    
+                :
+                ''
+            }
                     <div class="productImg">
                         <img class="skeleton" src=" ${allProducts[i].image}" alt="">
                     </div>
                 </a>
-                    <a href='product/${allProducts[i].id}'>
+                    
                     <div class="productDescription">
                         <div class="productName skeleton-text">
                             <h5>${ allProducts[i].name }</h5>
@@ -523,10 +564,14 @@ function updateproducts(category,categoryId,section){
                         <i class="fas fa-star"></i>`
                         }
                         </div>
+                        <div class="btns">
+                            <button data-product='${allProducts[i].id}' data-action='add'  class=" addToCart">Add to cart</button>
+                            
                         </div>
-                        </a>
+                        </div>
+                        
                 </div>
-           `
+            `
         }
             
         
@@ -619,25 +664,36 @@ for(var i=0;i<productsEle.length;i++){
         scrollleft= this.scrollLeft;
     });
 
+    
+
+    productsEle[i].addEventListener('mousemove',function(e){
+       
+        if(mouseDownOnProductsCont){
+            e.preventDefault();
+           
+            this.style.cursor = 'grabbing'
+            var currentXaxis= e.pageX - this.offsetLeft;
+            positionwalked = currentXaxis - xaxis;
+            this.scrollLeft = scrollleft - positionwalked
+       }else{
+        e.stopPropagation()
+        e.preventDefault();
+       }
+
+    })
+
     productsEle[i].addEventListener('mouseup',function(e){
         e.preventDefault();
         e.stopPropagation();
         mouseDownOnProductsCont=false;
         this.style.cursor = 'grab'
     })
-
-    productsEle[i].addEventListener('mousemove',function(e){
-       
-        if(mouseDownOnProductsCont){
-            e.preventDefault();
-            e.stopPropagation()
-            this.style.cursor = 'grabbing'
-            var currentXaxis= e.pageX - this.offsetLeft;
-            positionwalked = currentXaxis - xaxis;
-            this.scrollLeft = scrollleft - positionwalked
-       }
-
+    productsEle[i].addEventListener('mouseleave',function(e){
+        
+        mouseDownOnProductsCont=false;
+        this.style.cursor = 'grab'
     })
+
 }
 
 

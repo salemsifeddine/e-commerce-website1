@@ -10,7 +10,7 @@
         {% if user.profile.user == product.owner %}
         <div class="product-user">
             <div class="img-element">
-                    <a href="{{product.image.url}}"> <img src="{{product.image.url}}" alt="prdct"></a>
+                    <a href="{{product.image.url}}"> <img class="skeleton" src="{{product.image.url}}" alt="prdct"></a>
             </div>
             <div class="desc-element">
                 <div><h2 class="color_add">{{product.name.title}}</h2></div>

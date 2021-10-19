@@ -2,19 +2,16 @@
     width:100%;
     min-height: 55vh;
     padding: 15px;
-  
     overflow:hidden;
-    
-
     display:inline-block
 }
 
 .products-search .product-search{
     min-width: 177px;
     max-width: 177.001px;
-    height:270px;
-    margin-left: 5px;
-    margin-right: 5px;
+    height:282px;
+    margin-left: 3.5px;
+    margin-right: 3.5px;
     margin-bottom: 10px;
     border-radius:2px;
     background:#fff;
@@ -24,12 +21,13 @@
 }
 .product-search .productImg{
     width:100%;
-    height:65%;
-   
+    height:60%;
+
     overflow:hidden;
     transition:transform .3s ease-in
     
 }
+
 .product-search .productImg img{
     width: 100%;
     height: 100%;
@@ -44,6 +42,119 @@
 }
 .searchtitle p{
     font-size:19px;
-    color:#000
+    color:#333
 }
 
+
+.newproducts div .products .product .productImg img,.hotdeal .productImg img{
+    width:100%;
+    height:100%;
+}
+
+ .productDescription {
+    padding: 10px;
+    height: auto;
+    cursor:default;
+    text-align: center;
+
+
+}
+.productDescription .btns{
+    width: 100%;
+    min-height: 25px;
+    display: flex;
+    justify-content:space-between;
+
+    align-items: center;
+}
+.productDescription .btns  button{
+    min-width: 80px;
+    height:25px;
+    padding: 3px;
+    text-decoration: none;
+    border: none;
+
+    cursor: pointer;
+    outline: none;
+    font-size: 12px;
+    font-family: sans-serif, tahoma;;
+    margin: auto;
+    
+    border-radius: 2px;
+    background: #ec5e5cc4;
+
+    transition:all .3s ease-in;
+    color: #fff;
+}
+.productDescription .btns  button:hover{
+    background: transparent;
+    border: 2px solid #ec5e5cc4;
+    color: rgb(0, 0, 0);
+    
+}
+.productDescription .productName,.hotdeal .productDescription .productName{
+
+    width:100%;
+    display: -webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 30px;
+    max-height: 35px;
+  
+}
+
+
+.productDescription .productName h5{
+    width:100%;
+    color: #333;
+    font-size:13px;
+    text-transform: capitalize;
+}
+
+.productDescription  .productPrice{
+    display:flex;
+    color: #333;
+    justify-content:space-between;
+    min-height: 15px;
+    max-height: 20px;
+    width:90%;
+    margin:auto;
+
+
+}
+.productDescription  .productPrice .realPrice{
+    background-color: rgba(255, 217, 0, 0.403);
+    height: 18px;
+}
+ .productDescription  .productPrice .realPrice h5,  .productDescription  .productPrice .through p{
+    font-size:16px;
+    color:#333
+}
+
+.searchtitle h1{
+    color:#333;
+    text-align: center;
+}
+
+.nosearch{
+    width:200px;
+    height:200px;
+    
+    margin: auto;
+}
+.nosearch svg{
+    width:100%;
+    height:100%;
+    
+}
+.texterror{
+    width:100%;
+    height:100px;
+
+    text-align: center;
+    
+}
+.texterror  span{
+    color: #fa5252;
+}

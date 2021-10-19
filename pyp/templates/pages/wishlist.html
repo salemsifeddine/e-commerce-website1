@@ -37,9 +37,9 @@
                 <div class="product-wish">
                     <ul>
                         <li>
-                            <i id="removewish" data-id="{{wish.product.id}}" class="fas fa-trash-alt"></i>
-                            <div class="img"><img src="{{wish.product.image.url}}" alt="whish image"></div>
-                            {{wish.product.name}}
+                            <i  id="removewish" data-id="{{wish.product.id}}" class="fas fa-trash-alt removewish"></i>
+                            <div class="img"><img class="skeleton" src="{{wish.product.image.url}}" alt="whish image"></div>
+                            <span>{{wish.product.name}}</span>
                         </li>
                         <li>{{wish.product.new_price}}0 $</li>
                         {% if wish.product.is_active %}

@@ -15,12 +15,15 @@ def callcartnumber(request):
         for item in items:
             if item.order.customer:
                 if request.user == item.order.customer and item.order.complete == False:
+                    
                     itemsordered.append(item)
                     quantm= item.quantity
                     totalarray.append(quantm)
                     totalItem = sum(totalarray)
+       
 
-        totalPrice=sum([item.product.new_price * item.quantity for item in items])
+        totalPrice=sum([int(item.product.new_price) * int(item.quantity) for item in itemsordered])
+        
         total={"price":totalPrice, "item":totalItem}
     else:
         total={"price":0, "item":0}

@@ -80,7 +80,7 @@
             {% for item in items %}
                 {% if user.profile.user == item.order.customer %}
                     <div class="items">
-                        <div class="img"><img src="{{item.product.image.url}}" alt=""></div>
+                        <div class="img"><img class="skeleton" src="{{item.product.image.url}}" alt=""></div>
                         <div  class="orderedname">{{item.product.name}}</div>
                         <div class="orderedprice">{{item.product.new_price}}$</div>
                         <div class="orderedquantity">{{item.quantity}}x</div>
@@ -92,7 +92,7 @@
                     <p>
                     items:{{totalitem.item}}
                     <br>
-                    total:{{totalitem.totalPrice}}$
+                    total:{{totalitem.price}}$
                     </p>
        </div>
     </div>

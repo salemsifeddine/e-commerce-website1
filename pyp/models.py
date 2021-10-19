@@ -49,7 +49,7 @@ class Product(models.Model):
     colors=models.ManyToManyField(Color)
     sizes=models.ManyToManyField(Size)
     name=models.CharField(max_length=50)
-    description=models.TextField(max_length=150)
+    description=models.TextField()
     old_price=models.FloatField()
     new_price= models.FloatField()
     catigory=models.ForeignKey(CategoryList, on_delete=models.CASCADE, default=1)
@@ -187,3 +187,4 @@ class Wishlist(models.Model):
 
     def __str__(self):
         return f"{self.customer} - wishlist "
+

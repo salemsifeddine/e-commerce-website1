@@ -1,10 +1,25 @@
-if(document.getElementById('removewish')){
-    var removewish = document.getElementById('removewish')
+if(document.getElementsByClassName('removewish')){
+    var removewish = document.getElementsByClassName('removewish')
 
-    removewish.addEventListener('click', function(){
-        var idWish= this.dataset.id
-        wishlistApi(idWish,'remove')
-    })
+    for(var wishbtndelete= 0;wishbtndelete< removewish.length;wishbtndelete++){
+        removewish[wishbtndelete].addEventListener('click', function(){
+            var idWish= this.dataset.id
+            console.log(idWish)
+            wishlistApi(idWish,'removewish')
+        })
+    }
+}else{
+    setTimeout(() => {
+        var removewish = document.getElementsByClassName('removewish')
+
+        for(var wishbtndelete= 0;wishbtndelete< removewish.length;wishbtndelete++){
+            removewish[wishbtndelete].addEventListener('click', function(){
+                var idWish= this.dataset.id
+                console.log(idWish)
+                wishlistApi(idWish,'removewish')
+            })
+        }
+    }, 5000);
 }
 
 

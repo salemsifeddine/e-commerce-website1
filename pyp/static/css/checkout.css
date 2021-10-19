@@ -43,7 +43,7 @@
     margin: 5px 2.5%;
 }
 .info .user-info .form input,.info .shopping-info .form input {
-    color:#000;
+    color:#333;
 }
 .info .shopping-info .form input[type="submit"]{
     background:green;
@@ -74,7 +74,7 @@
 }
 
 .info .user-info h3, .info .shopping-info h3{
-    color:#000;
+    color:#333;
     padding-left:10px
 }
 .info .user-info div:not(.only-sub), .info .shopping-info div{
@@ -131,7 +131,7 @@
 .order-summary .row-products .items div{
     line-height: 90px;
     height: 100%;
-    color: #000;
+    color: #333;
     width: 80px;
     text-align: center;
 
@@ -161,7 +161,7 @@
     width:80%;
     border: none;
     color:#fff;
-    background: #000;
+    background: #333;
     height:6vh;
     transition: .3s ease-in-out;
     border-radius: 2px;
@@ -173,7 +173,7 @@
     border:2px solid rgb(0, 0, 0);
     background: transparent;
    
-    color:#000
+    color:#333
 }
 
 .payment-mode{
