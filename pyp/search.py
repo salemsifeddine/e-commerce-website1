@@ -16,17 +16,27 @@ def store(request, query):
           
         search.save() 
 
-def getprodFiltered(search_text):
+def getprodFiltered(search_text,val):
     words=prepare_txt(search_text)
     products=Product.objects.all()
     result={}
     result["products"]=[]
     productsfiltered=[]
 
+
     for word in words:
         productsfiltered += products.filter(Q(name__icontains =word) | Q(description__icontains=word) | Q(sku__iexact=word) | Q(description__icontains=word) | Q(brand_name__icontains=word) | Q(meta_description__icontains=word) | Q(meta_keywords__icontains=word) )
     
-    seted=set(productsfiltered)
+   
+    
+    try:
+        slicenumber=int(val)
+        
+       
+        seted=set(productsfiltered[:slicenumber])
+    except:
+
+        seted=set(productsfiltered)
    
     result['products']=seted
 

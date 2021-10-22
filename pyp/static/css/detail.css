@@ -421,24 +421,8 @@ ul li{
   
     background: #fff;
 }
-.related-products .loadmore{
-    width:100px;
-    height: 5vh;
-    color:#333;
-    background: none;
-    border: none;
-    outline:none;
-    border:1px solid #333;
-    position:absolute;
-    bottom: -40px;
-    left:calc(50% - 50px);
-    transition: all .3s ease-in;
-    border-radius: 2px;
-}
-.related-products button:hover{
-    color:#fff;
-    background: #333;
-}
+
+
 .categoriesProducts{
     width:100%;
     min-height:7.99vh;
@@ -458,17 +442,20 @@ ul li{
 }
 .related-products .products{
     width:100%;
+    padding-top: 10px;
    
 }
 .related-products .products .product{
     min-width: 177px;
     max-width: 177.001px;
     height:310px;
-    margin-left: 3px;
-    margin-right: 3px;
+    margin-left: 6px;
+    margin-right: 6px;
     float: left;
     margin-bottom: 10px;
     overflow: hidden;
+    position:relative;
+    background-color: #f0f0f0;
 }
 .product a{
     text-decoration:none

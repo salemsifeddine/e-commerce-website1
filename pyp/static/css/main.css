@@ -5,12 +5,14 @@
    
     margin-bottom:5vh;
 }
+
 .containerContent{
     width:90%;
     height:auto;
     margin:0 5% 0 5%;
     display:inline-block;
-    
+    background: #fff;
+    position:relative;
 }
 
 .flex{
@@ -192,7 +194,11 @@
     overflow:hidden;
     cursor:grab;
     user-select: none;
+    transition :transform .2s ease;
     
+}
+.scaledrag{
+    transform: scale(0.95);
 }
 .grabbing{
     cursor:grabbing
@@ -802,4 +808,22 @@ li i:hover{
 }
 .productImg:hover{
     transform: scale(1.02);
+}
+
+.dealdetbtn{
+    width: 100px;
+    height:4.5vh;
+    color: #333;
+    border-radius: 2px;
+    background:transparent;
+    border: 1px solid #ec5e5cc4;
+    outline: none;
+    font-size: 0.9rem;
+    letter-spacing:0.5px;
+    transition:background .3s ease-in;
+}
+.dealdetbtn:hover{
+    border: none;
+    background:#ec5e5cc4;
+    color:#fff
 }

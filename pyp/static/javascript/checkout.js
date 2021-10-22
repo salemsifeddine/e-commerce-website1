@@ -108,3 +108,8 @@ zip_code2.addEventListener('keyup',function(e){
 
 ////////////////
 
+var productscart = document.querySelector(".row-products")
+if(productscart.childElementCount <= 0){
+
+    location.href = "/"
+}

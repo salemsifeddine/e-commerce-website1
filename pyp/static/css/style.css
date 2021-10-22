@@ -370,7 +370,7 @@ nav ul ul li a img{
 /*    
     border-bottom:1px solid #333; */
 }
-.row .row-cart .con-shopp{
+.con-shopp{
     width:200px;
     height:6vh;
     text-decoration: none;
@@ -383,12 +383,12 @@ nav ul ul li a img{
     color:rgb(0, 0, 0);
     border-radius:4px;
     font-weight:500;
-    
+    transition: .3s ease-in;
 }
 
-.row .row-cart .con-shopp:hover{
+.con-shopp:hover{
     color:#fff;
-    transition: .3s ease-in;
+   
     background:rgba(0, 0, 0, 0.986);
 }
 .row .row-cart table{
@@ -831,4 +831,87 @@ nav .navContainer ul:last-of-type .dropdown li:hover{
     border-radius: 50%;
     line-height:45px;
     
+}
+
+.animated-cart-wish-show{
+    width:350px;
+    min-height:20vh;
+    border:1px solid #333;
+    position: absolute;
+    z-index:9999999999999999999999999999999999;
+    background-color: #3caea3;
+    right: 0;
+    overflow: hidden;
+
+}
+.title-show{
+    border:1px solid black;
+}
+
+.title-show h3{
+    color:#333;
+    text-align: center;
+}
+
+.products-show{
+    height: auto;
+    border:1px solid black;
+
+}
+.product-show{
+    
+    border:1px solid #FFF;
+    height: 50px;
+}
+.product-show ul{
+    width: 100%;
+    height: auto;
+    display:flex;
+    justify-content:space-around;
+    border: 1px solid #3ddc84;
+}
+
+.product-show ul li{
+    border: 1px solid;
+    color:#fff;
+    align-items: center;
+    align-self: center;
+    height: 100%;
+}
+.product-show ul li:first-of-type{
+    display:inline-flex;
+    align-items: center;
+  
+}
+ 
+.img{
+    
+    min-width: 35px;
+    max-width:40px;
+    height:100%;
+    overflow: hidden
+}
+.img img{
+    width:100%;
+    height: 100%;
+
+}
+
+.loadmore{
+    width:100px;
+    height: 5vh;
+    color:#333;
+    background: none;
+    border: none;
+    outline:none;
+    border:1px solid #333;
+    position:absolute;
+    bottom: -40px;
+    left:calc(50% - 50px);
+    transition: all .3s ease-in;
+    border-radius: 2px;
+}
+.loadmore:hover{
+    color:#fff;
+    background: #333;
 }

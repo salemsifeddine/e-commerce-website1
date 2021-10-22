@@ -26,7 +26,8 @@ for(var i=0; i<catigoryelement.length;i++){
 
 //function hotdeals
 
-function contentHotdeals(clicked,name,oldPrice,newPrice,imagesrc){
+function contentHotdeals(clicked,name,oldPrice,newPrice,imagesrc,link){
+
     let nameProductofTargeted=$(clicked).parent().parent().parent().siblings('.hotdeal').children('.productDescription').children('.productName').children("h5")
 
     let oldprice=$(clicked).parent().parent().parent().siblings('.hotdeal')
@@ -35,17 +36,19 @@ function contentHotdeals(clicked,name,oldPrice,newPrice,imagesrc){
     let newprice=$(clicked).parent().parent().parent().siblings('.hotdeal')
         .children('.productDescription').children('.productPrice').children('.realPrice').children()
 
-    let rate=$(clicked).parent().parent().parent().siblings('.hotdeal')
-        .children('.productDescription').children('.rate')
+    let anchor=$(clicked).parent().parent().parent().siblings('.hotdeal')
+        .children('.productDescription').children('.rate').children('a')[0]
 
     let image=$(clicked).parent().parent().parent().siblings('.hotdeal')
         .children('.productImg').children('img')
 
+    
        
         nameProductofTargeted.text(name)
         oldprice.text(oldPrice + "$")
         newprice.text(newPrice + "$") 
         image.attr('src',imagesrc)
+        anchor.href= `deals/${link}`
 
 }
 
@@ -162,14 +165,16 @@ function hotdealupdate(clicked){
             "X-CSRFToken":csrftoken
         }}).then(response=>{ return response.json()}).then(data=>{
            
+            var targetedsectionD= clicked.dataset.section
+            
             hotdealdata = data;
             
-         let productname=hotdealdata["data"][hotdealKey]['name']
-         let priceOld =hotdealdata["data"][hotdealKey]['old_price']
-         let pricenew = hotdealdata["data"][hotdealKey]['new_price']
-         let srcImage = hotdealdata["data"][hotdealKey]['image']
-         let rate = hotdealdata["data"][hotdealKey]['rate']
-    //    if(i <0 || i>hotdealdata["data"].length){
+         let productname=hotdealdata[targetedsectionD][hotdealKey]['name']
+         let priceOld =hotdealdata[targetedsectionD][hotdealKey]['old_price']
+         let pricenew = hotdealdata[targetedsectionD][hotdealKey]['new_price']
+         let srcImage = hotdealdata[targetedsectionD][hotdealKey]['image']
+         let rate = hotdealdata[targetedsectionD][hotdealKey]['rate']
+    //    if(i <0 || i>hotdealdata[targetedsectionD].length){
     //        i=0
     //    }else{
 
@@ -177,19 +182,19 @@ function hotdealupdate(clicked){
 
        if(clicked.dataset.direct == 'left'){
             if(hotdealKey <=0 ){
-                hotdealKey=hotdealdata["data"].length
+                hotdealKey=hotdealdata[targetedsectionD].length
             }
             hotdealKey-=1 
             
-            contentHotdeals(clicked,productname, priceOld,pricenew,srcImage)
+            contentHotdeals(clicked,productname, priceOld,pricenew,srcImage,productname)
             
         }else{
             hotdealKey+=1
-            if( hotdealKey > hotdealdata["data"].length - 1){
+            if( hotdealKey > hotdealdata[targetedsectionD].length - 1){
                 hotdealKey=0
             }
             
-            contentHotdeals(clicked,productname, priceOld,pricenew,srcImage)
+            contentHotdeals(clicked,productname, priceOld,pricenew,srcImage,productname)
             
             
         }
@@ -670,6 +675,7 @@ for(var i=0;i<productsEle.length;i++){
        
         if(mouseDownOnProductsCont){
             e.preventDefault();
+            this.classList.add("scaledrag")
            
             this.style.cursor = 'grabbing'
             var currentXaxis= e.pageX - this.offsetLeft;
@@ -685,11 +691,12 @@ for(var i=0;i<productsEle.length;i++){
     productsEle[i].addEventListener('mouseup',function(e){
         e.preventDefault();
         e.stopPropagation();
+        this.classList.remove("scaledrag")
         mouseDownOnProductsCont=false;
         this.style.cursor = 'grab'
     })
     productsEle[i].addEventListener('mouseleave',function(e){
-        
+        this.classList.remove("scaledrag")
         mouseDownOnProductsCont=false;
         this.style.cursor = 'grab'
     })

@@ -312,8 +312,8 @@
             </div>   
         </div>
 
-        <div class="products">
-            {% for product in products %}
+        <div id="productidcontainer" class="products">
+            {% for product in relatedProducts %}
                     
                 <div xmlns:v="https://www.w3.org/1999/xhtml/" about="product.get_absolute_url" typeof="v:Product"  class="product">
                             
@@ -455,7 +455,7 @@
                         {% endif %}
                         </div>
                         <div class="btns">
-                            <button data-product='{{product.id}}' data-action='add'  class=" addToCart">Add to cart</button>
+                            <button  data-product='{{product.id}}' data-action='add'  class=" addToCart">Add to cart</button>
                             
                         </div>
                         </div>
@@ -463,8 +463,9 @@
                     
                 </div>
                 {% endfor %}
-                <button class="loadmore" data-action="load">See more</button>
-        </div>
+                </div>
+                <button id="btnload" data-category='{{product.catigory.id}}' data-rows=1 class="loadmore" data-action="load">See more</button>
+        
 {% endblock content %}
 
 {% block script %}

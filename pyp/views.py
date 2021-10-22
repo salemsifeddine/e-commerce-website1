@@ -55,12 +55,14 @@ def base(request):
             
     
     products=Product.objects.all()
+    wishlists=Wishlist.objects.all()
 
     
     
     total=callcartnumber(request)['total']
     wishlist=callwishnumber(request)
-    context={"name":"E-COMMERCE","totalitem":total,"form":"form","wishlist":wishlist}
+    context={"name":"E-COMMERCE","totalitem":total,"form":"form","wishlist":wishlist,
+    "wishlists":wishlists}
     return render(request,"pages/base.html",context)
 
 def adsapi(request):
@@ -117,7 +119,9 @@ def main(request):
     products={"featured":allproducts.filter(is_featured=True),
                 "bestseller":allproducts.filter(is_bestseller=True),
                 "products":allproducts.order_by("-date_added"),
-                "suggested":suggestedProducts
+                "suggested":suggestedProducts,
+                "hotdeal":Hotdeals.objects.all().last(),
+                "specialdeal":SpecialDeal.objects.all().last()
                }
     form=''
    
@@ -141,12 +145,14 @@ def main(request):
             form.save()
             return redirect('home')
        
-
+    hotdeals=Hotdeals.objects.all()
+    specialdeals=SpecialDeal.objects.all()
 
     total=callcartnumber(request)['total']
     wishlist=callwishnumber(request)
-    context={"name":"E-COMMERCE","title":"acceil","products":products,"options":options
-    , "wishlist":wishlist,"totalitem":total,
+    context={"name":"E-COMMERCE","title":"acceil","products":products,"options":options,
+    "hotdeals":hotdeals,"specialdeals":specialdeals,
+    "wishlist":wishlist,"totalitem":total,
     "category":category,"form":form}
     return render(request,"pages/main.html", context)
 
@@ -253,6 +259,131 @@ def profil(request):
 
 
 
+
+def rows(request):
+
+    data= json.loads(request.body.decode('utf-8'));
+    try:
+        rows = data["rows"];
+        categoryrelatedid = data["cat"];
+        sliceNo = int(data["slice"]);
+
+        filteredrelated= Product.objects.all().filter(catigory=categoryrelatedid)
+
+        rowstimescol= int(rows)*6 
+        mydata=[]
+
+        if len(Product.objects.all().filter(catigory=categoryrelatedid)) >= rowstimescol:
+           
+            
+            filteredrelated=filteredrelated[:rowstimescol ];
+
+            for product in filteredrelated:
+                productjson={
+                    'id':product.id,
+                    'name':product.name,
+                    'image':product.image.url,
+                    'description':product.description,
+                    'category':product.catigory.categoryName,
+                    'old_price':product.old_price,
+                    'new_price':product.new_price,
+                    'owner':product.owner.username,
+                    'rate':product.rate.rate,
+                    'is_promotion':product.is_promotion}
+                
+                mydata.append(productjson)
+            data_jsn={
+                "data":mydata,
+                "all":"no"
+            }
+        else:
+            
+            for product in filteredrelated:
+                productjson={
+                    'id':product.id,
+                    'name':product.name,
+                    'image':product.image.url,
+                    'description':product.description,
+                    'category':product.catigory.categoryName,
+                    'old_price':product.old_price,
+                    'new_price':product.new_price,
+                    'owner':product.owner.username,
+                    'rate':product.rate.rate,
+                    'is_promotion':product.is_promotion}
+                
+                mydata.append(productjson)
+            data_jsn={
+                "data":mydata,
+                "all":"yes"
+            }
+            
+    except:
+        rows = data["rows"];
+        rowstoint= int(rows)*6
+        productsearchquery = data["query"];
+        
+
+
+        
+
+        
+        mydata=[]
+        filteredrelated= getprodFiltered(productsearchquery,rowstoint)
+        
+        
+        if len(filteredrelated["products"]) >= rowstoint:
+            
+      
+
+            for product in filteredrelated["products"]:
+                productjson={
+                    'id':product.id,
+                    'name':product.name,
+                    'image':product.image.url,
+                    'description':product.description,
+                    'category':product.catigory.categoryName,
+                    'old_price':product.old_price,
+                    'new_price':product.new_price,
+                    'owner':product.owner.username,
+                    'rate':product.rate.rate,
+                    'is_promotion':product.is_promotion}
+                
+                mydata.append(productjson)
+            data_jsn={
+                "data":mydata,
+                "all":"no"
+            }
+            
+            
+        else:
+            
+            for product in filteredrelated["products"]:
+                productjson={
+                    'id':product.id,
+                    'name':product.name,
+                    'image':product.image.url,
+                    'description':product.description,
+                    'category':product.catigory.categoryName,
+                    'old_price':product.old_price,
+                    'new_price':product.new_price,
+                    'owner':product.owner.username,
+                    'rate':product.rate.rate,
+                    'is_promotion':product.is_promotion}
+                
+                mydata.append(productjson)
+            data_jsn={
+                "data":mydata,
+                "all":"yes"
+            }
+        
+        
+        
+
+
+    return JsonResponse(data_jsn, safe=False)
+
+
+
 class ProductDetailView(generic.DetailView):
     
     
@@ -264,19 +395,23 @@ class ProductDetailView(generic.DetailView):
         total = super().get_context_data(**kwargs)
         products = super().get_context_data(**kwargs)
         
-        
-
+        total["relatedProducts"]= Product.objects.all().filter(catigory=self.object.catigory.pk)[:6]
         total["products"]=Product.objects.all()
         total["colors"]=Color.objects.all()
         total["sizes"]=Size.objects.all()
-        total["wishlists"]=Wishlist.objects.all().filter(customer=self.request.user)
         total["totalitem"]=callcartnumber(self.request)['total']
         total["wishlist"]=callwishnumber(self.request)
-        total['wishedproduct']=Wishlist.objects.all().filter(customer=self.request.user, product=self.object.pk)
+        
+        if self.request.user.is_authenticated:
+            total["wishlists"]=Wishlist.objects.all().filter(customer=self.request.user)
+            total['wishedproduct']=Wishlist.objects.all().filter(customer=self.request.user, product=self.object.pk)
+
+            
         total['related']=Product.objects.all().filter(catigory=self.object.pk)
-        if total['wishedproduct'].first():
+
+        try:
             total['wishedproduct']=total['wishedproduct'].first().product
-        else:
+        except:
             total['wishedproduct']=''
 
        
@@ -424,8 +559,11 @@ def UpdateProducts(request):
 
 def HotdealsApi(request):
     hotdeals=Hotdeals.objects.all()
+    specialdeals= SpecialDeal.objects.all()
+    sepcialarray=[]
     object_data1={}
     hotdealsarray=[]
+
     for hotdeal in hotdeals:
         
         hotdealsobj={
@@ -441,9 +579,29 @@ def HotdealsApi(request):
             'rate':hotdeal.product.rate.rate,
             'is_promotion':hotdeal.product.is_promotion,
         }
+       
         hotdealsarray.append(hotdealsobj)
-        object_data1={
-            'data':hotdealsarray
+        
+
+    for spdeal in specialdeals:
+        specialdealsobj={
+            'id':spdeal.id,
+            'originalproductid':spdeal.product.id,
+            'name':spdeal.product.name,
+            'image':spdeal.product.image.url,
+            'description':spdeal.product.description,
+            'category':spdeal.product.catigory.categoryName,
+            'old_price':spdeal.product.old_price,
+            'new_price':spdeal.product.new_price,
+            'owner':spdeal.product.owner.username,
+            'rate':spdeal.product.rate.rate,
+            'is_promotion':spdeal.product.is_promotion,
+        }
+        sepcialarray.append(specialdealsobj)
+        
+    object_data1={
+            'hotdeal':hotdealsarray,
+            "specialdeal":sepcialarray
         }
     return JsonResponse(object_data1, safe=False)
 
@@ -523,7 +681,8 @@ def search(request):
         pagename="pages/search.html"
 
     ip=get_client_ip(request)
-    result= getprodFiltered(q)
+    result= getprodFiltered(q,6)
+    
     if request.user.is_authenticated:
         
         searchData, created = searchData.get_or_create(query=q, ip_addres=ip, user=request.user)
@@ -714,7 +873,11 @@ def wishlistApi(request):
 def wishlist(request):
     total=callcartnumber(request)['total']
     wishlist=callwishnumber(request)
-    wishlists=Wishlist.objects.all().filter(customer=request.user)
+    
+    if request.user.is_authenticated:
+        wishlists=Wishlist.objects.all().filter(customer=request.user)
+    else:
+        wishlists=[]
    
     
     
@@ -722,3 +885,21 @@ def wishlist(request):
     context={"wishlists":wishlists,"wishlist":wishlist,"totalitem":total}
 
     return render(request, "pages/wishlist.html", context)
+
+
+
+
+def deal(request, deal):
+
+    total=callcartnumber(request)['total']
+    wishlist=callwishnumber(request)
+
+    
+    product=Product.objects.all().filter(name=deal)
+    
+   
+    context={"product":product.first(),
+    "totalitem":total,"wishlist":wishlist}
+
+    return render(request, "pages/deal.html",context)
+

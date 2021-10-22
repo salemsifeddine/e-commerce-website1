@@ -35,30 +35,34 @@
                     <h4>HOT DEALS</h4>
                 </div>
                 <div class="arrows">
-                    <div class="left dealarrow"><i data-direct="left" class="fas fa-angle-left"></i></div>
-                    <div class="right dealarrow"><i  data-direct="right" class="fas fa-angle-right"></i></div>
+                    <div class="left dealarrow"><i data-section="hotdeal" data-direct="left" class="fas fa-angle-left"></i></div>
+                    <div class="right dealarrow"><i data-section="hotdeal"  data-direct="right" class="fas fa-angle-right"></i></div>
                 </div>
             </div>
-    
+            
+            {% if products.hotdeal %}
            <div class="hotdeal">
             <div class="productImg">
-                <img class="skeleton" src="{% static 'images/hotdeal.jpg' %}" alt="">
+                <img class="skeleton" src="{{products.hotdeal.product.image.url}}" alt="">
             </div>
             <div class="productDescription">
                 <div class="productName skeleton-text">
-                    <h5>lorem lorem</h5>
+                    <h5>{{products.hotdeal.product.name}}</h5>
                 </div>
                 <div class="productPrice">
                     <div class="through skeleton-text">
-                        <p>100,00$</p>
+                        <p>{{products.hotdeal.product.old_price}}$</p>
                     </div>
                     <div class="realPrice skeleton-text">
-                        <h5>90,00$</h5>
+                        <h5>{{products.hotdeal.product.new_price}}$</h5>
                     </div>
                 </div>
-                <div class="rate skeleton-text"></div>
+                <div class="rate skeleton-text">
+                    <a href="{% url 'deal' products.hotdeal.product.name  %}"><button class="dealdetbtn">See more</button></a>
+                </div>
             </div>
           </div>
+          {% endif %}
         </div>
 
 
@@ -69,33 +73,33 @@
                     <h4>special DEAL</h4>
                 </div>
                 <div class="arrows">
-                    <div class="left dealarrow"><i class="fas fa-angle-left"></i></div>
-                    <div class="right dealarrow"><i class="fas fa-angle-right"></i></div>
+                    <div  class="left dealarrow"><i data-section="specialdeal" class="fas fa-angle-left"></i></div>
+                    <div  class="right dealarrow"><i data-section="specialdeal" class="fas fa-angle-right"></i></div>
                 </div>
             </div>
-    
+            {% if products.specialdeal %}
             <div class="hotdeal">
                 <div class="productImg">
-                    <img class="skeleton" src="{% static 'images/luxury-woman-handbag.jpg' %}" alt="">
+                    <img class="skeleton" src="{{products.specialdeal.product.image.url}}" alt="">
                 </div>
                 <div class="productDescription">
                     <div class="productName skeleton-text">
-                        <h5>lorem lorem</h5>
+                        <h5>{{products.specialdeal.product.name}}</h5>
                     </div>
                     <div class="productPrice">
                         <div class="through skeleton-text">
-                            <p>100,00$</p>
+                            <p>{{products.specialdeal.product.old_price}}$</p>
                         </div>
                         <div class="realPrice skeleton-text">
-                            <h5>90,00$</h5>
+                            <h5>{{products.specialdeal.product.new_price}}$</h5>
                         </div>
                     </div>
                     <div class="rate skeleton-text">
-    
+                        <a href="{% url 'deal' products.specialdeal.product.name  %}"><button class="dealdetbtn">See more</button></a>
                     </div>
                 </div>
             </div>
-            
+            {% endif %}
         </div>
 
         <div class="hotdealCont">

@@ -1,0 +1,58 @@
+{% extends 'pages/base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/deal.css' %}">
+{% endblock css %}
+
+{% block content %}
+
+<div class="deal-parent">
+    <H1>Quick Deal</H1>
+    <div id="viewdeal" class="deal-child">
+        
+
+        <div class="content">
+
+            
+
+            <div class="desc-txt">
+
+                <div class="rtrn">
+
+                    <a href="{% url 'home' %}"><button class="con-shopp">&#8592; Continue Shopping</button></a>
+                    
+                    <div class="list">
+                        <div class="infos-deal">
+                            <span>AVAILBLE</span>
+                        </div>
+                        <div class="infos-deal">
+                            <span>HIGH QUAdsdTY</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="desc-t">
+                    <h1>
+                        {{product.name}}
+                    </h1>
+                    <br>
+                    <button class=" byenowbtn">
+                        Bye now
+                    </button>
+                </div>
+
+            </div>
+
+            <div class="img-deal">
+                <img src="{{product.image.url}}" alt="">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block script %}
+<script src="{% static 'javascript/deal.js' %}"></script>
+{% endblock script %}

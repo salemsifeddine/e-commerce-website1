@@ -38,7 +38,9 @@
                     <ul>
                         <li>
                             <i  id="removewish" data-id="{{wish.product.id}}" class="fas fa-trash-alt removewish"></i>
-                            <div class="img"><img class="skeleton" src="{{wish.product.image.url}}" alt="whish image"></div>
+                            <div class="img"><a href="/product/{{wish.product.id}}/">
+                                <img class="skeleton" src="{{wish.product.image.url}}" alt="whish image">
+                            </a></div>
                             <span>{{wish.product.name}}</span>
                         </li>
                         <li>{{wish.product.new_price}}0 $</li>

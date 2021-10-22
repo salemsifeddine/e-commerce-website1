@@ -1,7 +1,10 @@
 from .models import *
 
 def callwishnumber(request):
-    wishlist=Wishlist.objects.all().filter(customer=request.user)
+    if request.user.is_authenticated:
+        wishlist=Wishlist.objects.all().filter(customer=request.user)
+    else:
+        wishlist=[]
     return len(wishlist)
 
 def callcartnumber(request):
@@ -31,12 +34,16 @@ def callcartnumber(request):
 
 
 def existwishproduct(request):
-    wishlists=Wishlist.objects.all().filter(customer=request.user)
+    try:
+        wishlists=Wishlist.objects.all().filter(customer=request.user)
+    except :
+        wishlists=[]
     exist=False
-    for product in wishlists:
-        if product.product == Product.objects.get(id=1):
-            exist= True
-        else:
-            exist=exist
-    
+    if wishlists:
+        for product in wishlists:
+            if product.product == Product.objects.get(id=1):
+                exist= True
+            else:
+                exist=exist
+        
     return exist

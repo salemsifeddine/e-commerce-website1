@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from . import views
-from django.http import HttpRequest
+from django.http import HttpRequest, request
 from django.conf import settings 
 from django.conf.urls.static import static
 from django.contrib.auth import views as view
@@ -12,7 +12,7 @@ urlpatterns = [
     path("search/", views.search, name="search"),
     path("cart/", views.cart, name="cart"),
     path("checkout/", views.checkout, name="checkout"),
-
+    
     path("login/",view.LoginView.as_view(template_name="pages/login.html"), name="login"),
     path("signin/", views.signin, name="signin"),
     path("logout/", views.logout,name="logout"),
@@ -31,10 +31,17 @@ urlpatterns = [
     path("apilistSearch/", views.listSearch),
     path("checkout/payement/", views.ViewPdf.as_view(), name="payement-pdf"),
     path("wishlistApi/", views.wishlistApi, name="wishlistApi"),
+    path("rows/", views.rows),
+    path("deals/<str:deal>/", views.deal, name="deal"),
     path("wishlist/", views.wishlist, name="wishlist"),
     
     
-    ] 
+    ]
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
+ 

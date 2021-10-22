@@ -140,7 +140,7 @@
 .nosearch{
     width:200px;
     height:200px;
-    
+   
     margin: auto;
 }
 .nosearch svg{
@@ -157,4 +157,10 @@
 }
 .texterror  span{
     color: #fa5252;
+}
+
+.nosearch i{
+   font-size: 160px;
+   color: #333;
+
 }
