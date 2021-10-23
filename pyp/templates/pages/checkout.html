@@ -97,12 +97,13 @@
        </div>
     </div>
 </div>
-<script src="https://www.paypal.com/sdk/js?client-id=Aerl86gR9ccT60uD4LtWI7K14r-VgRmvpFWL2ukUZLB3pSNyha66ttAD5KBX3cLSoqFO1tmzvtQtCVgW&currency=USD"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+
 
 <script>
     
     var prooved=''
-    var totalvalueprice=parseInt('{{totalitem.totalPrice}}').toFixed(2)
+   
     // Render the PayPal button into #paypal-button-container
     paypal.Buttons({
 
@@ -118,7 +119,7 @@
         return actions.order.create({
             purchase_units: [{
                 amount: {
-                    value: totalvalueprice
+                    value: 80
                 }
             }]
         });
@@ -127,16 +128,17 @@
         // Finalize the transaction
         onApprove: function(data, actions) {
             
-            prooved=true
-            // shipping()
-            document.getElementById("submitbtn").click();
             
-            window.open("payement") 
            
            
             
             
             return actions.order.capture().then(function(orderData) {
+                prooved=true
+                // shipping()
+                document.getElementById("submitbtn").click();
+                
+                window.open("payement") 
                 setTimeout(() => {
                 location.pathname = "home"
             }, 2500);

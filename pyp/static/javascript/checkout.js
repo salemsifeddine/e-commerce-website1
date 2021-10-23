@@ -26,9 +26,9 @@ if(validateEmail(email.value) && address.value && city.value && state.value && z
             $(this).show() 
             alertform.children("p").text("Exellent!!")
             alertform.css("background","#B1E693")
-            alertform.animate({"left":0}, 700)
+            alertform.animate({"left":-63}, 700)
             setTimeout(() => {
-                alertform.animate({"left":-190 + 'px'}, 1200)
+                alertform.animate({"left":-260 + 'px'}, 1200)
             }, 2500);
 
         }else{
@@ -55,10 +55,10 @@ if(validateEmail(email.value) && address.value && city.value && state.value && z
     
 
     alertform.children("p").text("Please check your informations, then submit!")
-    alertform.animate({"left":0}, 700)
+    alertform.animate({"left":-63}, 700)
     
     setTimeout(() => {
-        alertform.animate({"left":-190 + 'px'}, 1200)
+        alertform.animate({"left":-260 + 'px'}, 1200)
     }, 2000);
 
 

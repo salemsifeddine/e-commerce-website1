@@ -168,7 +168,7 @@ def cart(response):
 
 
 shipDATA={}
-def checkout(response):
+def checkout(request):
     category=CategoryList.objects.all()
     itemsordered=[]
     items=OrderItem.objects.all()
@@ -176,16 +176,16 @@ def checkout(response):
     totalItem=0
     totalarray=[]
     totalPrice=[]
-    if response.method != "POST":
+    if request.method != "POST":
         form = ShippingForm()
      
     else:
         # order, created= Order.objects.get_or_create(customer=customer, complete=False)
 
 
-        form= ShippingForm(response.POST)
+        form= ShippingForm(request.POST)
         if form.is_valid():
-            order= Order.objects.filter(customer=response.user,complete=False ).first()
+            order= Order.objects.filter(customer=request.user,complete=False ).first()
             # order.complete= True
             order.complete = True 
             order.save()
@@ -193,8 +193,8 @@ def checkout(response):
             # trans.save()
 
             post=form.save(commit=False)
-            post.customer=response.user
-            post.order=Order.objects.all().filter(customer=response.user, complete=False).first()
+            post.customer=request.user
+            post.order=Order.objects.all().filter(customer=request.user, complete=False).first()
             
             shipDATA["name"]= post.customer
             shipDATA["address"]= post.address
@@ -209,11 +209,13 @@ def checkout(response):
             
     
         
-    total=callcartnumber(response)['total']
-    wishlist=callwishnumber(response)
-    itemsordered= callcartnumber(response)['products']
-    context={"name":"E-commerce", "title":"checkout","form":form,"wishlist":wishlist ,"items":itemsordered,"totalitem":total}
-    return render(response, "pages/checkout.html", context)
+    total=callcartnumber(request)['total']
+    
+    wishlist=callwishnumber(request)
+    itemsordered= callcartnumber(request)['products']
+    context={"name":"E-commerce", "title":"checkout","form":form,"wishlist":wishlist ,
+    "items":itemsordered,"totalitem":total}
+    return render(request, "pages/checkout.html", context)
 
 
 def login(response):
@@ -263,7 +265,8 @@ def profil(request):
 def rows(request):
 
     data= json.loads(request.body.decode('utf-8'));
-    try:
+    if data["load"] == "loaddetail":
+        print(data["load"])
         rows = data["rows"];
         categoryrelatedid = data["cat"];
         sliceNo = int(data["slice"]);
@@ -317,15 +320,11 @@ def rows(request):
                 "all":"yes"
             }
             
-    except:
+    elif data["load"] == "loadsearch":
+        print(data["load"])
         rows = data["rows"];
-        rowstoint= int(rows)*6
+        rowstoint= int(rows)*6;
         productsearchquery = data["query"];
-        
-
-
-        
-
         
         mydata=[]
         filteredrelated= getprodFiltered(productsearchquery,rowstoint)

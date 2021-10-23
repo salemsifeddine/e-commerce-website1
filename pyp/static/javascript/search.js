@@ -92,15 +92,15 @@ if(document.getElementById("btnloadsearch")){
         this.dataset.rows=parseInt(this.dataset.rows)+1
         var slicenum = this.dataset.rows
         var query= this.dataset.query
+        var loads=this.dataset.load
         
-        
-        loadSearch(query,slicenum,this)
+        loadSearch(query,slicenum,this,loads)
     })
 }
 
 
 //function of making an api and use it though
-function loadSearch(cat,sliceno, clickedbtn){
+function loadSearch(cat,sliceno, clickedbtn,loads){
     url="/rows/"
     
     fetch(url,{
@@ -110,6 +110,7 @@ function loadSearch(cat,sliceno, clickedbtn){
             "X-CSRFToken":csrftoken
         },
         body: JSON.stringify({
+            "load":loads,
             "query":cat,
             "rows":sliceno,
            
@@ -297,7 +298,36 @@ function loadSearch(cat,sliceno, clickedbtn){
                     
             </div>
         `
-
+        var buttons = document.getElementsByClassName("addToCart")
+        for(var i=0; i<buttons.length; i++){
+            buttons[i].addEventListener("click",function(){
+                
+                id=this.dataset.product
+                action=this.dataset.action
+              
+                if(user == "AnonymousUser"){
+                    // getCookieItem(id,action)
+                    
+                    console.log("ss")
+                    
+                }
+                else{
+                    var selectQnt=''
+                    if(document.getElementById("quantity")){
+                         selectQnt= document.getElementById("quantity")
+                         quantity= selectQnt.value
+                    }else{
+                        quantity=1
+                    }
+                    
+                   //cal your api and five it the keys
+                   update(id,action,parseInt(quantity))
+                
+                    
+                }
+            })
+        }
+        
         }
 
        

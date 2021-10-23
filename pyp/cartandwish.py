@@ -30,6 +30,8 @@ def callcartnumber(request):
         total={"price":totalPrice, "item":totalItem}
     else:
         total={"price":0, "item":0}
+    
+   
     return {"total":total, "products":itemsordered}
 
 

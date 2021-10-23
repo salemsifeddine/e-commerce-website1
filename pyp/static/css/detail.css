@@ -52,7 +52,7 @@
 
 .view-product .image-parent-detail .thumbnail-images .img{
    
-    width:60px;
+    min-width:50px;
     height:90%;
     margin:auto;
     padding: 5px;

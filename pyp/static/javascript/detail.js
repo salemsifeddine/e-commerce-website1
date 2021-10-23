@@ -276,8 +276,9 @@ btnload.addEventListener("click",function(){
    this.dataset.rows=parseInt(this.dataset.rows)+1
    
     var rowsnumber = this.dataset.rows
+    var load= this.dataset.load
     
-    loadrelated(rowsnumber, catrgoryrelated, lengthproducts, this)
+    loadrelated(rowsnumber, catrgoryrelated, lengthproducts, this,load)
     
     
 });
@@ -285,7 +286,7 @@ btnload.addEventListener("click",function(){
 
 
 //function of making an api and use it though
-function loadrelated(id,cat,sliceno, clickedbtn){
+function loadrelated(id,cat,sliceno, clickedbtn,load){
     url="/rows/"
     
     fetch(url,{
@@ -295,6 +296,7 @@ function loadrelated(id,cat,sliceno, clickedbtn){
             "X-CSRFToken":csrftoken
         },
         body: JSON.stringify({
+            "load":load,
             "rows":id,
             "cat":cat,
             "slice":sliceno,
@@ -483,6 +485,36 @@ function loadrelated(id,cat,sliceno, clickedbtn){
                     
             </div>
         `
+        var buttons = document.getElementsByClassName("addToCart")
+for(var i=0; i<buttons.length; i++){
+    buttons[i].addEventListener("click",function(){
+        
+        id=this.dataset.product
+        action=this.dataset.action
+      
+        if(user == "AnonymousUser"){
+            // getCookieItem(id,action)
+            
+            console.log("ss")
+            
+        }
+        else{
+            var selectQnt=''
+            if(document.getElementById("quantity")){
+                 selectQnt= document.getElementById("quantity")
+                 quantity= selectQnt.value
+            }else{
+                quantity=1
+            }
+            
+           //cal your api and five it the keys
+           update(id,action,parseInt(quantity))
+        
+            
+        }
+    })
+}
+
 
         }
 

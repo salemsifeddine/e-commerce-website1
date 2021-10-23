@@ -126,3 +126,8 @@
     border: 2px solid #333;
     background:transparent;
 }
+#paypal-button-container{
+    display: none;
+    width:50%;
+    margin:5vh auto;
+}

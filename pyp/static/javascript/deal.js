@@ -19,3 +19,12 @@ window.onload = function () {
  if(lengthname >55){
     dealproductname.style.fontSize = 40
  }
+
+
+
+
+ document.getElementById("byenow").addEventListener("click", function(){
+   var payementdiv = $('#paypal-button-container')
+   payementdiv.css('display','block')
+   $("body").animate({'scrollTop':payementdiv.offset().top / 2},500)
+ })
