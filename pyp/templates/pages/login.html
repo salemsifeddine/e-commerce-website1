@@ -2,13 +2,123 @@
 {%load static%}
 
 {% block content %}
-    <div class="page-login">
-        <form method="POST">
-            {% csrf_token %}
-            {{form.as_p}}
-            <input type="submit" class="button" value="Login">
-        
+
+
+    <div class="cont-auth">
+        <div class="concel">
+            <span>X</span>
+        </div>
+       <div class="sign">
+           <div class="signin">
+            <button  class="signbtn selected-sign">Sign in</button>
+           </div>
+           <div class="signup">
+               <button class="signbtn not-selected-sign">Sign up</button>
+           </div>
+       </div>
+       <div class="authsign">
+        <div class="auth-social">
+            <button class="auth__google button button--flat button--md button--google button--icon font-sm full-width">
+                <i class="icon"></i>
+                <i class="fab fa-google"></i> <span> Google</span>
+            </button>
+            <button class="auth__facebook button button--flat button--md button--facebook button--icon font-sm full-width">
+                <i class="fab fa-facebook-f"></i>
+                <span> Facebook</span>
+            </button>
+        </div>
+
+        <!-- sign in-->
+        <div class="signinCont">
+            <form id="auth-login-form" class="auth__login-form" method="post" novalidate="">
+                {% csrf_token %}
+    
+            <div class="group">
+                <div class="group__context"><i class="far fa-user"></i></div>
+                <input type="text" name="username" placeholder="Username or Email" autofocus="" required="">
+            </div>
+    
+            <div class="group mg-none-i">
+                <div class="group__context"><i class="fas fa-lock"></i></div>
+                <div class="group-input-password">
+                    <input type="password" id="passval"  placeholder="Password" >
+    
+                    <div class="password__toggle">
+                        <i class="fas fa-eye"></i>
+                        <i style="display:none" class="fas fa-eye-slash"></i>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="row row--vertical-center row--space-between mg-none pd-lv2 pd-x-none">
+                <button id="forgot-password" class="forgetpass"><span class="forget" data-tab="tab-forgot-password">Forgot your password?</span></button>
+            </div>
+    
+            
+                <button type="submit" class="button-flat">
+                    <span>Sign in</span>
+                </button>
+           
+        </form> 
+        </div>
+        <!-- for signing up -->
+        <div style="display:none" class="signupCont">
+            <form id="auth-login-form" class="auth__login-form" method="post" novalidate="">
+                {% csrf_token %}
+    
+            <div class="group">
+                <div class="group__context"><i class="far fa-user"></i></div>
+                <input type="text" name="username" placeholder="Username" autofocus="" required="">
+            </div>
+            <div class="group">
+                <div class="group__context"><i class="far fa-envelope"></i></div>
+                <input type="email" name="email" placeholder="Email" autofocus="" required="">
+            </div>
+    
+            <div class="group mg-none-i">
+                <div class="group__context"><i class="fas fa-lock"></i></div>
+                <div class="group-input-password">
+                    <input type="password" id="passval"  placeholder="Password" >
+    
+                    <div class="password__toggle">
+                        <i class="fas fa-eye"></i>
+                        <i style="display:none" class="fas fa-eye-slash"></i>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="row row--vertical-center row--space-between mg-none pd-lv2 pd-x-none">
+                <button id="forgot-password" class="forgetpass"><span class="forget" data-tab="tab-forgot-password">Forgot your password?</span></button>
+            </div>
+            <div class="checkbx">
+                <label class="checkbox checkbox--sm">
+                    <input id="register-newsletter" name="subscribe_newsletter" type="checkbox">
+                    <span class="checkbox__indicator">
+                        <i class="icon icon--xs icon--check"></i>
+                    </span>
+                    <span class="checkbox__link font-xs">I do not wish to receive news and promotions from Freepik Company by email.</span>
+                </label>
+            </div>
+    
+            
+                <button type="submit" class="button-flat">
+                    <span>Sign Up</span>
+                </button>
+           
         </form>
-        <a href="{% url 'signin' %}">You don't have an account!! Create one.</a>
+        </div>
+
+
+
+       </div>
+
     </div>
+
+
+        <a href="{% url 'signup' %}">You don't sifoo have an account!! Create one.</a>
+    
 {% endblock content%}
+
+{% block script  %}
+   <script src="{% static 'javascript/sign.js' %}"></script>
+{% endblock script %}

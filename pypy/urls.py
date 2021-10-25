@@ -22,5 +22,7 @@ import pyp
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("pyp.urls")),
+    path("oauth/", include("social_django.urls",namespace="social")),
     
 ]
+

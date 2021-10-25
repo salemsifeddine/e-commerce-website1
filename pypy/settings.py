@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'rest_framework',
     "django_social_share",
     "qr_code",
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
   
 ]
 
@@ -74,6 +76,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -180,3 +184,13 @@ EMAIL_HOST_PASSWORD="napxwgtymkevsswt"
 # for  security
 EMAIL_USE_TLS=True
 EMAIL_USE_SSL= False
+
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.linkedin.LinkedinOAuth2',
+    'social_core.backends.instagram.InstagramOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+SOCIAL_AUTH_FACEBOOK_KEY = "214213610798961"
+SOCIAL_AUTH_FACEBOOK_SECRET = "f29c8056fef33690004356ae2fb0299a"

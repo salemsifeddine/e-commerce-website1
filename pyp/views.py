@@ -49,9 +49,7 @@ class Apiclass(APIView):
 def base(request):
     # form=SearchForm()
 
-    # if response.method == 'POST':
-    #     form=SearchForm(data=response.POST)
-    #     if form.is_valid():
+    
             
     
     products=Product.objects.all()
@@ -61,7 +59,7 @@ def base(request):
     
     total=callcartnumber(request)['total']
     wishlist=callwishnumber(request)
-    context={"name":"E-COMMERCE","totalitem":total,"form":"form","wishlist":wishlist,
+    context={"name":"E-COMMERCE","totalitem":total,"wishlist":wishlist,
     "wishlists":wishlists}
     return render(request,"pages/base.html",context)
 
@@ -98,7 +96,8 @@ def adsapi(request):
     return JsonResponse(object_json,safe=False)
 
 from .cartandwish import *
-
+from django.contrib.auth import  authenticate  # add to imports
+from django.contrib.auth import login as auth_login
 def main(request):
     totalwish=callwishnumber(request)
     
@@ -132,18 +131,60 @@ def main(request):
 
     if request.method != 'POST':
         form=EmailField()
+        formsignup=CustomInfo()
+        formlogin=LoginForm()
     else:
         form = EmailField(data=request.POST)
-        enteredEmail=form.data['email'];
+        formsignup=CustomInfo(data=request.POST)
+        formlogin=LoginForm(data=request.POST)
 
-        for email in NewsLetterEmails.objects.all():
-            if enteredEmail == email.email:
-               
-                exist=True
+        if formsignup.is_valid():
             
+
+            usernamereg=formsignup.cleaned_data.get("username")
+            emailreg=formsignup.cleaned_data.get("email")
+            passwordreg=formsignup.cleaned_data.get("password1")
+
+            formsignup.save()
+            new_user = authenticate(username=usernamereg,password=passwordreg)
+            if new_user is not None:
+
+                auth_login(request,new_user)
+            
+            
+            return redirect('home')
+
+        try:
+            enteredEmail=form.data['email'];
+
+            for email in NewsLetterEmails.objects.all():
+                if enteredEmail == email.email:
+                
+                    exist=True
+        except :
+            pass
+        
         if form.is_valid() and  not exist:
+           
             form.save()
             return redirect('home')
+
+        
+
+        if formlogin.is_valid():
+            user = authenticate(
+                username=formlogin.cleaned_data['username'],
+                password=formlogin.cleaned_data['password'],
+            )
+            if user is not None:
+                auth_login(request, user)
+                message = f'Hello {user.username}! You have been logged in'
+            else:
+                message = 'Login failed!'
+            
+            return redirect("home")
+
+        
        
     hotdeals=Hotdeals.objects.all()
     specialdeals=SpecialDeal.objects.all()
@@ -152,7 +193,7 @@ def main(request):
     wishlist=callwishnumber(request)
     context={"name":"E-COMMERCE","title":"acceil","products":products,"options":options,
     "hotdeals":hotdeals,"specialdeals":specialdeals,
-    "wishlist":wishlist,"totalitem":total,
+    "wishlist":wishlist,"totalitem":total,"formsignup":formsignup,"formlogin":formlogin,
     "category":category,"form":form}
     return render(request,"pages/main.html", context)
 
@@ -223,7 +264,7 @@ def login(response):
     return render(response, 'pages/login.html')
 
 
-def signin(response):
+def signup(response):
     category=CategoryList.objects.all()
     if response.method != 'POST':
             form=CustomInfo()
@@ -233,14 +274,14 @@ def signin(response):
         if form.is_valid():
             form.save()
             return redirect('login')
-    context={"name":"E-COMMERCE","title":"SIGN IN", "form":form}
-    return render(response, "pages/signin.html",context)
+    context={"name":"E-COMMERCE","title":"SIGN UP", "form":form}
+    return render(response, "pages/signup.html",context)
 
 
 def logout(response):
     category=CategoryList.objects.all()
     auth.logout(response)
-    return redirect("/login")
+    return redirect("home")
 
 
 @login_required

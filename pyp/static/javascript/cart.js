@@ -10,7 +10,8 @@ for(var i=0; i<buttons.length; i++){
         if(user == "AnonymousUser"){
             // getCookieItem(id,action)
             
-            console.log("ss")
+            var logauth = $('.logauth');
+            logauth.fadeIn(500);
             
         }
         else{
@@ -97,6 +98,108 @@ function update(id,action,qnt){
 //********** */
 //change profile picture when user get uploaded his photo and before submit it
 
+var concel = document.querySelector(".concel");
+concel.addEventListener("click",function(){
+    var logauth = $('.logauth');
+    logauth.fadeOut(500);
+})
+
+var buttonSignup = document.querySelector(".not-selected-sign")
+var buttonSignin = document.querySelector(".selected-sign")
+var signinCont = document.querySelector(".signinCont");
+var signupCont = document.querySelector(".signupCont")
+
+buttonSignup.addEventListener("click",function(){
+    console.log("dsqd")
+   
+    if(this.classList.contains("not-selected-sign") ){
+        this.classList.remove("not-selected-sign");
+        buttonSignin.classList.remove('selected-sign');
+        this.classList.add("selected-sign");
+        buttonSignin.classList.add('not-selected-sign');
+        signinCont.style.display = "none"
+        signupCont.style.display = "block"
+    }else{
+        
+        
+        buttonSignin.classList.remove('selected-sign');
+        
+        buttonSignin.classList.add('not-selected-sign');
+        
+    }
+
+
+})
+
+buttonSignin.addEventListener("click",function(){
+    
+    if(this.classList.contains("not-selected-sign") ){
+        this.classList.remove("not-selected-sign");
+        buttonSignup.classList.remove('selected-sign');
+        this.classList.add("selected-sign");
+        buttonSignup.classList.add('not-selected-sign');
+        signupCont.style.display = "none"
+        signinCont.style.display = "block"
+    }else{
+        
+        
+        buttonSignup.classList.remove('selected-sign');
+        
+        buttonSignup.classList.add('not-selected-sign');
+        
+    }
+
+
+})
+
+var passwordthrough = document.querySelectorAll(".fa-eye-slash")
+var passwordvue = document.querySelectorAll(".fa-eye")
+
+
+passwordvue.forEach(ele=>{
+    ele.addEventListener("click",function(){
+      
+            var inputpass = document.getElementById(this.dataset.id)
+            inputpass.setAttribute("type","text")
+                
+            this.style.display = "none"
+            var passeye = document.getElementById(this.dataset.sibl)
+            passeye.style.display="block"
+      
+    })
+})
+
+passwordthrough.forEach(ele=>{
+        ele.addEventListener('click',function(e){
+        var inputpass = document.getElementById(this.dataset.id)
+        console.log(inputpass)
+        inputpass.setAttribute("type","password")
+        this.style.display = "none"
+        var passeye = document.getElementById(this.dataset.sibl)
+        passeye.style.display="block"
+    })
+})
 
 
 
+
+var signupbtn = document.getElementById("signup")
+var signinbtn = document.getElementById("login")
+
+signupbtn.addEventListener("click",function(e){
+    e.preventDefault();
+    if(user="anonymousUser"){
+        var logauth = $('.logauth');
+        logauth.fadeIn(500);
+        buttonSignup.click()
+    }
+})
+signinbtn.addEventListener("click",function(e){
+    e.preventDefault();
+
+    if(user="anonymousUser"){
+        var logauth = $('.logauth');
+        logauth.fadeIn(500);
+        buttonSignin.click()
+    }
+})

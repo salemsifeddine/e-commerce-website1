@@ -243,19 +243,24 @@ wishlistBtn.addEventListener("click",function(){
     this.classList.toggle("added")
     var wishproduct=this.dataset.product 
 
-    if(this.classList.contains('added')){
+    if(user == "AnonymousUser"){
+        var logauth = $('.logauth');
+        logauth.fadeIn(500);
+    
+    }else{
+        if(this.classList.contains('added')){
       
 
-        // this.innerHTML = `<i class="fas fa-heart"></i> Remove From WishList`
-        wishlistApi(wishproduct,"add")
-
-    }else{
-        
-        // this.innerHTML = `<i class="far fa-heart"></i> Add To WishList`
-        wishlistApi(wishproduct,"remove")
-
+            // this.innerHTML = `<i class="fas fa-heart"></i> Remove From WishList`
+            wishlistApi(wishproduct,"add")
+    
+        }else{
+            
+            // this.innerHTML = `<i class="far fa-heart"></i> Add To WishList`
+            wishlistApi(wishproduct,"remove")
+    
+        }
     }
-
     
 
     

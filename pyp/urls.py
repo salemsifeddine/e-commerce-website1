@@ -14,7 +14,7 @@ urlpatterns = [
     path("checkout/", views.checkout, name="checkout"),
     
     path("login/",view.LoginView.as_view(template_name="pages/login.html"), name="login"),
-    path("signin/", views.signin, name="signin"),
+    path("signup/", views.signup, name="signup"),
     path("logout/", views.logout,name="logout"),
     path("profil/",views.profil, name="profil"),
     path(r"product/<int:pk>/",views.ProductDetailView.as_view(),name="detail"),
@@ -45,3 +45,6 @@ if settings.DEBUG:
 
 
  
+
+
+SOCIAL_AUTH_URL_NAMESPACE = "users:social"

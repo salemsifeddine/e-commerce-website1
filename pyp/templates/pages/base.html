@@ -7,6 +7,7 @@
     <title>{% if title %}{{title}}  - {%endif%}{% if name %}{{name}}{%else%}E-commerce{%endif%} </title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/log.css' %}">
     <link rel="stylesheet" href="{% static 'css/loading.css' %}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css">
     {% block css %}
@@ -58,11 +59,151 @@
         //     cart={}
         //     document.cookie = 'cart=' + JSON.stringify(cart) + ';domain=;path=/'
         // }
-    </script>   
+    </script>  
+    
 </head>
 <body>
-   
+
+
    <div class="mainContainer">
+       <div class="logauth">
+
+        <div class="cont-auth">
+            <div class="concel">
+                <span>X</span>
+            </div>
+           <div class="sign">
+               <div class="signin">
+                <button  class="signbtn selected-sign">Sign in</button>
+               </div>
+               <div class="signup">
+                   <button class="signbtn not-selected-sign">Sign up</button>
+               </div>
+           </div>
+           <div class="authsign">
+            <div class="auth-social">
+                <a href="{% url 'social:begin' 'instagram' %}">
+                    <button class="auth__twitter button button--flat button--md button--google button--icon font-sm full-width">
+                       
+                        <i class="fab fa-instagram"></i>
+                         <span> Instagram </span>
+                    </button>
+                </a>
+                
+                <a href="{% url 'social:begin' 'facebook' %}">
+                    <button class="auth__facebook button button--flat button--md button--facebook button--icon font-sm full-width">
+                        <i class="fab fa-facebook-f"></i>
+                        <span> Facebook</span>
+                    </button></a>
+                
+            </div>
+
+            <!-- sign in-->
+            <div class="signinCont">
+                <form class="auth__login-form" method="POST" >
+                    {% csrf_token %}
+        
+                <div class="group">
+                    <div class="group__context"><i class="far fa-user"></i></div>
+                    <!-- <input type="text" name="username" placeholder="Username or Email" autofocus="" required=""> -->
+                    {{formlogin.username}}
+                </div>
+        
+                <div class="group mg-none-i">
+                    <div class="group__context"><i class="fas fa-lock"></i></div>
+                    <div class="group-input-password">
+                        <!-- <input type="password" id="passval"  placeholder="Password" > -->
+                        {{formlogin.password}}
+        
+                        <div class="password__toggle">
+                            <i id="eyepass" data-sibl="througpass" data-id="id_password" class="fas fa-eye"></i>
+                            <i data-sibl="eyepass" id="througpass" data-id="id_password" style="display:none" class="fas fa-eye-slash"></i>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="row row--vertical-center row--space-between mg-none pd-lv2 pd-x-none">
+                    <button id="forgot-password" class="forgetpass"><span class="forget" data-tab="tab-forgot-password">Forgot your password?</span></button>
+                </div>
+        
+                
+                    <button type="submit" class="button-flat">
+                        <span>Sign in</span>
+                    </button>
+               
+            </form> 
+            </div>
+            <!-- for signing up -->
+            <div style="display:none" class="signupCont">
+                <form class="auth__login-form" method="POST">
+                    {% csrf_token %}
+        
+                <div class="group">
+                    <div class="group__context"><i class="far fa-user"></i></div>
+                    <!-- <input type="text" name="username" placeholder="Username" autofocus="" required=""> -->
+                    {{formsignup.username}}
+                </div>
+                <div class="group">
+                    <div class="group__context"><i class="far fa-envelope"></i></div>
+                    <!-- <input type="email" name="email" placeholder="Email" autofocus="" required=""> -->
+                    {{formsignup.email}}
+                </div>
+        
+                <div class="group mg-none-i">
+                    <div class="group__context"><i class="fas fa-lock"></i></div>
+                    <div class="group-input-password">
+                        <!-- <input type="password" id="passval"  placeholder="Password" > -->
+                        {{formsignup.password1}}
+        
+                        <div class="password__toggle">
+                            <i id="througpass1" data-sibl="eyepass1" data-id="id_password1" class="fas fa-eye"></i>
+                            <i id="eyepass1" data-sibl="througpass1" data-id="id_password1" style="display:none" class="fas fa-eye-slash"></i>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="group mg-none-i">
+                    <div class="group__context"><i class="fas fa-lock"></i></div>
+                    <div class="group-input-password">
+                        <!-- <input type="password" id="passval"  placeholder="Password" > -->
+                        {{formsignup.password2}}
+        
+                        <div class="password__toggle">
+                            <i id="througpass2" data-sibl="eyepass2" data-id="id_password2" class="fas fa-eye"></i>
+                            <i id="eyepass2" data-sibl="througpass2" data-id="id_password2" style="display:none" class="fas fa-eye-slash"></i>
+                        </div>
+                    </div>
+                    
+                </div>
+        
+                <div class="row row--vertical-center row--space-between mg-none pd-lv2 pd-x-none">
+                    <button id="forgot-password" class="forgetpass"><span class="forget" data-tab="tab-forgot-password">Forgot your password?</span></button>
+                </div>
+                <div class="checkbx">
+                    <label class="checkbox checkbox--sm">
+                        <input id="register-newsletter" name="subscribe_newsletter" type="checkbox">
+                        <span class="checkbox__indicator">
+                            <i class="icon icon--xs icon--check"></i>
+                        </span>
+                        <span class="checkbox__link font-xs">I do not wish to receive news and promotions from Freepik Company by email.</span>
+                    </label>
+                </div>
+        
+                
+                    <button type="submit" class="button-flat">
+                        <span>Sign Up</span>
+                    </button>
+               
+            </form>
+            </div>
+
+
+
+           </div>
+
+        </div>
+
+       </div>
     <nav>
 
         <div class="imageLogo">
@@ -79,8 +220,8 @@
                 {% if user.is_authenticated %}
                 <li><a href="{% url 'logout' %}">| Logout</a></li>
                 {% else %}
-                <li><a href="{% url 'login' %}">| Login</a></li>
-                <li><a href="{% url 'signin' %}">| Sign Up</a></li>
+                <li><a id="login" href="{% url 'login' %}">| Login</a></li>
+                <li><a id="signup" href="{% url 'signup' %}">| Sign Up</a></li>
                 {% endif %}
 
                 <!--

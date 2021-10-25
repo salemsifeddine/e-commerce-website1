@@ -1,0 +1,211 @@
+.logauth{
+    width:100%;
+    height:100%;
+    position:fixed;
+    background:#6176b18e;
+    z-index: 9999999999999999999;
+    display: none;
+}
+.cont-auth{
+    width:450px;
+    min-height:70vh;
+    position: relative;
+    margin:7vh auto;
+    border-radius: 3px;
+    background-color:#fff;
+}
+.concel{
+  
+    height: 30px;
+    line-height: 30px;
+    width:25px;
+    cursor:pointer;
+    position: absolute;
+    right:2px;
+    top:0;
+    font-size:20px;
+    text-align:center;
+}
+.concel span{
+    color:#ec5f5c;
+    font-size:20px;
+    
+}
+.sign{
+    width:100%;
+    height:80px;
+
+    display:flex
+}
+.signin, .signup{
+    height:100%;
+    width:50%
+}
+.signin button, .signup button{
+    width:100%;
+    height:100%;
+    border:none;
+    border-radius: none;
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 64px;
+    
+}
+.selected-sign{
+    background: #fff;
+    color:#333;
+}
+.not-selected-sign{
+    box-shadow: inset 0 0 30px #bac8d3;
+    color:#5f7d95;
+}
+.authsign{
+    width:80%;
+    margin: 5vh auto 0;
+    
+}
+.auth-social{
+    width:100%;
+    height:40px;
+    display:flex;
+    justify-content: space-between;
+}
+.auth-social a{
+    width: 48%;
+}
+.auth__facebook{
+    height:100%;
+    min-width: 100%;
+    border:none;
+    box-shadow: inset 0 0 0 100px #3b5998;
+    transition:all 0s ease;
+}
+.auth__facebook:hover{
+    border:none;
+    box-shadow: inset 0 0 0 100px #1853d1;
+}
+.auth__twitter{
+    min-width: 100%;
+    height:100%;
+    border:none;
+    box-shadow: inset 0 0 0 100px #405DE6;
+    transition:all 0s ease;
+}
+.auth__twitter:hover{
+    border:none;
+    box-shadow: inset 0 0 0 100px #2b45ca
+}
+.group{
+    width:100%;
+    height:45px;
+    margin-top:15px;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    border-radius: 3px;
+    box-sizing: border-box;
+    background-color: #f8fafb;
+    font-size: 16px;
+}
+
+.group-input-password{
+    position: relative;
+    border: none;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    width:100%;
+}
+.group input, .group-input-password input{
+    width:100%;
+    height:100%;
+    border-bottom: 1px solid #bac8d3 ;
+    border-top: 1px solid #bac8d3 ;
+    outline: none;
+    font-size:16px;
+    color:#333;
+    padding-left: 10px;
+}
+group::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    border-radius: 3px;
+    box-shadow: inset 0 0 0 1px #bac8d3;
+    content: "";
+    z-index: 2;
+}
+
+.group__context{
+    border:1px solid #bac8d3;
+    height: 100%;
+    align-self: stretch;
+    border-color: #bac8d3;
+    align-self: stretch;
+    border-radius:5px 0 0 5px;
+    
+}
+.group__context i,.password__toggle i,.password__toggle i{
+
+    width: 14px;
+    height: 14px;
+    font-size: 20px;
+    line-height: 14px;
+    padding: 15px;
+    box-sizing: content-box;
+
+    color: #5f7d95;
+    fill: #5f7d95;
+                
+}
+.button-flat{
+    width: 100%;
+    box-shadow: inset 0 0 0 100px #1273eb;
+    font-size: 16px;
+    height: 44px;
+    line-height: 44px;
+    border:none;
+    margin-top: 15px;
+    margin-bottom:30px
+}
+.forget{
+    color: #1273eb;
+    font-size: 14px;
+    box-sizing: border-box;
+    outline: none;
+    font-weight: 500;
+}
+.forgetpass{
+    padding: 0;
+    border: none;
+   background:none;
+    user-select: none;
+    cursor: pointer;
+    font-size: 14px;
+    box-sizing: border-box;
+    outline: none;
+    font-weight: 500;
+    margin-left: 190px;
+    margin-top: 15px;
+    width:190px
+}
+.password__toggle{
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    
+    cursor: pointer;
+}
+.button-flat:hover{
+    box-shadow: inset 0 0 0 100px #044fac;
+}
+.checkbx{
+    margin-top: 15px;
+}
+.checkbox span{
+    color: rgba(51, 51, 51, 0.548);
+}
