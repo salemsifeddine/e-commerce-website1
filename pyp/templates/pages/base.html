@@ -213,9 +213,8 @@
         <div class="navContainer">
             <ul>
                 <li><a href="{% url 'home' %}">Accueil</a></li>
-                <li><a href="{% url 'profil' %}">| My Account</a></li>
+                <li><a id="myacct" href="{% url 'profil' %}">| My Account</a></li>
                 <li><a href="{% url 'cart' %}">| Cart</a></li>
-                <li><a href="{% url 'myproducts' %}">| Store</a></li>
                 <li><a href="{% url 'checkout' %}">| Checkout</a></li>
                 {% if user.is_authenticated %}
                 <li><a href="{% url 'logout' %}">| Logout</a></li>

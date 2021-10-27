@@ -228,7 +228,8 @@ function wishlistApi(id, action){
     })
     .then((data)=>{
         //
-            location.reload()
+     
+             location.reload()
         
        
 
@@ -241,6 +242,7 @@ var wishlistBtn = document.getElementById("wishbtn")
 wishlistBtn.addEventListener("click",function(){
 
     this.classList.toggle("added")
+    console.log(this.classList)
     var wishproduct=this.dataset.product 
 
     if(user == "AnonymousUser"){
@@ -257,7 +259,7 @@ wishlistBtn.addEventListener("click",function(){
         }else{
             
             // this.innerHTML = `<i class="far fa-heart"></i> Add To WishList`
-            wishlistApi(wishproduct,"remove")
+            wishlistApi(wishproduct,"removewish")
     
         }
     }

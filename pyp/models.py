@@ -11,8 +11,19 @@ import math
 #    def __str__(self):
 #        return self.name
         
+
+
+class CategoryProduct(models.Model):
+    category= models.CharField(max_length=50,blank=False)
+    image=models.ImageField(upload_to="products", null=True,blank=True)
+
+    def __str__(self):
+        return self.category
+
 class CategoryList(models.Model):
     categoryName= models.CharField(max_length=50,blank=False)
+    categorylist=models.ManyToManyField(CategoryProduct)
+    image=models.ImageField(upload_to="products", null=True,blank=True)
 
     def __str__(self):
         return self.categoryName
@@ -52,7 +63,7 @@ class Product(models.Model):
     description=models.TextField()
     old_price=models.FloatField()
     new_price= models.FloatField()
-    catigory=models.ForeignKey(CategoryList, on_delete=models.CASCADE, default=1)
+    catigory=models.ForeignKey(CategoryProduct, on_delete=models.CASCADE, default=1)
     rate=models.ForeignKey(Rate, on_delete=models.CASCADE, default=0)
     image= models.ImageField( default="products/defaultProduct.jpg", upload_to="products")
     thumbnail = models.ManyToManyField(ProductThumbnail)
@@ -83,7 +94,7 @@ class Product(models.Model):
  
     
 class Order(models.Model):
-    customer=models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    customer=models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     date_order= models.DateTimeField(auto_now_add=True)
     complete=models.BooleanField(default=False)
     def __str__(self):
@@ -99,8 +110,8 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     
-    product= models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, db_constraint=False)
-    order= models.ForeignKey(Order, on_delete=models.SET_NULL,default=0 ,null=True, db_constraint=False)
+    product= models.ForeignKey(Product, on_delete=models.CASCADE, null=True, db_constraint=False)
+    order= models.ForeignKey(Order, on_delete=models.CASCADE,default=0 ,null=True, db_constraint=False)
     quantity = models.IntegerField(default=0, null=True, blank=True)
     date_added= models.DateTimeField(auto_now_add=True)
 
@@ -113,8 +124,8 @@ class OrderItem(models.Model):
     
 
 class ShippingAddress(models.Model):
-    customer=models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    order=models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
+    customer=models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    order=models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
     email=models.EmailField(blank=False)
     address=models.CharField(max_length=200, null = False)
     city= models.CharField(max_length=200, null=False)
@@ -163,6 +174,10 @@ class Slider(models.Model):
 class HorAdd(models.Model):
     image=models.ImageField(blank=True,upload_to="HorAdImages")
     video=models.FileField(blank=True,upload_to="HorAdsHorAdImages")
+    product= models.ForeignKey(Product, on_delete=models.CASCADE)
+    textcolored=models.CharField(blank=True, max_length=80)
+    textnoncolored=models.CharField(blank=True, max_length=80)
+
 
 class NewsLetterEmails(models.Model):
     email=models.EmailField(blank=False)

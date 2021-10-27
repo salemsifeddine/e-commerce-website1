@@ -64,9 +64,25 @@ function adapi(){
         }})
         .then(response=>{ return response.json()})
         .then(data=>{
-
             var ij=0;
             var ik=0;
+            var ih=0;
+            console.log(data)
+
+            setInterval(() => {
+                if(ih < data.horaddarr.length){
+                    
+                    document.getElementById("imghor").src = data.horaddarr[ih].media
+                    document.getElementById("coloredtxt").textContent = data.horaddarr[ih].textcolored
+                    document.getElementById("noncoloredtxt").textContent = data.horaddarr[ih].textnoncolored
+                    document.getElementById("producthref").href ="product/" + data.horaddarr[ih].idproduct
+                    
+                    ih++
+                }else{
+                    ih=0
+                }
+            }, 2000);
+           
             //get slider container
             let slidercont=document.getElementById("imageslidecontainer");
             
@@ -578,6 +594,36 @@ function updateproducts(category,categoryId,section){
                 </div>
             `
         }
+        
+        var buttons = document.getElementsByClassName("addToCart")
+for(var i=0; i<buttons.length; i++){
+    buttons[i].addEventListener("click",function(){
+        
+        id=this.dataset.product
+        action=this.dataset.action
+      
+        if(user == "AnonymousUser"){
+            // getCookieItem(id,action)
+            
+            console.log("ss")
+            
+        }
+        else{
+            var selectQnt=''
+            if(document.getElementById("quantity")){
+                 selectQnt= document.getElementById("quantity")
+                 quantity= selectQnt.value
+            }else{
+                quantity=1
+            }
+            
+           //cal your api and five it the keys
+           update(id,action,parseInt(quantity))
+        
+            
+        }
+    })
+}
             
         
        
@@ -759,6 +805,7 @@ window.addEventListener("scroll",function(e){
     
    
 })
+
 
 
 

@@ -122,10 +122,14 @@ function loadSearch(cat,sliceno, clickedbtn,loads){
     .then((product)=>{
         
         if(product.all == "yes"){
-            clickedbtn.remove()
+            clickedbtn.style.display = "none"
+        }else{
+            clickedbtn.style.display = "block"
         }
 
-        document.getElementById("productSearchCont").innerHTML=''
+        if(document.getElementById("productSearchCont")){
+            document.getElementById("productSearchCont").innerHTML=''
+        }
         //
         
 

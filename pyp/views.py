@@ -89,7 +89,32 @@ def adsapi(request):
         else:
             pass
 
+    
+    horadds={}
+    horaddarr=[]
+    for hrad in HorAdd.objects.all():
+        media=''
+        if hrad.image:
+            media=hrad.image.url
+        elif hrad.video:
+            media=hrad.video.url
+
+        horadds={
+            "media":media,
+            "idproduct":hrad.product.id,
+            "textcolored":hrad.textcolored,
+            "textnoncolored":hrad.textnoncolored
+        }
+        
+       
+    
+        
+        horaddarr.append(horadds)
+    
+            
+
     object_json={"verticalAd":imagesverAdarray,
+                "horaddarr":horaddarr,
                 "sliders":sliderarray}
 
     
@@ -183,12 +208,13 @@ def main(request):
                 message = 'Login failed!'
             
             return redirect("home")
+  
 
-        
+    
        
     hotdeals=Hotdeals.objects.all()
     specialdeals=SpecialDeal.objects.all()
-
+    
     total=callcartnumber(request)['total']
     wishlist=callwishnumber(request)
     context={"name":"E-COMMERCE","title":"acceil","products":products,"options":options,
@@ -446,6 +472,7 @@ class ProductDetailView(generic.DetailView):
             total["wishlists"]=Wishlist.objects.all().filter(customer=self.request.user)
             total['wishedproduct']=Wishlist.objects.all().filter(customer=self.request.user, product=self.object.pk)
 
+        print(total['wishedproduct'])
             
         total['related']=Product.objects.all().filter(catigory=self.object.pk)
 
@@ -739,7 +766,7 @@ def category(request, category):
     total=callcartnumber(request)['total']
     wishlist=callwishnumber(request)
 
-    id_category_selected=CategoryList.objects.get(categoryName=category)
+    id_category_selected=CategoryProduct.objects.get(category=category)
     result=Product.objects.all().filter(catigory=id_category_selected.id)
     
    
@@ -902,11 +929,13 @@ def wishlistApi(request):
     if action == "add":
         wish , created = Wishlist.objects.get_or_create(customer=request.user, product=product_wished.first())
         wish.save()
+        action="add"
     elif action == "removewish":
         wish= Wishlist.objects.get(customer=request.user, product=product_wished.first()).delete() 
         
+        action="removewish"
     
-    data_json={}
+    data_json={"action":action}
     return JsonResponse( data_json, safe=False)
 
 

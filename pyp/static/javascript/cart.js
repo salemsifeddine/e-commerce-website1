@@ -182,24 +182,74 @@ passwordthrough.forEach(ele=>{
 
 
 
+if(document.getElementById("signup")){
+    var signupbtn = document.getElementById("signup");
+    signupbtn.addEventListener("click",function(e){
+        e.preventDefault();
+        if(user="anonymousUser"){
+            var logauth = $('.logauth');
+            logauth.fadeIn(500);
+            buttonSignup.click()
+        }
+    })
+}
 
-var signupbtn = document.getElementById("signup")
-var signinbtn = document.getElementById("login")
+if(document.getElementById("login")){
+    var signinbtn = document.getElementById("login")
+    signinbtn.addEventListener("click",function(e){
+        e.preventDefault();
+    
+        if(user="anonymousUser"){
+            var logauth = $('.logauth');
+            logauth.fadeIn(500);
+            buttonSignin.click()
+        }
+    })
+}
 
-signupbtn.addEventListener("click",function(e){
-    e.preventDefault();
-    if(user="anonymousUser"){
-        var logauth = $('.logauth');
-        logauth.fadeIn(500);
-        buttonSignup.click()
-    }
-})
-signinbtn.addEventListener("click",function(e){
-    e.preventDefault();
+if(document.getElementById("myacct")){
+    var myacctlink = document.getElementById("myacct");
+    myacctlink.addEventListener('click',function(e){
+        
+  
+        
+        if(user == "AnonymousUser"){
+            e.preventDefault();
+            var logauth = $('.logauth');
+            logauth.fadeIn(500);
+            buttonSignin.click()
+        }
+    })
 
-    if(user="anonymousUser"){
-        var logauth = $('.logauth');
-        logauth.fadeIn(500);
-        buttonSignin.click()
-    }
-})
+}
+
+
+var catghovereles=document.querySelectorAll("#catghover")
+var catgdisplay=document.querySelectorAll(".categoryhover")
+var catprev= document.querySelectorAll(".catprev")
+
+
+catghovereles.forEach(ele=>
+    ele.addEventListener("mouseover",function(){
+    
+  
+    this.lastElementChild.classList.add("selcat")
+    
+    
+    
+    
+    
+}))
+
+catghovereles.forEach(ele=>
+    ele.addEventListener("mouseleave",function(){
+   
+        this.lastElementChild.classList.remove("selcat")
+    
+}))
+
+catprev.forEach(ele=>
+    ele.addEventListener("click",function(e){
+    e.preventDefault()
+    
+}))

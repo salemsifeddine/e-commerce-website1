@@ -69,7 +69,7 @@
     cursor: pointer;
 }
 
-.categorylistcontent ul li::after, .hotdeal::before{
+.categorylistcontent ul #catghover::after, .hotdeal::before{
     content:'';
     display:block;
     color: #333;
@@ -809,7 +809,9 @@ li i:hover{
 .productImg:hover{
     transform: scale(1.02);
 }
-
+#catghover{
+    position:relative
+}
 .dealdetbtn{
     width: 100px;
     height:4.5vh;
@@ -826,4 +828,58 @@ li i:hover{
     border: none;
     background:#ec5e5cc4;
     color:#fff
+}
+
+.categoryhover{
+    min-width:150px;
+    
+    position: absolute;
+    left: 285px;
+    top: 5px;
+    display: none; 
+    z-index:9999;
+    background-color:#fff;
+   overflow: hidden;
+    
+}
+.categoryhover::after{
+    content: '';
+    background-color: #333;
+    border-bottom: 1px solid #333 transparent;
+}
+.categoryhover ul li{
+    border: none;
+    padding:8px;
+    /* margin:4px; */
+    display: flex;
+    justify-content:space-around;
+    transition:background .3s ease-in;
+    font-size: 16px;
+    letter-spacing: 1.1px;
+   
+}
+.categoryhover ul li:hover{
+    background:rgba(51, 51, 51, 0.878);
+    color:#fff;
+    border:1px solid #ec5e5cc0;
+    transform: scale(1.05);
+}
+
+.categoryhover ul li:not(:last-of-type){
+    border-bottom:1px solid #333
+}
+
+.smalimgproduct{
+    min-width:20px;
+    height:20px;
+    border-radius: 2px;
+}
+.smalimgproduct img{
+    width: 100%;
+    height:100%;
+}
+
+.selcat{
+    display:block;
+   
 }
